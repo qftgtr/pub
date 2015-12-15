@@ -1,5 +1,5 @@
 var DanganCore = (function(undefined) {
-  var LOG = Math.max(LOG||0, 1);
+  var LOG = Math.max(LOG||0, 3);
   var _width, _height, _nPage, _titles,
       _sysTmpl, _userTmpl = [],
       _pageReady = []; // undefined for nothing, false for sysTmpl, true for userTmpl
