@@ -67,6 +67,13 @@ var DanganCore = (function(undefined) {
     }
   };
   
+  var _array_find = function(array, cond) {
+    for (var i=0; i<array.length; i++) {
+      if cond(array[i])
+        return array[i];
+    }
+  };
+  
   var _filter = {
     'sum': function(result) {
       console.log('****');
@@ -80,31 +87,31 @@ var DanganCore = (function(undefined) {
     },
     'evaluation': function(result) {
       var newResult = [];
-      newResult.push(result.find(function(x) {
+      newResult.push(_array_find(result, function(x) {
         for (var key in x.subjects)
           if (x.subjects[key] === '语文')
             return true;
       }));
       
-      newResult.push(result.find(function(x) {
+      newResult.push(_array_find(result, function(x) {
         for (var key in x.subjects)
           if (x.subjects[key] === '数学')
             return true;
       }));
       
-      newResult.push(result.find(function(x) {
+      newResult.push(_array_find(result, function(x) {
         for (var key in x.subjects)
           if (x.subjects[key] === '英语')
             return true;
       }));
       
-      newResult.push(result.find(function(x) {
+      newResult.push(_array_find(result, function(x) {
         for (var key in x.subjects)
           if (x.subjects[key] === '信息技术')
             return true;
       }));
       
-      newResult.push(result.find(function(x) {
+      newResult.push(_array_find(result, function(x) {
         for (var key in x.subjects)
           if (x.subjects[key] === '科学')
             return true;
