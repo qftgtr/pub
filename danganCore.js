@@ -37,6 +37,11 @@ var DanganCore = (function(undefined) {
   };
   
   var _filter = {
+    'sum': function(result) {
+      console.log('****');
+      console.log(result);
+      return {};
+    },
     'evaluation': function(result) {
       var newResult = [];
       newResult.push(result.find(function(x) {
@@ -302,7 +307,12 @@ var DanganCore = (function(undefined) {
             queries.push(__defer.promise());
             
             DanganNetwork.delay('getData', d.query).done(function(r) {
-              d.value = (r.data===null) ? (d.empty||'') : r.data;
+              var data = r.data;
+              if (d.filter && _filter[d.filter]) {
+                data = _filter[filter](data);
+              }
+              
+              d.value = (data===null) ? (d.empty||'') : data;
               __defer.resolve();
             });
           }
