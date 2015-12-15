@@ -187,7 +187,7 @@ var DanganSVG = function() {
       .classed('focus', 1)
       .attr('width', data.w)
       .attr('height', data.h)
-      .datum(data).call(chart);
+      .datum(radar).call(chart);
   };
   
   var clear = function() {
