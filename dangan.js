@@ -62,7 +62,8 @@ var Dangan = (function(undefined) {
       _svg.size(w, h, zoom);
       callback && callback.apply && callback(data);
       goPage(0);
-      saveAllPages();
+      
+      saveAllPages(data.save);
     });
   };
   
@@ -103,16 +104,18 @@ var Dangan = (function(undefined) {
     DanganCore.savePage(page, svg.getSvg(), svg.getJson());
   };
   
-  var saveAllPages = function() {
+  var saveAllPages = function(pages) {
     for (var i=0; i<_nPage; i++) {
-      (function(__i) {
-        $('body').append('<div id="svg-hidden-'+__i+'" style="display:hidden"></div>');
-        var __svg_hidden = _svg.clone('svg-hidden-'+__i);
-        goPage(__i, __svg_hidden).done(function() {
-          savePage(__i, __svg_hidden);
-          $('#svg-hidden-'+__i).empty();
-        });
-      }(i));
+      if (pages==='all' || pages.indexOf(i) > -1) {
+        (function(__i) {
+          $('body').append('<div id="svg-hidden-'+__i+'" style="display:hidden"></div>');
+          var __svg_hidden = _svg.clone('svg-hidden-'+__i);
+          goPage(__i, __svg_hidden).done(function() {
+            savePage(__i, __svg_hidden);
+            $('#svg-hidden-'+__i).empty();
+          });
+        }(i));
+      }
     }
   }
   

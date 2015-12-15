@@ -75,6 +75,8 @@ var DanganCore = (function(undefined) {
     'hideZero': function(d) {
       if (d.value === 0)
         d.value = '';
+      else
+        d.value = 'x '+d.value;
     }
   };
   
@@ -220,7 +222,8 @@ var DanganCore = (function(undefined) {
           width: _width,
           height: _height,
           nPage: _nPage,
-          titles: _titles
+          titles: _titles,
+          save: 'all'
         });
       });
       
@@ -231,6 +234,7 @@ var DanganCore = (function(undefined) {
       var defer = $.Deferred();
       _loadUserTmpl().done(function(result) {
         _saveTmplData(result);
+        var __save == [];
         
         _userTmpl = new Array(_nPage);
         _pageReady = new Array(_nPage);
@@ -243,6 +247,7 @@ var DanganCore = (function(undefined) {
           _pageReady[page] = true;
           
           if (result.pages[page].json === '') {//no result
+            __save.push(page);
             _pageReady[page] = false;
             needSystem = true;
           } else {
@@ -269,7 +274,8 @@ var DanganCore = (function(undefined) {
           width: _width,
           height: _height,
           nPage: _nPage,
-          titles: _titles
+          titles: _titles,
+          save: __save
         });
       }); // _loadUserTmpl().done
       
