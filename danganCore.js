@@ -122,13 +122,13 @@ var DanganCore = (function(undefined) {
     },
     'musicArt': function(result) {
       var newResult = [];
-      newResult.push(result.find(function(x) {
+      newResult.push(_array_find(result, function(x) {
         for (var key in x.subjects)
           if (x.subjects[key] === '音乐')
             return true;
       }));
       
-      newResult.push(result.find(function(x) {
+      newResult.push(_array_find(result, function(x) {
         for (var key in x.subjects)
           if (x.subjects[key] === '美术')
             return true;
