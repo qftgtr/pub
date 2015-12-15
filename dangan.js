@@ -34,6 +34,7 @@ var Dangan = (function(undefined) {
       if (LOG) console.log('***changeText');
       var text = prompt('成长记录描述', data.value);
       if (typeof text === 'string') {
+        _pageChanged = true;
         text = text || '点击添加成长记录文字描述';
         data.value = text;
         d3.select(node).text(text);
@@ -45,7 +46,7 @@ var Dangan = (function(undefined) {
     _svg.init(options.svgId, _svgInteractions);
     
     if (LOG) console.log('***init with method loadSystem');
-    DanganCore.init('loadUser', {
+    DanganCore.init(options.method||'loadUser', {
       studentId: options.studentId,
       sysTemplate: options.sysTemplate,
       userTemplate: options.userTemplate
