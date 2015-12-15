@@ -1,7 +1,7 @@
 var DanganNetwork = (function(undefined, $) {
   var LOG = Math.max(LOG||0, 1);
   
-  var url = '/mobile/api/print/record';
+  var url = '/mobile/api/evaluate/print/record';
   
   var dataCache = (function() {
     var _delaying = [],
