@@ -53,7 +53,17 @@ var DanganCore = (function(undefined) {
         d.value = '不合格';
     },
     'artStars': function(d) {
-      d.value = '/static/images/print/template/'+(_star2[_helpers.artGrade(d.value)] || 'star_0.png');
+      var v = d.value;
+      if (v >= 90)
+        v = '优秀';
+      else if (v >= 75)
+        v = '良好';
+      else if (v >= 60)
+        v = '合格';
+      else if (v > -1)
+        v = '不合格';
+      
+      d.value = '/static/images/print/template/'+(_star2[v] || 'star_0.png');
     }
   };
   
