@@ -170,7 +170,7 @@ var DanganSVG = function() {
       axisLine: true,
       axisText: true,
       circles: true,
-      radius: 4,
+      radius: 15*_zoom,
       axisJoin: function(d, i) {
         return d.className || i;
       },
