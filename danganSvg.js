@@ -186,7 +186,7 @@ var DanganSVG = function() {
     _elements.append('g')
       .classed(elementName, 1)
       .classed('focus', 1)
-      .attr('transform', function(d) { return 'translate(' + _zoom*d.x + ',' + _zoom*d.y + ')'; })
+      .attr('transform', 'translate(' + _zoom*data.x + ',' + _zoom*data.y + ')')
       .attr('width', data.w*_zoom)
       .attr('height', data.h*_zoom)
       .datum(radar).call(chart);
