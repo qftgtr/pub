@@ -60,7 +60,7 @@ var DanganCore = (function(undefined) {
         v = '良好';
       else if (v >= 60)
         v = '合格';
-      else if (v > -1)
+      else if (v > 0)
         v = '不合格';
       
       d.value = '/static/images/print/template/'+(_star2[v] || 'star_0.png');
