@@ -45,7 +45,7 @@ var Dangan = (function(undefined) {
     _svg.init(options.svgId, _svgInteractions);
     
     if (LOG) console.log('***init with method loadSystem');
-    DanganCore.init('loadSystem', {
+    DanganCore.init('loadUser', {
       studentId: options.studentId,
       sysTemplate: options.sysTemplate,
       userTemplate: options.userTemplate
