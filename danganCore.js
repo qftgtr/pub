@@ -87,7 +87,7 @@ var DanganCore = (function(undefined) {
   
   var _filter = {
     'skip8': function(result) {
-      return result.splice(8);
+      return result.slice(8);
     },
     'sum': function(result) {
       console.log('****');
