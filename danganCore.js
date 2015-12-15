@@ -69,7 +69,7 @@ var DanganCore = (function(undefined) {
   
   var _array_find = function(array, cond) {
     for (var i=0; i<array.length; i++) {
-      if cond(array[i])
+      if (cond(array[i]))
         return array[i];
     }
   };
