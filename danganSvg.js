@@ -23,9 +23,6 @@ var DanganSVG = function() {
       .attr('xmlns:xlink', 'http://www.w3.org/1999/xlink')
       .attr('id', 'dangan-svg');
     
-    _svg.append('style').attr('type', 'text/css')
-      .text('text,tspan{font-family:"SimHei";}.radar-chart .axis line,.radar-chart .level{stroke:grey;stroke-width:.5}.radar-chart .axis .legend{font-size:17px}.radar-chart .axis .legend.left{text-anchor:end}.radar-chart .axis .legend.middle{text-anchor:middle}.radar-chart .axis .legend.right{text-anchor:start}.radar-chart .tooltip{font-size:13px;transition:opacity .2s;opacity:0}.radar-chart .tooltip.visible{opacity:1}.radar-chart .area{stroke-width:2;fill-opacity:.1}.radar-chart.focus .area{fill-opacity:.1}.radar-chart.focus .area.focused{fill-opacity:.6}.radar-chart .area,.radar-chart .circle{transition:opacity .2s,fill-opacity .2s;opacity:1}.radar-chart .d3-enter,.radar-chart .d3-exit{opacity:0}');
-    
     _bg = _svg.append('image').attr('id', 'dangan-background');
     _defs = _svg.append('defs').attr('id', 'dangan-defs');
     _elements = _svg.append('g').attr('id', 'dangan-elements');
@@ -40,6 +37,10 @@ var DanganSVG = function() {
     _width = w*zoom;
     _height = h*zoom;
     _zoom = zoom;
+    
+    _svg.append('style').attr('type', 'text/css')
+      .text('text,tspan{font-family:"SimHei";}.radar-chart .axis line,.radar-chart .level{stroke:grey;stroke-width:.5}.radar-chart .axis .legend{font-size:'+44*_zoom+'px}.radar-chart .axis .legend.left{text-anchor:end}.radar-chart .axis .legend.middle{text-anchor:middle}.radar-chart .axis .legend.right{text-anchor:start}.radar-chart .tooltip{font-size:13px;transition:opacity .2s;opacity:0}.radar-chart .tooltip.visible{opacity:1}.radar-chart .area{stroke-width:2;fill-opacity:.1}.radar-chart.focus .area{fill-opacity:.1}.radar-chart.focus .area.focused{fill-opacity:.6}.radar-chart .area,.radar-chart .circle{transition:opacity .2s,fill-opacity .2s;opacity:1}.radar-chart .d3-enter,.radar-chart .d3-exit{opacity:0}');
+    
     _svg.attr('width', _width)
         .attr('height', _height);
     
@@ -157,8 +158,8 @@ var DanganSVG = function() {
 
     chart.config({
       containerClass: 'radar-chart', // target with css, default stylesheet targets .radar-chart
-      w: 400,
-      h: 300,
+      w: data.w*_zoom,
+      h: data.h*_zoom,
       factor: 0.85,
       factorLegend: 1,
       levels: 3,
@@ -185,8 +186,8 @@ var DanganSVG = function() {
     _elements.append('g')
       .classed(elementName, 1)
       .classed('focus', 1)
-      .attr('width', data.w)
-      .attr('height', data.h)
+      .attr('width', data.w*_zoom)
+      .attr('height', data.h*_zoom)
       .datum(radar).call(chart);
   };
   
