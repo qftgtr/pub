@@ -40,7 +40,12 @@ var DanganCore = (function(undefined) {
     'sum': function(result) {
       console.log('****');
       console.log(result);
-      return {};
+      var total = 0;
+      result.forEach(function(r) {
+        total += parseFloat(r.data) || 0;
+      });
+      
+      return total;
     },
     'evaluation': function(result) {
       var newResult = [];
@@ -307,10 +312,12 @@ var DanganCore = (function(undefined) {
             queries.push(__defer.promise());
             
             DanganNetwork.delay('getData', d.query).done(function(r) {
-              var data = r.data,
+              var data,
                   filter = d.filter;
               if (filter && _filter[filter]) {
-                data = _filter[filter](data);
+                data = _filter[filter](r);
+              } else {
+                data = r.data;
               }
               
               d.value = (data===null) ? (d.empty||'') : data;
