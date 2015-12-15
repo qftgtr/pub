@@ -382,10 +382,9 @@ var DanganCore = (function(undefined) {
       
       elem.data.forEach(function(d) {
         helper = d.helper || helper;
-        helper = helper && _helpers[helper];
-        if (helper && helper.apply) {
+        if (helper && _helpers[helper]) {
           if (LOG) console.log('Core.(helper) '+helper);
-          helper(d);
+          _helpers[helper](d);
         }
       });
     });
