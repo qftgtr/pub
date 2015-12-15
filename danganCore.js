@@ -169,28 +169,24 @@ var DanganCore = (function(undefined) {
   
   var _loadSystemTmpl = function(callback) {
     if (LOG > 2) console.log('Core._loadSystemTmpl');
-    var defer = $.Deferred();
-    DanganNetwork.call('getSysTmpl', {
+    return DanganNetwork.call('getSysTmpl', {
       templateId: _sysTemplate
     }).done(function(result) {
       if (LOG) console.log('Core._loadSystemTmpl finished');
       if (LOG) console.log(result);
       defer.resolve(result);
     });
-    return $.when(defer.promise());
   };
   
   var _loadUserTmpl = function() {
     if (LOG > 2) console.log('Core._loadUserTmpl');
-    var defer = $.Deferred();
-    DanganNetwork.call('loadUserTmpl', {
+    return DanganNetwork.call('loadUserTmpl', {
         templateId: _userTemplate
     }).done(function(result) {
       if (LOG) console.log('Core._loadUserTmpl finished');
       if (LOG) console.log(result);
       defer.resolve(result);
     });
-    return $.when(defer.promise());
   };
   
   var init = function(method, options) {
@@ -237,14 +233,6 @@ var DanganCore = (function(undefined) {
       var defer = $.Deferred();
       _loadUserTmpl().done(function(result) {
         _saveTmplData(result);
-        if (LOG) console.log('Core.init resolved');
-        
-        defer.resolve({
-          width: _width,
-          height: _height,
-          nPage: _nPage,
-          titles: _titles
-        });
         
         _userTmpl = new Array(_nPage);
         _pageReady = new Array(_nPage);
@@ -277,6 +265,14 @@ var DanganCore = (function(undefined) {
             }
           });
         }
+        
+        if (LOG) console.log('Core.init resolved');
+        defer.resolve({
+          width: _width,
+          height: _height,
+          nPage: _nPage,
+          titles: _titles
+        });
       }); // _loadUserTmpl().done
       
       return $.when(defer.promise());
