@@ -125,7 +125,7 @@ var DanganCore = (function(undefined) {
   
   var _saveTmplData = function(result) {
     if (LOG) console.log('Core._saveTmplData');
-    if (LOG > 2) console.log(JSON.stringify(result));
+    if (LOG > 2) console.log(result);
     _width = result.width;
     _height = result.height;
     _nPage = result.nPage;
@@ -336,7 +336,7 @@ var DanganCore = (function(undefined) {
               var data,
                   filter = d.filter;
               if (filter && _filter[filter]) {
-                data = _filter[filter](r);
+                data = _filter[filter](r || []);
               } else {
                 data = r.data;
               }
@@ -367,12 +367,17 @@ var DanganCore = (function(undefined) {
   var _parseHelper = function(pageObj, page) {
     pageObj.elem.forEach(function(elem) {
       if (LOG>2) console.log('Core._parseHelper page '+page);
-      if (LOG>2) console.log([JSON.stringify(pageObj)]);
+      if (LOG>2) console.log([JSON.stringify(elem)]);
       var helper = elem.helper;
-      if (helper && _helpers[helper]) {
-        if (LOG) console.log('Core.(helper) '+helper);
-        elem.data.forEach(_helpers[helper]);
-      }
+      helper = helper && _helpers[helper];
+      
+      elem.data.forEach(function(d) {
+        helper = d.helper || helper;
+        if (helper && helper.apply) {
+          if (LOG) console.log('Core.(helper) '+helper);
+          helper(d);
+        }
+      });
     });
     
     if (LOG) console.log('Core.(sysTempl parsed) page '+page);
