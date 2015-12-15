@@ -71,6 +71,10 @@ var DanganCore = (function(undefined) {
       
       if (d.value >-1)
         d.value = '/static/images/print/template/red%20flower.png';
+    },
+    'hideZero': function(d) {
+      if (d.value === 0)
+        d.value = '';
     }
   };
   
@@ -82,6 +86,9 @@ var DanganCore = (function(undefined) {
   };
   
   var _filter = {
+    'skip8': function(result) {
+      return result.splice(8);
+    },
     'sum': function(result) {
       console.log('****');
       console.log(result);
