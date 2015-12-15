@@ -234,7 +234,7 @@ var DanganCore = (function(undefined) {
       var defer = $.Deferred();
       _loadUserTmpl().done(function(result) {
         _saveTmplData(result);
-        var __save == [];
+        var __save = [];
         
         _userTmpl = new Array(_nPage);
         _pageReady = new Array(_nPage);
