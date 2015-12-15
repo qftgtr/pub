@@ -14,7 +14,7 @@ var DanganCore = (function(undefined) {
     '达标':   'score_4.png',
     '不达标': 'score_5.png',
     '合格':   'score_6.png',
-    '不合格': 'score_7.png',
+    '不合格': 'score_7.png'
   };
   
   var _star1 = {
@@ -22,7 +22,14 @@ var DanganCore = (function(undefined) {
     '良好':   'stars_4.png',
     '中等':   'stars_3.png',
     '一般':   'stars_2.png',
-    '不合格': 'stars_1.png',
+    '不合格': 'stars_1.png'
+  };
+  
+  var _star2 = {
+    '优秀':   'star_5.png',
+    '良好':   'star_4.png',
+    '合格':   'star_3.png',
+    '不合格': 'star_2.png'
   };
   
   var _defaultGrowth = '/static/images/print/template/photo.png';
@@ -33,6 +40,20 @@ var DanganCore = (function(undefined) {
     },
     'star1': function(d) {
       d.value = '/static/images/print/template/'+(_star1[d.value] || 'stars_0.png');
+    },
+    'artGrade': function(d) {
+      var v = d.value;
+      if (v >= 90)
+        d.value = '优秀';
+      else if (v >= 75)
+        d.value = '良好';
+      else if (v >= 60)
+        d.value = '合格';
+      else if (v > -1)
+        d.value = '不合格';
+    },
+    'artStars': function(d) {
+      d.value = '/static/images/print/template/'+(_star2[_helpers.artGrade(d.value)] || 'star_0.png');
     }
   };
   
