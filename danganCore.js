@@ -413,7 +413,7 @@ var DanganCore = (function(undefined) {
       studentId: _studentId
     }).done(function(result) {
       var growth = [];
-      result[0].data.forEach(function(r) {
+      result[0] && result[0].data.forEach(function(r) {
         r.imgs.forEach(function(img) {
           growth.push({ text:r.text, img:img });
         });
