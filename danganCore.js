@@ -366,8 +366,11 @@ var DanganCore = (function(undefined) {
   
   var _parseHelper = function(pageObj, page) {
     pageObj.elem.forEach(function(elem) {
+      if (LOG>2) console.log('Core._parseHelper page '+page);
+      if (LOG>2) console.log([JSON.stringify(pageObj)]);
       var helper = elem.helper;
       if (helper && _helpers[helper]) {
+        if (LOG) console.log('Core.(helper) '+helper);
         elem.data.forEach(_helpers[helper]);
       }
     });
