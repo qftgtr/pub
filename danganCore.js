@@ -64,6 +64,12 @@ var DanganCore = (function(undefined) {
         v = '不合格';
       
       d.value = '/static/images/print/template/'+(_star2[v] || 'star_0.png');
+    },
+    'emptyFlower': function(d) {
+      if (d.value)
+        d.x = d.x+106;
+      
+      d.value = '/static/images/print/template/red%20flower.png';
     }
   };
   
