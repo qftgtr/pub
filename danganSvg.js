@@ -24,7 +24,7 @@ var DanganSVG = function() {
       .attr('id', 'dangan-svg');
     
     _svg.append('style').attr('type', 'text/css')
-      .text('text,tspan{font-family:"SimHei";}');
+      .text('text,tspan{font-family:"SimHei";}.radar-chart .axis line,.radar-chart .level{stroke:grey;stroke-width:.5}.radar-chart .axis .legend{font-size:17px}.radar-chart .axis .legend.left{text-anchor:end}.radar-chart .axis .legend.middle{text-anchor:middle}.radar-chart .axis .legend.right{text-anchor:start}.radar-chart .tooltip{font-size:13px;transition:opacity .2s;opacity:0}.radar-chart .tooltip.visible{opacity:1}.radar-chart .area{stroke-width:2;fill-opacity:.1}.radar-chart.focus .area{fill-opacity:.1}.radar-chart.focus .area.focused{fill-opacity:.6}.radar-chart .area,.radar-chart .circle{transition:opacity .2s,fill-opacity .2s;opacity:1}.radar-chart .d3-enter,.radar-chart .d3-exit{opacity:0}');
     
     _bg = _svg.append('image').attr('id', 'dangan-background');
     _defs = _svg.append('defs').attr('id', 'dangan-defs');
@@ -163,7 +163,7 @@ var DanganSVG = function() {
       factorLegend: 1,
       levels: 3,
       maxValue: 100,
-      minValue: 55,
+      minValue: 0,//55,
       radians: 2 * Math.PI,
       color: d3.scale.category10(), // pass a noop (function() {}) to decide color via css
       axisLine: true,
