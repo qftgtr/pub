@@ -307,8 +307,9 @@ var DanganCore = (function(undefined) {
             queries.push(__defer.promise());
             
             DanganNetwork.delay('getData', d.query).done(function(r) {
-              var data = r.data;
-              if (d.filter && _filter[d.filter]) {
+              var data = r.data,
+                  filter = d.filter;
+              if (filter && _filter[filter]) {
                 data = _filter[filter](data);
               }
               
