@@ -369,10 +369,10 @@ var DanganCore = (function(undefined) {
       if (LOG>2) console.log('Core._parseHelper page '+page);
       if (LOG>2) console.log([JSON.stringify(elem)]);
       var helper = elem.helper;
-      helper = helper && _helpers[helper];
       
       elem.data.forEach(function(d) {
         helper = d.helper || helper;
+        helper = helper && _helpers[helper];
         if (helper && helper.apply) {
           if (LOG) console.log('Core.(helper) '+helper);
           helper(d);
@@ -392,19 +392,19 @@ var DanganCore = (function(undefined) {
   var getGrowth = function(page) {
     var defer = $.Deferred();
     
-//    DanganNetwork.call('getGrowth', {
-//      pageNum: page,
-//      studentId: _studentId
-//    }).done(function(result) {
-//      var growth = [];
-//      result[0].data.forEach(function(r) {
-//        r.imgs.forEach(function(img) {
-//          growth.push({ text:r.text, img:img });
-//        });
-//      });
-//      
-//      defer.resolve(growth);
-//    });
+    DanganNetwork.call('getGrowth', {
+      pageNum: page,
+      studentId: _studentId
+    }).done(function(result) {
+      var growth = [];
+      result[0].data.forEach(function(r) {
+        r.imgs.forEach(function(img) {
+          growth.push({ text:r.text, img:img });
+        });
+      });
+      
+      defer.resolve(growth);
+    });
     
     return $.when(defer.promise());
   };
