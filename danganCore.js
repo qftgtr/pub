@@ -174,7 +174,6 @@ var DanganCore = (function(undefined) {
     }).done(function(result) {
       if (LOG) console.log('Core._loadSystemTmpl finished');
       if (LOG) console.log(result);
-      defer.resolve(result);
     });
   };
   
@@ -185,7 +184,6 @@ var DanganCore = (function(undefined) {
     }).done(function(result) {
       if (LOG) console.log('Core._loadUserTmpl finished');
       if (LOG) console.log(result);
-      defer.resolve(result);
     });
   };
   
