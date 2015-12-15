@@ -39,7 +39,7 @@ var DanganSVG = function() {
     _zoom = zoom;
     
     _svg.append('style').attr('type', 'text/css')
-      .text('text,tspan{font-family:"SimHei";}.radar-chart .axis line,.radar-chart .level{stroke:grey;stroke-width:.5}.radar-chart .axis .legend{font-size:'+44*_zoom+'px}.radar-chart .axis .legend.left{text-anchor:end}.radar-chart .axis .legend.middle{text-anchor:middle}.radar-chart .axis .legend.right{text-anchor:start}.radar-chart .tooltip{font-size:13px;transition:opacity .2s;opacity:0}.radar-chart .tooltip.visible{opacity:1}.radar-chart .area{stroke-width:2;fill-opacity:.1}.radar-chart.focus .area{fill-opacity:.1}.radar-chart.focus .area.focused{fill-opacity:.6}.radar-chart .area,.radar-chart .circle{transition:opacity .2s,fill-opacity .2s;opacity:1}.radar-chart .d3-enter,.radar-chart .d3-exit{opacity:0}');
+      .text('text,tspan{font-family:"SimHei";}.radar-chart .axis line,.radar-chart .level{stroke:grey;stroke-width:.5}.radar-chart .axis .legend{font-size:'+44*_zoom+'px}.radar-chart .axis .legend.left{text-anchor:end}.radar-chart .axis .legend.middle{text-anchor:middle}.radar-chart .axis .legend.right{text-anchor:start}.radar-chart .tooltip{font-size:13px;transition:opacity .2s;opacity:0}.radar-chart .tooltip.visible{opacity:1}.radar-chart .area{stroke-width:2;fill-opacity:.1}.radar-chart.focus .area.focused{fill-opacity:.6}');
     
     _svg.attr('width', _width)
         .attr('height', _height);
@@ -138,17 +138,17 @@ var DanganSVG = function() {
     var radar = [
       {
         className: '我的成绩',
-        axes: data[0].value.map(function(v) {
+        axes: data.value.map(function(v) {
           return {axis: v.name, value: v.score};
         })
       }, {
         className: '年级平均',
-        axes: data[0].value.map(function(v) {
+        axes: data.value.map(function(v) {
           return {axis: v.name, value: v.gradeAvg};
         })
       }, {
         className: '年级平均',
-        axes: data[0].value.map(function(v) {
+        axes: data.value.map(function(v) {
           return {axis: v.name, value: v.classAvg};
         })
       }
@@ -233,7 +233,7 @@ var DanganSVG = function() {
       }
       
       if (type === 'radar') {
-        putRadar(elem.data, elem.name);
+        putRadar(elem.data[0], elem.name);
       }
     }
   };
