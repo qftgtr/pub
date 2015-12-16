@@ -429,10 +429,10 @@ var DanganCore = (function(undefined) {
       var helper = elem.helper;
       
       elem.data.forEach(function(d) {
-        helper = d.helper || helper;
-        if (helper && _helpers[helper]) {
-          if (LOG) console.log('Core.(helper) '+helper);
-          _helpers[helper](d);
+        var h = d.helper || helper;
+        if (h && _helpers[h]) {
+          if (LOG) console.log('Core.(helper) '+h);
+          _helpers[h](d);
         }
       });
     });
