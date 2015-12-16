@@ -255,6 +255,8 @@ var DanganCore = (function(undefined) {
             needSystem = true;
           } else {
             _userTmpl[page] = JSON.parse(result.pages[page].json);
+            if (method === 'autoRefresh')
+              _parseUserTmpl(page);
           }
         }
 
@@ -268,8 +270,6 @@ var DanganCore = (function(undefined) {
               _sysTmpl[page] = pageObj;
               if (!_pageReady[page])
                 _parseSysTmpl(page);
-              else if (method === 'autoRefresh')
-                _parseUserTmpl(page);
             }
           });
         }
