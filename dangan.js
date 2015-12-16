@@ -32,6 +32,17 @@ var Dangan = (function(undefined) {
     },
     changeText: function(node, data) {
       if (LOG) console.log('***changeText');
+      
+//      xxxx('成长记录描述', data.value, function(text) {
+//        if (typeof text === 'string') {
+//          _pageChanged = true;
+//          text = text || '点击添加成长记录文字描述';
+//          data.value = text;
+//          d3.select(node).text(text);
+//        }
+//      });
+      
+      
       var text = prompt('成长记录描述', data.value);
       if (typeof text === 'string') {
         _pageChanged = true;
@@ -46,7 +57,7 @@ var Dangan = (function(undefined) {
     _svg.init(options.svgId, _svgInteractions);
     
     if (LOG) console.log('***init with method loadSystem');
-    DanganCore.init(options.method||'loadSystem', {
+    DanganCore.init(options.method||'autoRefresh', {
       studentId: options.studentId,
       sysTemplate: options.sysTemplate,
       userTemplate: options.userTemplate
