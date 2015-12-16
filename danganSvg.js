@@ -102,7 +102,7 @@ var DanganSVG = function() {
           if (LOG > 2) console.log('out');
           _overNode = undefined;
         }
-      })
+      });
   };
   
   var putText = function(data, name) {
@@ -123,6 +123,15 @@ var DanganSVG = function() {
         if (d.modify && _interactions.changeText && _interactions.changeText.apply) {
           _interactions.changeText(this, d);
           d3.select(this).textwrap({width: _zoom*d.w, height: _zoom*d.h, x:0, y:0}, 0);
+        }
+      })
+      .each(function(d) {
+        if ((!d.value || d.value==='点击添加成长记录文字') && d.modify) {
+          var className = this.getAttribute('class'),
+              node = d3.select('.'+className.replace('text','image'));
+          if (node.node()) {
+            d.value = node.datum().gText;
+          }
         }
       })
       .each(function(d) {
