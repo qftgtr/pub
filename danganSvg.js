@@ -115,7 +115,7 @@ var DanganSVG = function() {
       .attr('transform', function(d) { return 'translate(' + _zoom*d.x + ',' + _zoom*d.y + ')'; })
       .append('text')
       .attr('y', function(d) {return _zoom*d.size})
-      .text(function(d) {return d.value;})
+      .text(function(d) {return d.value+' ';})
       .attr('text-anchor', function(d) {return d.align;})
       .style('fill', function(d) {return d.color || '#000000';})
       .style('font-size', function(d) {return _zoom*d.size+'px';})

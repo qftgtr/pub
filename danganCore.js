@@ -32,7 +32,7 @@ var DanganCore = (function(undefined) {
     '不合格': 'star_2.png'
   };
   
-  var _defaultGrowth = '/static/images/print/template/photo.png';
+  var _defaultGrowth = '/static/images/print/template/growth_default.png';
   
   var _helpers = {
     'gradeImage': function(d) {

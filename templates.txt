@@ -8,7 +8,7 @@
 
 // 2.班级合照
 {"elem":[
-  {"type":"image","name":"page2","growth":"25","data":[{"w":2080,"h":998,"x":200,"y":200,"modify":true}]},{
+  {"type":"image","name":"page2","growth":"25","data":[{"value":"classs_photo_default.png","w":2080,"h":998,"x":200,"y":200,"modify":true}]},{
     "type":"text","name":"page2","data":[
       {"w":2126,"h":36,"x":1240,"y":1319,"size":36,"align":"middle","modify":true},
       {"value":"班级合影","w":2126,"h":36,"x":1240,"y":1260,"size":36,"align":"middle"}
@@ -20,7 +20,7 @@
 {"elem":[
   {
     "type":"image","name":"schoolLogo","data":[
-      {"query":"school.logoPhoto","x":543,"y":356,"w":240,"h":240}
+      {"empty":"badge_default.png","query":"school.logoPhoto","x":543,"y":356,"w":240,"h":240}
     ]
   },{
     "type":"img-circle","name":"studentPhoto","data":[
@@ -34,8 +34,8 @@
       {"query":"basic.studentAge","w":638,"h":44,"x":1919,"y":1033,"size":50,"align":"middle"},
       {"query":"basic.studentBirthday","w":638,"h":44,"x":1919,"y":1157,"size":50,"align":"middle"},
       {"value":"未知","w":638,"h":44,"x":1919,"y":1275,"size":50,"align":"middle"},
-      {"query":"school.name","w":510,"h":600,"x":420,"y":649,"size":70,"line":80},
-      {"query":"school.xiaoxun","w":500,"h":150,"x":568,"y":1183,"size":50,"line":60}
+      {"query":"school.name","w":510,"h":400,"x":420,"y":649,"size":70,"line":80},
+      {"query":"school.xiaoxun","w":500,"h":150,"x":568,"y":1183,"size":50, "line":60}
     ]
   }
 ]}
@@ -80,20 +80,20 @@
   {
     "query":"class.teachers","key":"name",
     "type":"text","name":"teacherName","filter":"evaluation","data":[
-      {"w":196,"h":30,"x":565,"y":390,"size":30,"align":"middle"},
-      {"w":196,"h":30,"x":1260,"y":390,"size":30,"align":"middle"},
-      {"w":196,"h":30,"x":218,"y":959,"size":30,"align":"middle"},
-      {"w":196,"h":30,"x":913,"y":959,"size":30,"align":"middle"},
-      {"w":196,"h":30,"x":1608,"y":959,"size":30,"align":"middle"}
+      {"w":196,"h":30,"x":663,"y":390,"size":30,"align":"middle"},
+      {"w":196,"h":30,"x":1358,"y":390,"size":30,"align":"middle"},
+      {"w":196,"h":30,"x":316,"y":959,"size":30,"align":"middle"},
+      {"w":196,"h":30,"x":1011,"y":959,"size":30,"align":"middle"},
+      {"w":196,"h":30,"x":1706,"y":959,"size":30,"align":"middle"}
     ]
   },{
     "query":"class.teachers","key":"photo",
     "type":"img-circle","name":"teacherPhoto","filter":"evaluation","data":[
-      {"x":619,"y":277,"r":50},
-      {"x":1310,"y":277,"r":50},
-      {"x":272,"y":845,"r":50},
-      {"x":967,"y":845,"r":50},
-      {"x":1662,"y":845,"r":50}
+      {"x":613,"y":277,"r":50},
+      {"x":1308,"y":277,"r":50},
+      {"x":266,"y":845,"r":50},
+      {"x":961,"y":845,"r":50},
+      {"x":1656,"y":845,"r":50}
     ]
   },{
     "type":"image","name":"evalHomework","helper":"star1","data":[
@@ -377,30 +377,31 @@
   ]
 }, {
   "type":"text","name":"artEvaluation1","data":[
-    {"query":"handbook.基础指标-课程学习（音）#itemCheck#5#音乐","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":761,"y":560},
-    {"query":"handbook.基础指标-课外活动（音）#itemCheck#5#音乐","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":761,"y":628},
-    {"query":"handbook.学业指标-基础知识（音）#itemCheck#5#音乐","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":761,"y":696},
-    {"query":"handbook.学业指标-基本技能（音）#itemCheck#5#音乐","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":761,"y":764},
-    {"filter":"sum","query":["handbook.基础指标-课程学习（音）#itemCheck#5#音乐","handbook.基础指标-课外活动（音）#itemCheck#5#音乐","handbook.学业指标-基础知识（音）#itemCheck#5#音乐","handbook.学业指标-基本技能（音）#itemCheck#5#音乐"],"align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":761,"y":898},
-    
-    {"query":"handbook.基础指标-课程学习（美）#itemCheck#5#美术","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":1442,"y":560},
-    {"query":"handbook.基础指标-课外活动（美）#itemCheck#5#美术","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":1442,"y":628},
-    {"query":"handbook.学业指标-基础知识（美）#itemCheck#5#美术","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":1442,"y":696},
-    {"query":"handbook.学业指标-基本技能（美）#itemCheck#5#美术","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":1442,"y":764},
-    {"filter":"sum","query":["handbook.基础指标-课程学习（美）#itemCheck#5#美术","handbook.基础指标-课外活动（美）#itemCheck#5#美术","handbook.学业指标-基础知识（美）#itemCheck#5#美术","handbook.学业指标-基本技能（美）#itemCheck#5#美术"],"align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":1442,"y":898},
-    
-    {"query":"handbook.艺术特长#artRecord#5#音乐","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":2123,"y":560},
-    {"query":"handbook.艺术特长#artRecord#5#美术","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":2123,"y":628},
-    {"filter":"sum","query":["handbook.艺术特长#artRecord#5#音乐","handbook.艺术特长#artRecord#5#美术"],"align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":2123,"y":898},
-    
-    {"filter":"sum","query":["handbook.基础指标-课程学习（美）#itemCheck#5#美术","handbook.基础指标-课外活动（美）#itemCheck#5#美术","handbook.学业指标-基础知识（美）#itemCheck#5#美术","handbook.学业指标-基本技能（美）#itemCheck#5#美术","handbook.基础指标-课程学习（音）#itemCheck#5#音乐","handbook.基础指标-课外活动（音）#itemCheck#5#音乐","handbook.学业指标-基础知识（音）#itemCheck#5#音乐","handbook.学业指标-基本技能（音）#itemCheck#5#音乐"],"align":"end","size":40,"color":"#ea5514","w":127,"h":40,"x":1441,"y":1257},
-    {"helper":"artGrade","filter":"sum","query":["handbook.基础指标-课程学习（美）#itemCheck#5#美术","handbook.基础指标-课外活动（美）#itemCheck#5#美术","handbook.学业指标-基础知识（美）#itemCheck#5#美术","handbook.学业指标-基本技能（美）#itemCheck#5#美术","handbook.基础指标-课程学习（音）#itemCheck#5#音乐","handbook.基础指标-课外活动（音）#itemCheck#5#音乐","handbook.学业指标-基础知识（音）#itemCheck#5#音乐","handbook.学业指标-基本技能（音）#itemCheck#5#音乐"],"align":"end","size":40,"color":"#ea5514","w":140,"h":40,"x":1496,"y":1187}
+    {"query":"handbook.基础指标-课程学习（音）#itemCheck#5#音乐","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":761,"y":550},
+    {"query":"handbook.基础指标-课外活动（音）#itemCheck#5#音乐","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":761,"y":618},
+    {"query":"handbook.学业指标-基础知识（音）#itemCheck#5#音乐","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":761,"y":686},
+    {"query":"handbook.学业指标-基本技能（音）#itemCheck#5#音乐","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":761,"y":754},
+    {"filter":"sum","query":["handbook.基础指标-课程学习（音）#itemCheck#5#音乐","handbook.基础指标-课外活动（音）#itemCheck#5#音乐","handbook.学业指标-基础知识（音）#itemCheck#5#音乐","handbook.学业指标-基本技能（音）#itemCheck#5#音乐"],"align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":761,"y":890},
+
+    {"query":"handbook.基础指标-课程学习（美）#itemCheck#5#美术","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":1442,"y":550},
+    {"query":"handbook.基础指标-课外活动（美）#itemCheck#5#美术","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":1442,"y":618},
+    {"query":"handbook.学业指标-基础知识（美）#itemCheck#5#美术","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":1442,"y":686},
+    {"query":"handbook.学业指标-基本技能（美）#itemCheck#5#美术","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":1442,"y":754},
+    {"filter":"sum","query":["handbook.基础指标-课程学习（美）#itemCheck#5#美术","handbook.基础指标-课外活动（美）#itemCheck#5#美术","handbook.学业指标-基础知识（美）#itemCheck#5#美术","handbook.学业指标-基本技能（美）#itemCheck#5#美术"],"align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":1442,"y":890},
+
+    {"query":"handbook.艺术特长#artRecord#5#音乐","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":2123,"y":550},
+    {"query":"handbook.艺术特长#artRecord#5#美术","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":2123,"y":618},
+    {"filter":"sum","query":["handbook.艺术特长#artRecord#5#音乐","handbook.艺术特长#artRecord#5#美术"],"align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":2123,"y":890},
+
+    {"filter":"sum","query":["handbook.基础指标-课程学习（美）#itemCheck#5#美术","handbook.基础指标-课外活动（美）#itemCheck#5#美术","handbook.学业指标-基础知识（美）#itemCheck#5#美术","handbook.学业指标-基本技能（美）#itemCheck#5#美术","handbook.基础指标-课程学习（音）#itemCheck#5#音乐","handbook.基础指标-课外活动（音）#itemCheck#5#音乐","handbook.学业指标-基础知识（音）#itemCheck#5#音乐","handbook.学业指标-基本技能（音）#itemCheck#5#音乐"],"align":"end","size":40,"color":"#ea5514","w":127,"h":40,"x":1441,"y":1247},
+    {"helper":"artGrade","filter":"sum","query":["handbook.基础指标-课程学习（美）#itemCheck#5#美术","handbook.基础指标-课外活动（美）#itemCheck#5#美术","handbook.学业指标-基础知识（美）#itemCheck#5#美术","handbook.学业指标-基本技能（美）#itemCheck#5#美术","handbook.基础指标-课程学习（音）#itemCheck#5#音乐","handbook.基础指标-课外活动（音）#itemCheck#5#音乐","handbook.学业指标-基础知识（音）#itemCheck#5#音乐","handbook.学业指标-基本技能（音）#itemCheck#5#音乐"],"align":"end","size":40,"color":"#ea5514","w":80,"h":40,"x":1496,"y":1187}
   ]
 }, {
   "type":"image","name":"artEvalTotal","data":[
     {"helper":"artStars","filter":"sum","query":["handbook.基础指标-课程学习（美）#itemCheck#5#美术","handbook.基础指标-课外活动（美）#itemCheck#5#美术","handbook.学业指标-基础知识（美）#itemCheck#5#美术","handbook.学业指标-基本技能（美）#itemCheck#5#美术","handbook.基础指标-课程学习（音）#itemCheck#5#音乐","handbook.基础指标-课外活动（音）#itemCheck#5#音乐","handbook.学业指标-基础知识（音）#itemCheck#5#音乐","handbook.学业指标-基本技能（音）#itemCheck#5#音乐"],"w":234,"h":42,"x":1150,"y":1184}
   ]
 }]}
+
 //    {"query":"","align":"end","size":40,"color":"#ea5514","w":80,"h":40,"x":1496,"y":1187},
 
 
