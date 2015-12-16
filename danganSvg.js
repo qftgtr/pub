@@ -138,17 +138,17 @@ var DanganSVG = function() {
         className: '我的成绩',
         axes: data.value.map(function(v) {
           return {axis: v.name, value: v.score};
-        })
+        }).slice(0,9)
       }, {
         className: '年级平均',
         axes: data.value.map(function(v) {
           return {axis: v.name, value: v.gradeAvg};
-        })
+        }).slice(0,9)
       }, {
         className: '年级平均',
         axes: data.value.map(function(v) {
           return {axis: v.name, value: v.classAvg};
-        })
+        }).slice(0,9)
       }
     ];
     

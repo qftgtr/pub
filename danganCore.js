@@ -260,7 +260,7 @@ var DanganCore = (function(undefined) {
               _parseUserTmpl(page);
           }
         }
-
+        
         if (needSystem) {
           _loadSystemTmpl().done(function(result) {
             _sysTmpl = new Array(_nPage);
