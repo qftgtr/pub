@@ -263,6 +263,12 @@ var DanganSVG = function() {
     dragEnd: function() {
       if (_overNode && _interactions.drag && _interactions.drag.apply) {
         _interactions.drag(_overNode);
+        d3.select(_overNode.node).textwrap({
+          width: _zoom * _overNode.data.w,
+          height: _zoom * _overNode.data.h,
+          x:0,
+          y:0
+        }, 0);
       }
       _overNode = undefined;
     },
