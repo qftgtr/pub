@@ -27,7 +27,7 @@ var Dangan = (function(undefined) {
         textNode.datum().value = _imgText;
         textNode.text(_imgText);
         
-        return _imgUrl;
+        return textNode;
       }
     },
     changeText: function(node, data) {
