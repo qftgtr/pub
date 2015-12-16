@@ -145,7 +145,7 @@ var DanganSVG = function() {
           return {axis: v.name, value: v.gradeAvg};
         }).slice(0,9)
       }, {
-        className: '年级平均',
+        className: '班级平均',
         axes: data.value.map(function(v) {
           return {axis: v.name, value: v.classAvg};
         }).slice(0,9)
