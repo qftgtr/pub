@@ -1,7 +1,7 @@
 var DanganCore = (function(undefined) {
   var LOG = Math.max(LOG||0, 3);
   var _width, _height, _nPage, _titles, _remarks,
-      _sysTmpl, _userTmpl = [],
+      _sysTmpl = [], _userTmpl = [],
       _pageReady = []; // undefined for nothing, false for sysTmpl, true for userTmpl
   
   var _studentId, _userTemplate, _sysTemplate;
@@ -239,6 +239,7 @@ var DanganCore = (function(undefined) {
         _saveTmplData(result);
         var __save = [];
         
+        _sysTmpl = new Array(_nPage);
         _userTmpl = new Array(_nPage);
         _pageReady = new Array(_nPage);
         
