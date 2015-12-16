@@ -167,7 +167,7 @@ var DanganSVG = function() {
       color: d3.scale.category10(), // pass a noop (function() {}) to decide color via css
       axisLine: true,
       axisText: true,
-      circles: true,
+//      circles: true,
       radius: 15*_zoom,
       axisJoin: function(d, i) {
         return d.className || i;
