@@ -1,0 +1,518 @@
+// 封面
+{"elem":[{"type":"text","name":"frontPage","data":[
+  {"query":"school.name",       "w":1000,"h":50,"x":1050,"y":1151,"size":50},
+  {"query":"school.termName",   "w":1000,"h":50,"x":1050,"y":1237,"size":50},
+  {"query":"class.name",        "w":1000,"h":50,"x":1050,"y":1324,"size":50},
+  {"query":"basic.studentName", "w":1000,"h":50,"x":1050,"y":1409,"size":50}
+]}]}
+
+// 2.班级合照
+{"elem":[
+  {"type":"image","name":"page2","growth":"25","data":[{"w":2080,"h":998,"x":200,"y":200,"modify":true}]},{
+    "type":"text","name":"page2","data":[
+      {"w":2126,"h":36,"x":1240,"y":1319,"size":36,"align":"middle","modify":true},
+      {"value":"班级合影","w":2126,"h":36,"x":1240,"y":1260,"size":36,"align":"middle"}
+    ]
+  }
+]}
+
+// 3.基本信息
+{"elem":[
+  {
+    "type":"image","name":"schoolLogo","data":[
+      {"query":"school.logoPhoto","x":543,"y":356,"w":240,"h":240}
+    ]
+  },{
+    "type":"img-circle","name":"studentPhoto","data":[
+      {"query":"basic.studentPhoto","x":1387,"y":446,"r":118}
+    ]
+  },{
+    "type":"text","name":"basicInformation","data":[
+      {"query":"basic.studentName","w":460,"h":75,"x":1776,"y":524,"size":70},
+      {"query":"class.name","w":638,"h":44,"x":1919,"y":785,"size":50,"align":"middle"},
+      {"query":"basic.studentGender","w":638,"h":44,"x":1919,"y":907,"size":50,"align":"middle"},
+      {"query":"basic.studentAge","w":638,"h":44,"x":1919,"y":1033,"size":50,"align":"middle"},
+      {"query":"basic.studentBirthday","w":638,"h":44,"x":1919,"y":1157,"size":50,"align":"middle"},
+      {"value":"未知","w":638,"h":44,"x":1919,"y":1275,"size":50,"align":"middle"},
+      {"query":"school.name","w":510,"h":600,"x":420,"y":649,"size":70,"line":80},
+      {"query":"school.xiaoxun","w":500,"h":150,"x":568,"y":1183,"size":50,"line":60}
+    ]
+  }
+]}
+
+
+// 4.学习成绩
+{"elem":[
+  {
+    "query":"school.subjectGrade","key":"name","type":"text","name":"subjectNames","data":[
+      {"w":204,"h":44,"x":367,"y":352,"size":44,"align":"middle"},
+      {"w":204,"h":44,"x":677,"y":352,"size":44,"align":"middle"},
+      {"w":204,"h":44,"x":965,"y":352,"size":44,"align":"middle"},
+      {"w":204,"h":44,"x":367,"y":691,"size":44,"align":"middle"},
+      {"w":204,"h":44,"x":677,"y":691,"size":44,"align":"middle"},
+      {"w":204,"h":44,"x":965,"y":691,"size":44,"align":"middle"},
+      {"w":204,"h":44,"x":367,"y":1037,"size":44,"align":"middle"},
+      {"w":204,"h":44,"x":677,"y":1037,"size":44,"align":"middle"},
+      {"w":204,"h":44,"x":965,"y":1037,"size":44,"align":"middle"}
+    ]
+  },{
+    "query":"school.subjectGrade","key":"grade",
+    "type":"image","name":"subjectGrades","helper":"gradeImage","data":[
+      {"w":204,"h":204,"x":265,"y":426},
+      {"w":204,"h":204,"x":575,"y":426},
+      {"w":204,"h":204,"x":863,"y":426},
+      {"w":204,"h":204,"x":265,"y":762},
+      {"w":204,"h":204,"x":575,"y":762},
+      {"w":204,"h":204,"x":863,"y":762},
+      {"w":204,"h":204,"x":265,"y":1110},
+      {"w":204,"h":204,"x":575,"y":1110},
+      {"w":204,"h":204,"x":863,"y":1110}
+    ]
+  },{
+    "type":"radar","name":"gradeRadar","data":[
+      {"query":"school.subjectGrade","w":1200,"h":700,"x":1140,"y":370}
+    ]
+  }
+]}
+
+// 5.学业评价
+{"elem":[
+  {
+    "query":"class.teachers","key":"name",
+    "type":"text","name":"teacherName","filter":"evaluation","data":[
+      {"w":196,"h":30,"x":565,"y":390,"size":30,"align":"middle"},
+      {"w":196,"h":30,"x":1260,"y":390,"size":30,"align":"middle"},
+      {"w":196,"h":30,"x":218,"y":959,"size":30,"align":"middle"},
+      {"w":196,"h":30,"x":913,"y":959,"size":30,"align":"middle"},
+      {"w":196,"h":30,"x":1608,"y":959,"size":30,"align":"middle"}
+    ]
+  },{
+    "query":"class.teachers","key":"photo",
+    "type":"img-circle","name":"teacherPhoto","filter":"evaluation","data":[
+      {"x":619,"y":277,"r":50},
+      {"x":1310,"y":277,"r":50},
+      {"x":272,"y":845,"r":50},
+      {"x":967,"y":845,"r":50},
+      {"x":1662,"y":845,"r":50}
+    ]
+  },{
+    "type":"image","name":"evalHomework","helper":"star1","data":[
+      {"query":"handbook.语文作业#level#5#语文","x":870,"y":274,"w":261,"h":37},
+      {"query":"handbook.数学作业#level#5#数学","x":1564,"y":274,"w":261,"h":37},
+      {"query":"handbook.英语作业#level#5#英语","x":522,"y":842,"w":261,"h":37},
+      {"query":"handbook.信息作业#level#5#信息技术","x":1217,"y":842,"w":261,"h":37},
+      {"query":"handbook.科学作业#level#5#科学","x":1912,"y":842,"w":261,"h":37}
+    ]
+  },{
+    "type":"image","name":"evalClass","helper":"star1","data":[
+      {"query":"handbook.语文课堂#level#5#语文","x":870,"y":320,"w":261,"h":37},
+      {"query":"handbook.数学课堂#level#5#数学","x":1564,"y":320,"w":261,"h":37},
+      {"query":"handbook.英语课堂#level#5#英语","x":522,"y":888,"w":261,"h":37},
+      {"query":"handbook.信息课堂#level#5#信息技术","x":1217,"y":888,"w":261,"h":37},
+      {"query":"handbook.科学课堂#level#5#科学","x":1912,"y":888,"w":261,"h":37}
+    ]
+  },{
+    "type":"text","name":"evalDesc","data":[
+      {"empty":"暂无评价","query":"handbook.语文课堂#desc#5#语文","x":585,"y":491,"w":614,"h":272,"size":36,"color":"#595757","line":40},
+      {"empty":"暂无评价","query":"handbook.数学课堂#desc#5#数学","x":1280,"y":491,"w":614,"h":272,"size":36,"color":"#595757","line":40},
+      {"empty":"暂无评价","query":"handbook.英语课堂#desc#5#英语","x":238,"y":1059,"w":614,"h":272,"size":36,"color":"#595757","line":40},
+      {"empty":"暂无评价","query":"handbook.信息课堂#desc#5#信息技术","x":933,"y":1059,"w":614,"h":272,"size":36,"color":"#595757","line":40},
+      {"empty":"暂无评价","query":"handbook.科学课堂#desc#5#科学","x":1628,"y":1059,"w":614,"h":272,"size":36,"color":"#595757","line":40}
+    ]
+  }
+]}
+
+// 6.红花墙
+{"elem":[
+  {
+    "type":"image","name":"flowersIcon1",
+    "query":"flower.all","key":"n",
+    "helper": "emptyFlower",
+    "data":[
+      {"w":90,"h":90,"x":510,"y":524},
+      {"w":90,"h":90,"x":890,"y":524},
+      {"w":90,"h":90,"x":1270,"y":524},
+      {"w":90,"h":90,"x":1650,"y":524},
+      {"w":90,"h":90,"x":510,"y":814},
+      {"w":90,"h":90,"x":890,"y":814},
+      {"w":90,"h":90,"x":1270,"y":814},
+      {"w":90,"h":90,"x":1650,"y":814}
+    ]
+  },{
+    "type":"text","name":"flowersNum1",
+    "query":"flower.all","key":"n",
+    "helper": "hideZero",
+    "data":[
+      {"w":200,"h":94,"x":630,"y":521,"size":90,"color":"#f9c264"},
+      {"w":200,"h":94,"x":1010,"y":521,"size":90,"color":"#f9c264"},
+      {"w":200,"h":94,"x":1390,"y":521,"size":90,"color":"#f9c264"},
+      {"w":200,"h":94,"x":1770,"y":521,"size":90,"color":"#f9c264"},
+      {"w":200,"h":94,"x":630,"y":812,"size":90,"color":"#f9c264"},
+      {"w":200,"h":94,"x":1010,"y":812,"size":90,"color":"#f9c264"},
+      {"w":200,"h":94,"x":1390,"y":812,"size":90,"color":"#f9c264"},
+      {"w":200,"h":94,"x":1770,"y":812,"size":90,"color":"#f9c264"}
+    ]
+  },{
+    "type":"text","name":"flowersText1",
+    "query":"flower.all","key":"point",
+    "data":[
+      {"w":300,"h":52,"x":661,"y":665,"align":"middle","size":50,"color":"#ffffff"},
+      {"w":300,"h":52,"x":1040,"y":665,"align":"middle","size":50,"color":"#ffffff"},
+      {"w":300,"h":52,"x":1419,"y":665,"align":"middle","size":50,"color":"#ffffff"},
+      {"w":300,"h":52,"x":1798,"y":665,"align":"middle","size":50,"color":"#ffffff"},
+      {"w":300,"h":52,"x":661,"y":956,"align":"middle","size":50,"color":"#ffffff"},
+      {"w":300,"h":52,"x":1040,"y":956,"align":"middle","size":50,"color":"#ffffff"},
+      {"w":300,"h":52,"x":1419,"y":956,"align":"middle","size":50,"color":"#ffffff"},
+      {"w":300,"h":52,"x":1798,"y":956,"align":"middle","size":50,"color":"#ffffff"}
+    ]
+  }
+]}
+
+// 7.红花墙
+{"elem":[
+  {
+    "type":"image","name":"flowersIcon2",
+    "filter":"skip8",
+    "query":"flower.all","key":"n",
+    "helper": "emptyFlower",
+    "data":[
+      {"w":90,"h":90,"x":510,"y":524},
+      {"w":90,"h":90,"x":890,"y":524},
+      {"w":90,"h":90,"x":1270,"y":524},
+      {"w":90,"h":90,"x":1650,"y":524},
+      {"w":90,"h":90,"x":510,"y":814},
+      {"w":90,"h":90,"x":890,"y":814},
+      {"w":90,"h":90,"x":1270,"y":814},
+      {"w":90,"h":90,"x":1650,"y":814}
+    ]
+  },{
+    "type":"text","name":"flowersNum2",
+    "filter":"skip8",
+    "query":"flower.all","key":"n",
+    "helper": "hideZero",
+    "data":[
+      {"w":200,"h":94,"x":630,"y":521,"size":90,"color":"#f9c264"},
+      {"w":200,"h":94,"x":1010,"y":521,"size":90,"color":"#f9c264"},
+      {"w":200,"h":94,"x":1390,"y":521,"size":90,"color":"#f9c264"},
+      {"w":200,"h":94,"x":1770,"y":521,"size":90,"color":"#f9c264"},
+      {"w":200,"h":94,"x":630,"y":812,"size":90,"color":"#f9c264"},
+      {"w":200,"h":94,"x":1010,"y":812,"size":90,"color":"#f9c264"},
+      {"w":200,"h":94,"x":1390,"y":812,"size":90,"color":"#f9c264"},
+      {"w":200,"h":94,"x":1770,"y":812,"size":90,"color":"#f9c264"}
+    ]
+  },{
+    "type":"text","name":"flowersText2",
+    "filter":"skip8",
+    "query":"flower.all","key":"point",
+    "data":[
+      {"w":300,"h":52,"x":661,"y":665,"align":"middle","size":50,"color":"#ffffff"},
+      {"w":300,"h":52,"x":1040,"y":665,"align":"middle","size":50,"color":"#ffffff"},
+      {"w":300,"h":52,"x":1419,"y":665,"align":"middle","size":50,"color":"#ffffff"},
+      {"w":300,"h":52,"x":1798,"y":665,"align":"middle","size":50,"color":"#ffffff"},
+      {"w":300,"h":52,"x":661,"y":956,"align":"middle","size":50,"color":"#ffffff"},
+      {"w":300,"h":52,"x":1040,"y":956,"align":"middle","size":50,"color":"#ffffff"},
+      {"w":300,"h":52,"x":1419,"y":956,"align":"middle","size":50,"color":"#ffffff"},
+      {"w":300,"h":52,"x":1798,"y":956,"align":"middle","size":50,"color":"#ffffff"}
+    ]
+  }
+]}
+
+
+// 8.智的成长
+{"elem":[{"type":"image","name":"page8","growth":"5","data":[{"w":700,"h":524,"x":799,"y":320,"modify":true},{"w":572,"h":404,"x":203,"y":202,"modify":true},{"w":572,"h":404,"x":203,"y":810,"modify":true},{"w":758,"h":1012,"x":1522,"y":202,"modify":true}]},{
+  "type":"text","name":"page8","data":[
+  {"value":"点击添加成长记录文字","w":612,"h":150,"x":834,"y":865,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":504,"h":150,"x":238,"y":628,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":504,"h":150,"x":238,"y":1236,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":688,"h":150,"x":1557,"y":1236,"size":36,"line":44,"modify":true}
+]
+}]}
+
+// 9.智的成长
+{"elem":[{"type":"image","name":"page9","growth":"4;6","data":[{"w":952,"h":754,"x":766,"y":202,"modify":true},{"w":538,"h":404,"x":203,"y":202,"modify":true},{"w":538,"h":404,"x":203,"y":810,"modify":true},{"w":538,"h":404,"x":1742,"y":202,"modify":true},{"w":538,"h":404,"x":1742,"y":810,"modify":true}]},{
+  "type":"text","name":"page9","data":[
+  {"value":"点击添加成长记录文字","w":882,"h":150,"x":801,"y":978,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":468,"h":150,"x":238,"y":628,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":468,"h":150,"x":238,"y":1236,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":468,"h":150,"x":1777,"y":628,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":468,"h":150,"x":1777,"y":1236,"size":36,"line":44,"modify":true}
+]
+}]}
+
+// 10.人文素养三段评语
+{"elem":[{
+  "type":"text","name":"humanity","data":[
+    {"empty":"暂无评价","query":"handbook.道德品质#desc#1#null","x":370,"y":420,"w":850,"h":180,"size":36,"color":"#595757","line":44},
+    {"empty":"暂无评价","query":"handbook.行为习惯#desc#1#null","x":370,"y":738,"w":850,"h":180,"size":36,"color":"#595757","line":44},
+    {"empty":"暂无评价","query":"handbook.心理健康#desc#1#null","x":370,"y":1069,"w":850,"h":180,"size":36,"color":"#595757","line":44}
+  ]
+},{
+  "type":"image","name":"humanityStar","helper":"star1","data":[
+    {"query":"handbook.道德品质#level#1#null","x":578,"y":354,"w":261,"h":37},
+    {"query":"handbook.行为习惯#level#1#null","x":578,"y":672,"w":261,"h":37},
+    {"query":"handbook.心理健康#level#1#null","x":578,"y":1003,"w":261,"h":37}
+  ]
+}]}
+
+// 11.德的成长
+{"elem":[{"type":"image","name":"page11","growth":"1","data":[{"w":688,"h":1016,"x":201,"y":201,"modify":true},{"w":476,"h":669,"x":914,"y":201,"modify":true},{"w":868,"h":669,"x":1412,"y":201,"modify":true}]},{
+  "type":"text","name":"page11","data":[
+  {"value":"点击添加成长记录文字","w":618,"h":150,"x":236,"y":1239,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":406,"h":150,"x":949,"y":891,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":798,"h":150,"x":1447,"y":892,"size":36,"line":44,"modify":true}
+]
+}]}
+
+// 12.德的成长
+{"elem":[{"type":"image","name":"page12","growth":"2","data":[{"w":687,"h":1015,"x":202,"y":202,"modify":true},{"w":654,"h":838,"x":908,"y":202,"modify":true},{"w":691,"h":660,"x":1589,"y":202,"modify":true}]},{
+  "type":"text","name":"page12","data":[
+  {"value":"点击添加成长记录文字","w":617,"h":150,"x":236,"y":1239,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":584,"h":150,"x":945,"y":1062,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":621,"h":150,"x":1625,"y":884,"size":36,"line":44,"modify":true}
+]
+}]}
+
+// 13.德的成长
+{"elem":[{"type":"image","name":"page13","growth":"2","data":[{"w":624,"h":734,"x":201,"y":201,"modify":true},{"w":898,"h":556,"x":853,"y":201,"modify":true},{"w":508,"h":328,"x":1772,"y":201,"modify":true},{"w":508,"h":328,"x":1773,"y":730,"modify":true}]},{
+  "type":"text","name":"page13","data":[
+  {"value":"点击添加成长记录文字","w":557,"h":150,"x":236,"y":956,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":828,"h":150,"x":888,"y":778,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":438,"h":150,"x":1807,"y":551,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":438,"h":150,"x":1807,"y":1079,"size":36,"line":44,"modify":true}
+]
+}]}
+
+// 14.阳光体育
+{"elem":[
+  {
+    "type":"text","name":"basicHealth","data":[
+      {"query":"basic.height","w":200,"h":70,"x":578,"y":304,"size":90,"align":"middle","color":"#59575"},
+      {"query":"basic.weight","w":200,"h":70,"x":578,"y":700,"size":90,"align":"middle","color":"#59575"},
+      {"query":"basic.bmi","w":200,"h":70,"x":578,"y":1107,"size":90,"align":"middle","color":"#59575"},
+      {"query":"sunsport.total","w":180,"h":80,"x":2094,"y":315,"size":80,"align":"middle","color":"#59575"}
+    ]
+  }, {
+    "query":"sunsport.all",
+    "key":"name",
+    "type":"text","name":"sunsportName","data":[
+      {"w":180,"h":40,"x":1179,"y":667,"size":36,"color":"#59575"},
+      {"w":180,"h":40,"x":1179,"y":797,"size":36,"color":"#59575"},
+      {"w":180,"h":40,"x":1179,"y":927,"size":36,"color":"#59575"},
+      {"w":180,"h":40,"x":1179,"y":1057,"size":36,"color":"#59575"},
+      {"w":180,"h":40,"x":1179,"y":1187,"size":36,"color":"#59575"},
+      {"w":180,"h":40,"x":1179,"y":1317,"size":36,"color":"#59575"}
+    ]
+  }, {
+    "query":"sunsport.all",
+    "key":"percentage",
+    "type":"text","name":"sunsportPercentage","data":[
+      {"w":100,"h":40,"x":1430,"y":667,"size":36},
+      {"w":100,"h":40,"x":1430,"y":797,"size":36},
+      {"w":100,"h":40,"x":1430,"y":927,"size":36},
+      {"w":100,"h":40,"x":1430,"y":1057,"size":36},
+      {"w":100,"h":40,"x":1430,"y":1187,"size":36},
+      {"w":100,"h":40,"x":1430,"y":1317,"size":36}
+    ]
+  }, {
+    "query":"sunsport.all",
+    "key":"hours",
+    "type":"text","name":"sunsportHours","data":[
+      {"w":100,"h":40,"x":2148,"y":667,"size":36,"align":"end"},
+      {"w":100,"h":40,"x":2148,"y":797,"size":36,"align":"end"},
+      {"w":100,"h":40,"x":2148,"y":927,"size":36,"align":"end"},
+      {"w":100,"h":40,"x":2148,"y":1057,"size":36,"align":"end"},
+      {"w":100,"h":40,"x":2148,"y":1187,"size":36,"align":"end"},
+      {"w":100,"h":40,"x":2148,"y":1317,"size":36,"align":"end"}
+    ]
+  }, {
+    "query":"sunsport.all",
+    "key":"icon",
+    "type":"img-circle","name":"sunsportIcons","data":[
+      {"r":50,"x":1048,"y":639},
+      {"r":50,"x":1048,"y":769},
+      {"r":50,"x":1048,"y":899},
+      {"r":50,"x":1048,"y":1029},
+      {"r":50,"x":1048,"y":1159},
+      {"r":50,"x":1048,"y":1289}
+    ]
+  }
+]}
+
+
+// 15.体的成长
+{"elem":[{"type":"image","name":"page15","growth":"8","data":[{"w":572,"h":404,"x":926,"y":202,"modify":true},{"w":700,"h":524,"x":202,"y":202,"modify":true},{"w":572,"h":404,"x":926,"y":810,"modify":true},{"w":758,"h":1012,"x":1522,"y":202,"modify":true}]},{
+  "type":"text","name":"page15","data":[
+  {"value":"点击添加成长记录文字","w":502,"h":150,"x":961,"y":628,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":630,"h":150,"x":237,"y":742,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":502,"h":150,"x":961,"y":1236,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":688,"h":150,"x":1557,"y":1236,"size":36,"line":44,"modify":true}
+]
+}]}
+
+// 16.体的成长
+{"elem":[{"type":"image","name":"page16","growth":"19","data":[{"w":538,"h":404,"x":202,"y":810,"modify":true},{"w":538,"h":404,"x":202,"y":202,"modify":true},{"w":640,"h":1012,"x":1640,"y":202,"modify":true},{"w":853,"h":660,"x":763,"y":202,"modify":true}]},{
+  "type":"text","name":"page16","data":[
+  {"value":"点击添加成长记录文字","w":468,"h":150,"x":237,"y":1236,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":468,"h":150,"x":237,"y":628,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":570,"h":150,"x":1675,"y":1236,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":783,"h":150,"x":798,"y":884,"size":36,"line":44,"modify":true}
+]
+}]}
+
+
+// 17.艺术素质
+{"elem":[{
+  "query":"class.teachers","key":"name",
+  "filter":"musicArt",
+  "type":"text","name":"musicArts","data":[
+    {"w":266,"h":38,"x":568,"y":335,"size":38},
+    {"w":266,"h":38,"x":1229,"y":335,"size":38}
+  ]
+}, {
+  "query":"class.teachers","key":"photo",
+  "filter":"musicArt",
+  "type":"img-circle","name":"musicArtsPhoto","data":[
+    {"r":77,"x":381,"y":302},
+    {"r":77,"x":1043,"y":302}
+  ]
+}, {
+  "type":"text","name":"artEvaluation1","data":[
+    {"query":"handbook.基础指标-课程学习（音）#itemCheck#5#音乐","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":761,"y":560},
+    {"query":"handbook.基础指标-课外活动（音）#itemCheck#5#音乐","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":761,"y":628},
+    {"query":"handbook.学业指标-基础知识（音）#itemCheck#5#音乐","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":761,"y":696},
+    {"query":"handbook.学业指标-基本技能（音）#itemCheck#5#音乐","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":761,"y":764},
+    {"filter":"sum","query":["handbook.基础指标-课程学习（音）#itemCheck#5#音乐","handbook.基础指标-课外活动（音）#itemCheck#5#音乐","handbook.学业指标-基础知识（音）#itemCheck#5#音乐","handbook.学业指标-基本技能（音）#itemCheck#5#音乐"],"align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":761,"y":898},
+    
+    {"query":"handbook.基础指标-课程学习（美）#itemCheck#5#美术","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":1442,"y":560},
+    {"query":"handbook.基础指标-课外活动（美）#itemCheck#5#美术","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":1442,"y":628},
+    {"query":"handbook.学业指标-基础知识（美）#itemCheck#5#美术","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":1442,"y":696},
+    {"query":"handbook.学业指标-基本技能（美）#itemCheck#5#美术","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":1442,"y":764},
+    {"filter":"sum","query":["handbook.基础指标-课程学习（美）#itemCheck#5#美术","handbook.基础指标-课外活动（美）#itemCheck#5#美术","handbook.学业指标-基础知识（美）#itemCheck#5#美术","handbook.学业指标-基本技能（美）#itemCheck#5#美术"],"align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":1442,"y":898},
+    
+    {"query":"handbook.艺术特长#artRecord#5#音乐","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":2123,"y":560},
+    {"query":"handbook.艺术特长#artRecord#5#美术","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":2123,"y":628},
+    {"filter":"sum","query":["handbook.艺术特长#artRecord#5#音乐","handbook.艺术特长#artRecord#5#美术"],"align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":2123,"y":898},
+    
+    {"filter":"sum","query":["handbook.基础指标-课程学习（美）#itemCheck#5#美术","handbook.基础指标-课外活动（美）#itemCheck#5#美术","handbook.学业指标-基础知识（美）#itemCheck#5#美术","handbook.学业指标-基本技能（美）#itemCheck#5#美术","handbook.基础指标-课程学习（音）#itemCheck#5#音乐","handbook.基础指标-课外活动（音）#itemCheck#5#音乐","handbook.学业指标-基础知识（音）#itemCheck#5#音乐","handbook.学业指标-基本技能（音）#itemCheck#5#音乐"],"align":"end","size":40,"color":"#ea5514","w":127,"h":40,"x":1441,"y":1257},
+    {"helper":"artGrade","filter":"sum","query":["handbook.基础指标-课程学习（美）#itemCheck#5#美术","handbook.基础指标-课外活动（美）#itemCheck#5#美术","handbook.学业指标-基础知识（美）#itemCheck#5#美术","handbook.学业指标-基本技能（美）#itemCheck#5#美术","handbook.基础指标-课程学习（音）#itemCheck#5#音乐","handbook.基础指标-课外活动（音）#itemCheck#5#音乐","handbook.学业指标-基础知识（音）#itemCheck#5#音乐","handbook.学业指标-基本技能（音）#itemCheck#5#音乐"],"align":"end","size":40,"color":"#ea5514","w":140,"h":40,"x":1496,"y":1187}
+  ]
+}, {
+  "type":"image","name":"artEvalTotal","data":[
+    {"helper":"artStars","filter":"sum","query":["handbook.基础指标-课程学习（美）#itemCheck#5#美术","handbook.基础指标-课外活动（美）#itemCheck#5#美术","handbook.学业指标-基础知识（美）#itemCheck#5#美术","handbook.学业指标-基本技能（美）#itemCheck#5#美术","handbook.基础指标-课程学习（音）#itemCheck#5#音乐","handbook.基础指标-课外活动（音）#itemCheck#5#音乐","handbook.学业指标-基础知识（音）#itemCheck#5#音乐","handbook.学业指标-基本技能（音）#itemCheck#5#音乐"],"w":234,"h":42,"x":1150,"y":1184}
+  ]
+}]}
+//    {"query":"","align":"end","size":40,"color":"#ea5514","w":80,"h":40,"x":1496,"y":1187},
+
+
+// 18.艺术素质
+{"elem":[{
+  "query":"class.teachers","key":"name",
+  "filter":"musicArt",
+  "type":"text","name":"musicArts","data":[
+    {"w":266,"h":38,"x":552,"y":449,"size":38},
+    {"w":266,"h":38,"x":1229,"y":449,"size":38}
+  ]
+}, {"type":"text","name":"studentName","data":[
+    {"query":"basic.studentName","w":266,"h":38,"x":1943,"y":475,"size":38}
+  ]
+}, {
+  "query":"class.teachers","key":"photo",
+  "filter":"musicArt",
+  "type":"img-circle","name":"musicArtsPhoto2","data":[
+    {"r":77,"x":366,"y":416},
+    {"r":77,"x":1043,"y":416}
+  ]
+}, {"type":"img-circle","name":"studentPhoto2","data":[
+    {"query":"basic.studentPhoto","r":77,"x":1754,"y":416}
+  ]
+}, {
+  "type":"text","name":"artEvaluation2","data":[
+    {"empty":"暂无评价","query":"handbook.音乐#desc#5#音乐","color":"#231815","size":36,"line":44,"w":514,"h":382,"x":292,"y":694},
+    {"empty":"暂无评价","query":"handbook.美术#desc#5#美术","color":"#231815","size":36,"line":44,"w":514,"h":382,"x":988,"y":694},
+    {"empty":"暂无评价","query":"handbook.自我评价#artRecord#1#null","color":"#231815","size":36,"line":44,"w":504,"h":382,"x":1684,"y":694}
+  ]
+}]}
+
+
+// 19.美的成长
+{"elem":[{"type":"image","name":"page19","growth":"12","data":[{"w":830,"h":1012,"x":202,"y":203,"modify":true},{"w":600,"h":800,"x":1056,"y":203,"modify":true},{"w":600,"h":800,"x":1680,"y":203,"modify":true}]},{
+  "type":"text","name":"page19","data":[
+  {"value":"点击添加成长记录文字","w":760,"h":150,"x":237,"y":1237,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":530,"h":150,"x":1091,"y":1025,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":600,"h":150,"x":1715,"y":1024,"size":36,"line":44,"modify":true}
+ ]
+}]}
+
+// 20.美的成长
+{"elem":[{"type":"image","name":"page20","growth":"20","data":[{"w":600,"h":403,"x":202,"y":203,"modify":true},{"w":600,"h":403,"x":202,"y":811,"modify":true},{"w":830,"h":1012,"x":826,"y":202,"modify":true},{"w":600,"h":403,"x":1680,"y":203,"modify":true},{"w":600,"h":403,"x":1680,"y":811,"modify":true}]},{
+  "type":"text","name":"page20","data":[
+  {"value":"点击添加成长记录文字","w":530,"h":150,"x":237,"y":628,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":530,"h":150,"x":237,"y":1236,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":760,"h":150,"x":861,"y":1236,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":530,"h":150,"x":1715,"y":628,"size":36,"line":44,"modify":true}, 
+  {"value":"点击添加成长记录文字","w":530,"h":150,"x":1715,"y":1236,"size":36,"line":44,"modify":true}
+]
+}]}
+
+// 21.美的成长
+{"elem":[{"type":"image","name":"page21","growth":"20","data":[{"w":760,"h":1008,"x":202,"y":203,"modify":true},{"w":637,"h":403,"x":986,"y":203,"modify":true},{"w":637,"h":403,"x":986,"y":808,"modify":true},{"w":637,"h":403,"x":1643,"y":203,"modify":true}]},{
+  "type":"text","name":"page21","data":[
+  {"value":"点击添加成长记录文字","w":690,"h":150,"x":237,"y":1233,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":567,"h":150,"x":1021,"y":628,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":567,"h":150,"x":1021,"y":1228,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":567,"h":150,"x":1678,"y":628,"size":36,"line":44,"modify":true}
+]
+}]}
+
+// 22.劳的成长
+{"elem":[{"type":"image","name":"page22","growth":"14","data":[{"w":600,"h":403,"x":202,"y":202,"modify":true},{"w":600,"h":405,"x":202,"y":809,"modify":true},{"w":790,"h":582,"x":826,"y":202,"modify":true},{"w":640,"h":1012,"x":1640,"y":202,"modify":true}]},{
+  "type":"text","name":"page22","data":[
+  {"value":"点击添加成长记录文字","w":530,"h":150,"x":237,"y":627,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":530,"h":150,"x":237,"y":1236,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":720,"h":150,"x":861,"y":806,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":570,"h":150,"x":1675,"y":1236,"size":36,"line":44,"modify":true}
+]
+}]}
+
+// 23.劳的成长
+{"elem":[{"type":"image","name":"page23","growth":"15","data":[{"w":758,"h":1012,"x":202,"y":202,"modify":true},{"w":538,"h":404,"x":984,"y":202,"modify":true},{"w":538,"h":404,"x":984,"y":810,"modify":true},{"w":734,"h":581,"x":1546,"y":202,"modify":true}]},{
+  "type":"text","name":"page23","data":[
+  {"value":"点击添加成长记录文字","w":688,"h":150,"x":237,"y":1236,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":468,"h":150,"x":1019,"y":628,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":468,"h":150,"x":1019,"y":1236,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":664,"h":150,"x":1581,"y":805,"size":36,"line":44,"modify":true}
+]
+}]}
+
+// 24.劳的成长
+{"elem":[{"type":"image","name":"page24","growth":"16","data":[{"w":800,"h":600,"x":202,"y":202,"modify":true},{"w":692,"h":922,"x":1026,"y":202,"modify":true},{"w":538,"h":404,"x":1742,"y":202,"modify":true},{"w":538,"h":404,"x":1742,"y":810,"modify":true}]},{
+  "type":"text","name":"page24","data":[
+  {"value":"点击添加成长记录文字","w":730,"h":150,"x":237,"y":824,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":622,"h":150,"x":1061,"y":1146,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":468,"h":150,"x":1777,"y":628,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":468,"h":150,"x":1777,"y":1236,"size":36,"line":44,"modify":true}
+]
+}]}
+
+// 25.劳的成长
+{"elem":[{"type":"image","name":"page25","growth":"21","data":[{"w":692,"h":922,"x":202,"y":202,"modify":true},{"w":800,"h":600,"x":917,"y":202,"modify":true},{"w":538,"h":404,"x":1742,"y":202,"modify":true},{"w":538,"h":404,"x":1742,"y":810,"modify":true}]},{
+  "type":"text","name":"page25","data":[
+  {"value":"点击添加成长记录文字","w":622,"h":150,"x":237,"y":1146,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":730,"h":150,"x":952,"y":824,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":468,"h":150,"x":1777,"y":628,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":468,"h":150,"x":1777,"y":1236,"size":36,"line":44,"modify":true}
+]
+}]}
+
+// 26.寄语总结
+{"elem":[{"type":"text","name":"finalWords","data":[
+  {"empty":"暂无评价","w":474,"h":580,"size":36,"line":46,"color":"#231815","x":331,"y":371,"query":"handbook.老师对我说#desc#3#null"},
+  {"empty":"暂无评价","w":474,"h":580,"size":36,"line":46,"color":"#231815","x":1004,"y":580,"query":"handbook.爸妈对我说#desc#2#null"},
+  {"empty":"暂无评价","w":474,"h":580,"size":36,"line":46,"color":"#231815","x":1677,"y":377,"query":"handbook.对自己的话#desc#1#null"}
+]}]}
+
+// 27.留言板
+{"elem":[]}
+
+// 28.封底
+{"elem":[]}

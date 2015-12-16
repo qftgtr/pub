@@ -245,7 +245,7 @@ var DanganCore = (function(undefined) {
         
         var needSystem = false;
         for (var page = 0; page < _nPage; page++) {
-          if (LOG > 2) console.log('Core.(raw sysTempl) page '+page+':');
+          if (LOG > 2) console.log('Core.(raw sysTmpl) page '+page+':');
           if (LOG > 2) console.log(result.pages[page].json);
 
           _pageReady[page] = true;
