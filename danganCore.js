@@ -82,8 +82,13 @@ var DanganCore = (function(undefined) {
       var ymd = d.value.split('-');
       if (ymd.length === 1)
         ymd = d.value.split('/');
-      var m = ymd[1], d = ymd[2];
-      d.value = "魔羯水瓶双鱼牡羊金牛双子巨蟹狮子处女天秤天蝎射手魔羯".substr(m*2-(d<"102223444433".charAt(m-1)- -19)*2,2)+'座';
+      
+      if (ymd.length === 1)
+        d.value = '';
+      else {
+        var m = ymd[1], d = ymd[2];
+        d.value = "魔羯水瓶双鱼牡羊金牛双子巨蟹狮子处女天秤天蝎射手魔羯".substr(m*2-(d<"102223444433".charAt(m-1)- -19)*2,2)+'座';
+      }
     }
   };
   
