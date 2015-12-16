@@ -1,6 +1,6 @@
 var DanganCore = (function(undefined) {
   var LOG = Math.max(LOG||0, 3);
-  var _width, _height, _nPage, _titles,
+  var _width, _height, _nPage, _titles, _remarks,
       _sysTmpl, _userTmpl = [],
       _pageReady = []; // undefined for nothing, false for sysTmpl, true for userTmpl
   
@@ -163,9 +163,11 @@ var DanganCore = (function(undefined) {
     _height = result.height;
     _nPage = result.nPage;
     _titles = [];
+    _remarks = [];
     
     for (var page=0; page<_nPage; page++) {
       _titles.push(result.pages[page].title);
+      _remarks.push(result.pages[page].remark);
     }
   };
   
@@ -223,6 +225,7 @@ var DanganCore = (function(undefined) {
           height: _height,
           nPage: _nPage,
           titles: _titles,
+          remarks: _remarks,
           save: 'all'
         });
       });
@@ -230,7 +233,7 @@ var DanganCore = (function(undefined) {
       return $.when(defer.promise());
     }
     
-    if (method === 'loadUser') {
+    if (method === 'loadUser' || method === 'autoRefresh') {
       var defer = $.Deferred();
       _loadUserTmpl().done(function(result) {
         _saveTmplData(result);
@@ -243,9 +246,9 @@ var DanganCore = (function(undefined) {
         for (var page = 0; page < _nPage; page++) {
           if (LOG > 2) console.log('Core.(raw sysTempl) page '+page+':');
           if (LOG > 2) console.log(result.pages[page].json);
-          
+
           _pageReady[page] = true;
-          
+
           if (result.pages[page].json === '') {//no result
             __save.push(page);
             _pageReady[page] = false;
@@ -254,7 +257,7 @@ var DanganCore = (function(undefined) {
             _userTmpl[page] = JSON.parse(result.pages[page].json);
           }
         }
-        
+
         if (needSystem) {
           _loadSystemTmpl().done(function(result) {
             _sysTmpl = new Array(_nPage);
@@ -265,6 +268,8 @@ var DanganCore = (function(undefined) {
               _sysTmpl[page] = pageObj;
               if (!_pageReady[page])
                 _parseSysTmpl(page);
+              else if (method === 'autoRefresh')
+                _parseUserTmpl(page);
             }
           });
         }
@@ -275,6 +280,7 @@ var DanganCore = (function(undefined) {
           height: _height,
           nPage: _nPage,
           titles: _titles,
+          remarks: _remarks,
           save: __save
         });
       }); // _loadUserTmpl().done
@@ -283,7 +289,13 @@ var DanganCore = (function(undefined) {
     } // if (method === 'loadUser')
   };
   
-  var _parseSysTmpl = function(page) {
+  var _parseUserTmpl = function(page) {
+    _sysTmpl[page] = _userTmpl[page];
+    _userTmpl[page] = undefined;
+    _parseSysTmpl(page, true)
+  }
+  
+  var _parseSysTmpl = function(page, noGrowth) {
     var defer = $.Deferred();
     _userTmpl[page] = defer.promise();
     ///// the most compliated part
@@ -297,8 +309,7 @@ var DanganCore = (function(undefined) {
           q = elem.query,
           g = elem.growth;
       
-      if (g) {
-//        DanganNetwork.delay('getGrowth', g).done(function(result) {
+      if (g && !noGrowth) {
         var __defer = $.Deferred();
         queries.push(__defer.promise());
         
