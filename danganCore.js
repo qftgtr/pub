@@ -10,7 +10,7 @@ var DanganCore = (function(undefined) {
     '优秀':   'score_1.png',
     '良好':   'score_2.png',
     '一般':   'score_3.png',
-    '中等':   'score_3.png',
+    '中等':   'score_8.png',
     '达标':   'score_4.png',
     '不达标': 'score_5.png',
     '合格':   'score_6.png',
