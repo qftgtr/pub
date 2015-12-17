@@ -205,6 +205,16 @@ var DanganSVG = function() {
       .datum(radar).call(chart);
   };
   
+  var putBars = function(data, name) {
+    _elements.append('rect').enter()
+      .attr('transform', function(d) { return 'translate(' + _zoom*d.x + ',' + _zoom*d.y + ')'; })
+      .attr('width', function(d) {return d.w * d.value[0];})
+      .attr('height', function(d) {return d.h;})
+      .attr('rx', function(d) {return d.h/2;})
+      .attr('ry', function(d) {return d.h/2;})
+      .style('fill', function(d) {return d.value[1];})
+  };
+  
   var clear = function() {
     _bg.remove();
     _defs.remove();
@@ -248,6 +258,10 @@ var DanganSVG = function() {
       
       if (type === 'radar') {
         putRadar(elem.data[0], elem.name);
+      }
+      
+      if (type === 'bars') {
+        putBars(elem.data[0], elem.name);
       }
     }
   };

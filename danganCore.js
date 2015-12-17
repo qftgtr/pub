@@ -169,6 +169,17 @@ var DanganCore = (function(undefined) {
       if (LOG>2) console.log('Core.(filtered musicArt)')
       if (LOG>2) console.log(newResult)
       return newResult;
+    },
+    'bars': function(result) {
+      var max = 0;
+      result.forEach(function(r) {
+        if (max < r.percentage)
+          max = r.percentage;
+      });
+      
+      return result.map(function(r) {
+        return [r.percentage/max, r.color];
+      })
     }
     
   };
