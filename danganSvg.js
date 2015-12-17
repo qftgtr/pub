@@ -4,7 +4,7 @@ var DanganSVG = function() {
   var undefined = undefined, $ = jQuery;
   
   var dev_ip = 'http://preevaluate.mexue.com';
-  var LOG = Math.max(LOG||0, 1);
+  var LOG = Math.max(LOG||0, 3);
   var _target, _svg,
       _defs, _elements, _bg,
       _interactions, _flag = '';
