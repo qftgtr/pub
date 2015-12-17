@@ -211,10 +211,10 @@ var DanganSVG = function() {
       .append('rect')
       .attr('class', elementName)
       .attr('transform', function(d) { return 'translate(' + _zoom*d.x + ',' + _zoom*d.y + ')'; })
-      .attr('width', function(d) {return d.w * d.value[0];})
-      .attr('height', function(d) {return d.h;})
-      .attr('rx', function(d) {return d.h/2;})
-      .attr('ry', function(d) {return d.h/2;})
+      .attr('width', function(d) {return _zoom*d.w * d.value[0];})
+      .attr('height', function(d) {return _zoom*d.h;})
+      .attr('rx', function(d) {return _zoom*d.h/2;})
+      .attr('ry', function(d) {return _zoom*d.h/2;})
       .style('fill', function(d) {return d.value[1];})
   };
   
