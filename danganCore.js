@@ -74,7 +74,7 @@ var DanganCore = (function(undefined) {
         d.value = '/static/images/print/template/red%20flower.png';
     },
     'hideZero': function(d) {
-      if (d.value === 0)
+      if (!d.value)
         d.value = '';
       else
         d.value = 'x '+d.value;
