@@ -26,10 +26,10 @@ var DanganCore = (function(undefined) {
   };
   
   var _star2 = {
-    '优秀':   'star_5.png',
-    '良好':   'star_4.png',
-    '合格':   'star_3.png',
-    '不合格': 'star_2.png'
+    '优秀':   'star_4.png',
+    '良好':   'star_3.png',
+    '合格':   'star_2.png',
+    '不合格': 'star_1.png'
   };
   
   var _defaultGrowth = '/static/images/print/template/growth_default.png';
