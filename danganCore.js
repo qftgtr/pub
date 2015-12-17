@@ -432,6 +432,8 @@ var DanganCore = (function(undefined) {
       var helper = elem.helper;
       
       elem.data.forEach(function(d) {
+        d.value = d.value || d.empty || '';
+        
         var h = d.helper || helper;
         if (h && _helpers[h]) {
           if (LOG) console.log('Core.(helper) '+h);
