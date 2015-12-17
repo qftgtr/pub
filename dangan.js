@@ -35,6 +35,9 @@ var Dangan = (function(undefined) {
       
       MXPreviewTools.openEdit('成长记录描述', data.value, function(text) {
         if (typeof text === 'string') {
+          if (data.limit)
+            text = text.substr(0,d.limit);
+          
           _pageChanged = true;
           text = text || '点击添加成长记录文字';
           data.value = text;

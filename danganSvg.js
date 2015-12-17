@@ -125,7 +125,11 @@ var DanganSVG = function() {
           }
         }
       })
-      .text(function(d) {return d.value?(d.value+' '):'';})
+      .text(function(d) {
+        if (d.limit)
+          d.value = d.value.substr(0,d.limit);
+        return d.value?(d.value+' '):'';
+      })
       .attr('text-anchor', function(d) {return d.align;})
       .style('fill', function(d) {return d.color || '#000000';})
       .style('font-size', function(d) {return _zoom*d.size+'px';})
