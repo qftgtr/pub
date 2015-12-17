@@ -134,7 +134,6 @@ var DanganSVG = function() {
       .on('mousedown', function(d,i) {
         if (d.modify && _interactions.changeText && _interactions.changeText.apply) {
           _interactions.changeText(this, d);
-          d3.select(this).textwrap({width: _zoom*d.w, height: _zoom*d.h, x:0, y:0}, 0);
         }
       })
       .each(function(d) {
@@ -265,6 +264,11 @@ var DanganSVG = function() {
     }
   };  
   
+  var wrapText = function(node) {
+    var d = node.datum();
+    node.textwrap({width: _zoom*d.w, height: _zoom*d.h, x:0, y:0}, 0);
+  };
+  
   return {
     init: init,
     size: size,
@@ -274,14 +278,7 @@ var DanganSVG = function() {
     getSvg: function() { return _target.html(); },
     dragEnd: function() {
       if (_overNode && _interactions.drag && _interactions.drag.apply) {
-        var textNode = _interactions.drag(_overNode),
-            d = textNode.datum();
-        textNode.textwrap({
-          width: _zoom * d.w,
-          height: _zoom * d.h,
-          x:0,
-          y:0
-        }, 0);
+        _interactions.drag(_overNode);
       }
       _overNode = undefined;
     },
@@ -293,6 +290,7 @@ var DanganSVG = function() {
       size = size || {};
       _clone.size(size.w||_width, size.h||_height, size.zoom||_zoom);
       return _clone;
-    }
+    },
+    wrapText: wrapText
   };
 };
