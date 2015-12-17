@@ -27,7 +27,7 @@ var Dangan = (function(undefined) {
         textNode.datum().value = _imgText;
         textNode.text(_imgText);
         
-        DanganSVG.wrapText(textNode);
+        _svg.wrapText(textNode);
       }
     },
     changeText: function(node, data) {
@@ -39,7 +39,7 @@ var Dangan = (function(undefined) {
           text = text || '点击添加成长记录文字';
           data.value = text;
           
-          DanganSVG.wrapText(d3.select(node).text(text));
+          _svg.wrapText(d3.select(node).text(text));
         }
       });
       
