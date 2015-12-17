@@ -120,7 +120,7 @@ var DanganSVG = function() {
         if ((!d.value || d.value==='点击添加成长记录文字') && d.modify) {
           var className = this.parentNode.getAttribute('class'),
               node = d3.select('.'+className.replace('text','image'));
-          if (node.node()) {
+          if (node.node() && node.datum().gText) {
             d.value = node.datum().gText;
           }
         }
