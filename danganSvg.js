@@ -114,6 +114,17 @@ var DanganSVG = function() {
       .attr('transform', function(d) { return 'translate(' + _zoom*d.x + ',' + _zoom*d.y + ')'; })
       .append('text')
       .attr('y', function(d) {return _zoom*d.size})
+      .each(function(d) {
+        _d = d;
+        _this = this;
+        if ((!d.value || d.value==='点击添加成长记录文字') && d.modify) {
+          var className = this.parentNode.getAttribute('class'),
+              node = d3.select('.'+className.replace('text','image'));
+          if (node.node()) {
+            d.value = node.datum().gText;
+          }
+        }
+      })
       .text(function(d) {return d.value?(d.value+' '):'';})
       .attr('text-anchor', function(d) {return d.align;})
       .style('fill', function(d) {return d.color || '#000000';})
@@ -124,17 +135,6 @@ var DanganSVG = function() {
         if (d.modify && _interactions.changeText && _interactions.changeText.apply) {
           _interactions.changeText(this, d);
           d3.select(this).textwrap({width: _zoom*d.w, height: _zoom*d.h, x:0, y:0}, 0);
-        }
-      })
-      .each(function(d) {
-        _d = d;
-        _this = this;
-        if ((!d.value || d.value==='点击添加成长记录文字 ') && d.modify) {
-          var className = this.getAttribute('class'),
-              node = d3.select('.'+className.replace('text','image'));
-          if (node.node()) {
-            d.value = node.datum().gText;
-          }
         }
       })
       .each(function(d) {
