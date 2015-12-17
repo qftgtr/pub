@@ -1,4 +1,5 @@
 // svg 排版, requires d3, d3textwrap
+var _d,_this;
 var DanganSVG = function() {
   var undefined = undefined, $ = jQuery;
   
@@ -126,7 +127,9 @@ var DanganSVG = function() {
         }
       })
       .each(function(d) {
-        if ((!d.value || d.value==='点击添加成长记录文字') && d.modify) {
+        _d = d;
+        _this = this;
+        if ((!d.value || d.value==='点击添加成长记录文字 ') && d.modify) {
           var className = this.getAttribute('class'),
               node = d3.select('.'+className.replace('text','image'));
           if (node.node()) {
