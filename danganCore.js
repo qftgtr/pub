@@ -402,7 +402,6 @@ var DanganCore = (function(undefined) {
                 data = r.data;
               }
               
-              d.value = (data===null) ? (d.empty||'') : data;
               __defer.resolve();
             });
           }
@@ -432,6 +431,8 @@ var DanganCore = (function(undefined) {
       var helper = elem.helper;
       
       elem.data.forEach(function(d) {
+        d.value = (data===null) ? (d.empty||'') : data;
+        
         var h = d.helper || helper;
         if (h && _helpers[h]) {
           if (LOG) console.log('Core.(helper) '+h);

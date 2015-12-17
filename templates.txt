@@ -12,9 +12,9 @@ size = {width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:stude
 
 // 2.班级合照
 {"elem":[
-  {"type":"image","name":"page2","growth":"25","data":[{"value":"classs_photo_default.png","w":2080,"h":998,"x":200,"y":200,"modify":true}]},{
+  {"type":"image","name":"page2","growth":"25","data":[{"value":"/static/images/print/template/classs_photo_default.png","w":2080,"h":998,"x":200,"y":200,"modify":true}]},{
     "type":"text","name":"page2","data":[
-      {"w":2126,"h":36,"x":1240,"y":1319,"size":36,"align":"middle","modify":true},
+      {"value":"点击添加文字描述","w":2126,"h":36,"x":1240,"y":1319,"size":36,"align":"middle","modify":true},
       {"value":"班级合影","w":2126,"h":36,"x":1240,"y":1260,"size":36,"align":"middle"}
     ]
   }
@@ -24,7 +24,7 @@ size = {width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:stude
 {"elem":[
   {
     "type":"image","name":"schoolLogo","data":[
-      {"empty":"badge_default.png","query":"school.logoPhoto","x":543,"y":356,"w":240,"h":240}
+      {"empty":"/static/images/print/template/badge_default.png","query":"school.logoPhoto","x":543,"y":356,"w":240,"h":240}
     ]
   },{
     "type":"img-circle","name":"studentPhoto","data":[
@@ -93,11 +93,11 @@ size = {width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:stude
   },{
     "query":"class.teachers","key":"photo",
     "type":"img-circle","name":"teacherPhoto","filter":"evaluation","data":[
-      {"x":613,"y":277,"r":50},
-      {"x":1308,"y":277,"r":50},
-      {"x":266,"y":845,"r":50},
-      {"x":961,"y":845,"r":50},
-      {"x":1656,"y":845,"r":50}
+      {"empty":"/static/images/print/template/teacher_photo_default.png","x":613,"y":277,"r":50},
+      {"empty":"/static/images/print/template/teacher_photo_default.png","x":1308,"y":277,"r":50},
+      {"empty":"/static/images/print/template/teacher_photo_default.png","x":266,"y":845,"r":50},
+      {"empty":"/static/images/print/template/teacher_photo_default.png","x":961,"y":845,"r":50},
+      {"empty":"/static/images/print/template/teacher_photo_default.png","x":1656,"y":845,"r":50}
     ]
   },{
     "type":"image","name":"evalHomework","helper":"star1","data":[
@@ -376,8 +376,8 @@ size = {width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:stude
   "query":"class.teachers","key":"photo",
   "filter":"musicArt",
   "type":"img-circle","name":"musicArtsPhoto","data":[
-    {"r":77,"x":381,"y":302},
-    {"r":77,"x":1043,"y":302}
+    {"empty":"/static/images/print/template/teacher_photo_default.png","r":77,"x":381,"y":302},
+    {"empty":"/static/images/print/template/teacher_photo_default.png","r":77,"x":1043,"y":302}
   ]
 }, {
   "type":"text", "name":"artRecord", "query":"artRecord.all", "data": [
@@ -409,8 +409,6 @@ size = {width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:stude
   ]
 }]}
 
-//    {"query":"","align":"end","size":40,"color":"#ea5514","w":80,"h":40,"x":1496,"y":1187},
-
 
 // 18.艺术素质
 {"elem":[{
@@ -427,8 +425,8 @@ size = {width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:stude
   "query":"class.teachers","key":"photo",
   "filter":"musicArt",
   "type":"img-circle","name":"musicArtsPhoto2","data":[
-    {"r":77,"x":366,"y":416},
-    {"r":77,"x":1043,"y":416}
+    {"empty":"/static/images/print/template/teacher_photo_default.png","r":77,"x":366,"y":416},
+    {"empty":"/static/images/print/template/teacher_photo_default.png","r":77,"x":1043,"y":416}
   ]
 }, {"type":"img-circle","name":"studentPhoto2","data":[
     {"query":"basic.studentPhoto","r":77,"x":1754,"y":416}
