@@ -206,7 +206,10 @@ var DanganSVG = function() {
   };
   
   var putBars = function(data, name) {
-    _elements.append('rect').enter()
+    var elementName = 'dangan-bars-' + name;
+    _elements.selectAll('.'+elementName).data(data).enter()
+      .append('rect')
+      .attr('class', elementName)
       .attr('transform', function(d) { return 'translate(' + _zoom*d.x + ',' + _zoom*d.y + ')'; })
       .attr('width', function(d) {return d.w * d.value[0];})
       .attr('height', function(d) {return d.h;})
