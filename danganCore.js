@@ -341,7 +341,8 @@ var DanganCore = (function(undefined) {
             r.data.forEach(function(d) {
               if (i<data.length) {
                 data[i].value = d.imgs[0];
-                data[i].gText = d.text;
+                if ($.trim(d.text))
+                  data[i].gText = d.text;
                 i++;
               }
             });
