@@ -67,8 +67,7 @@ var DanganCore = (function(undefined) {
     },
     'emptyFlower': function(d) {
       if (d.value === 0) {
-        d.x = d.x+106;
-        d.value = -1;
+        d.x = d.x+53;
       }
       
       if (d.value > -1)
