@@ -503,9 +503,9 @@ size = {width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:stude
 }]}
 
 // 25.劳的成长
-{"elem":[{"type":"image","name":"page25","growth":"21","data":[{"w":692,"h":922,"x":202,"y":202,"modify":true},{"w":800,"h":600,"x":917,"y":202,"modify":true},{"w":538,"h":404,"x":1742,"y":202,"modify":true},{"w":538,"h":404,"x":1742,"y":810,"modify":true}]},{
+{"elem":[{"type":"image","name":"page25","growth":"21","data":[{"w":692,"h":780,"x":202,"y":202,"modify":true},{"w":800,"h":600,"x":917,"y":202,"modify":true},{"w":538,"h":404,"x":1742,"y":202,"modify":true},{"w":538,"h":404,"x":1742,"y":810,"modify":true}]},{
   "type":"text","name":"page25","data":[
-  {"value":"点击添加成长记录文字","w":622,"h":150,"x":237,"y":1146,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":622,"h":150,"x":237,"y":1003,"size":36,"line":44,"modify":true},
   {"value":"点击添加成长记录文字","w":730,"h":150,"x":952,"y":824,"size":36,"line":44,"modify":true},
   {"value":"点击添加成长记录文字","w":468,"h":150,"x":1777,"y":628,"size":36,"line":44,"modify":true},
   {"value":"点击添加成长记录文字","w":468,"h":150,"x":1777,"y":1236,"size":36,"line":44,"modify":true}
