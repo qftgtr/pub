@@ -461,8 +461,10 @@ var DanganCore = (function(undefined) {
     }).done(function(result) {
       var growth = [];
       result[0] && result[0].data.forEach(function(r) {
+        var i=0;
         r.imgs.forEach(function(img) {
-          growth.push({ text:r.text, img:img });
+          growth.push({ text:r.text, img:img, preview: r.preview[i]});
+          i++;
         });
       });
       
