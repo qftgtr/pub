@@ -264,7 +264,7 @@ var DanganSVG = function() {
       }
       
       if (type === 'bars') {
-        putBars(elem.data[0], elem.name);
+        putBars(elem.data, elem.name);
       }
     }
   };
