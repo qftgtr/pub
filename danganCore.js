@@ -223,6 +223,7 @@ var DanganCore = (function(undefined) {
         _pageReady = new Array(_nPage);
         
         for (var page = 0; page < _nPage; page++) {
+          if (LOG) console.log('Core.(parsing json) page '+page);
           var pageObj = JSON.parse(result.pages[page].json);
           if (result.pages[page].bg !== '')
             pageObj.bg = result.pages[page].bg;
