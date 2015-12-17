@@ -67,11 +67,11 @@ var DanganCore = (function(undefined) {
     },
     'emptyFlower': function(d) {
       if (d.value !== '') {
-        d.value = '/static/images/print/template/red%20flower.png';
-        
         if (d.value === 0) {
           d.x = d.x+106;
         }
+        
+        d.value = '/static/images/print/template/red%20flower.png';
       }
     },
     'hideZero': function(d) {
