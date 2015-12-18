@@ -14,7 +14,7 @@ size = {width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:stude
 {"elem":[
   {"type":"image","name":"page2","growth":"25","data":[{"value":"/static/images/print/template/classs_photo_default.png","w":2080,"h":998,"x":200,"y":200,"modify":true}]},{
     "type":"text","name":"page2","data":[
-      {"value":"点击添加文字描述","w":2126,"h":36,"x":1240,"y":1319,"size":36,"align":"middle","modify":true},
+      {"value":"点击添加文字描述","w":2126,"h":36,"x":1240,"y":1319,"size":36,"align":"middle","modify":true,"limit":58},
       {"value":"班级合影","w":2126,"h":36,"x":1240,"y":1260,"size":36,"align":"middle"}
     ]
   }
@@ -84,11 +84,11 @@ size = {width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:stude
   {
     "query":"class.teachers","key":"name",
     "type":"text","name":"teacherName","filter":"evaluation","data":[
-      {"w":196,"h":30,"x":663,"y":390,"size":30,"align":"middle"},
-      {"w":196,"h":30,"x":1358,"y":390,"size":30,"align":"middle"},
-      {"w":196,"h":30,"x":316,"y":959,"size":30,"align":"middle"},
-      {"w":196,"h":30,"x":1011,"y":959,"size":30,"align":"middle"},
-      {"w":196,"h":30,"x":1706,"y":959,"size":30,"align":"middle"}
+      {"color":"#3e78b5","w":196,"h":30,"x":663,"y":390,"size":30,"align":"middle"},
+      {"color":"#3e78b5","w":196,"h":30,"x":1358,"y":390,"size":30,"align":"middle"},
+      {"color":"#3e78b5","w":196,"h":30,"x":316,"y":959,"size":30,"align":"middle"},
+      {"color":"#3e78b5","w":196,"h":30,"x":1011,"y":959,"size":30,"align":"middle"},
+      {"color":"#3e78b5","w":196,"h":30,"x":1706,"y":959,"size":30,"align":"middle"}
     ]
   },{
     "query":"class.teachers","key":"photo",
@@ -147,14 +147,14 @@ size = {width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:stude
     "query":"flower.all","key":"n",
     "helper": "hideZero",
     "data":[
-      {"w":200,"h":94,"x":630,"y":521,"size":90,"color":"#f9c264"},
-      {"w":200,"h":94,"x":1010,"y":521,"size":90,"color":"#f9c264"},
-      {"w":200,"h":94,"x":1390,"y":521,"size":90,"color":"#f9c264"},
-      {"w":200,"h":94,"x":1770,"y":521,"size":90,"color":"#f9c264"},
-      {"w":200,"h":94,"x":630,"y":812,"size":90,"color":"#f9c264"},
-      {"w":200,"h":94,"x":1010,"y":812,"size":90,"color":"#f9c264"},
-      {"w":200,"h":94,"x":1390,"y":812,"size":90,"color":"#f9c264"},
-      {"w":200,"h":94,"x":1770,"y":812,"size":90,"color":"#f9c264"}
+      {"w":400,"h":94,"x":630,"y":521,"size":90,"color":"#f9c264"},
+      {"w":400,"h":94,"x":1010,"y":521,"size":90,"color":"#f9c264"},
+      {"w":400,"h":94,"x":1390,"y":521,"size":90,"color":"#f9c264"},
+      {"w":400,"h":94,"x":1770,"y":521,"size":90,"color":"#f9c264"},
+      {"w":400,"h":94,"x":630,"y":812,"size":90,"color":"#f9c264"},
+      {"w":400,"h":94,"x":1010,"y":812,"size":90,"color":"#f9c264"},
+      {"w":400,"h":94,"x":1390,"y":812,"size":90,"color":"#f9c264"},
+      {"w":400,"h":94,"x":1770,"y":812,"size":90,"color":"#f9c264"}
     ]
   },{
     "type":"text","name":"flowersText1",
@@ -195,14 +195,14 @@ size = {width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:stude
     "query":"flower.all","key":"n",
     "helper": "hideZero",
     "data":[
-      {"w":200,"h":94,"x":630,"y":521,"size":90,"color":"#f9c264"},
-      {"w":200,"h":94,"x":1010,"y":521,"size":90,"color":"#f9c264"},
-      {"w":200,"h":94,"x":1390,"y":521,"size":90,"color":"#f9c264"},
-      {"w":200,"h":94,"x":1770,"y":521,"size":90,"color":"#f9c264"},
-      {"w":200,"h":94,"x":630,"y":812,"size":90,"color":"#f9c264"},
-      {"w":200,"h":94,"x":1010,"y":812,"size":90,"color":"#f9c264"},
-      {"w":200,"h":94,"x":1390,"y":812,"size":90,"color":"#f9c264"},
-      {"w":200,"h":94,"x":1770,"y":812,"size":90,"color":"#f9c264"}
+      {"w":400,"h":94,"x":630,"y":521,"size":90,"color":"#f9c264"},
+      {"w":400,"h":94,"x":1010,"y":521,"size":90,"color":"#f9c264"},
+      {"w":400,"h":94,"x":1390,"y":521,"size":90,"color":"#f9c264"},
+      {"w":400,"h":94,"x":1770,"y":521,"size":90,"color":"#f9c264"},
+      {"w":400,"h":94,"x":630,"y":812,"size":90,"color":"#f9c264"},
+      {"w":400,"h":94,"x":1010,"y":812,"size":90,"color":"#f9c264"},
+      {"w":400,"h":94,"x":1390,"y":812,"size":90,"color":"#f9c264"},
+      {"w":400,"h":94,"x":1770,"y":812,"size":90,"color":"#f9c264"}
     ]
   },{
     "type":"text","name":"flowersText2",
@@ -308,14 +308,25 @@ size = {width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:stude
     ]
   }, {
     "query":"sunsport.all",
+    "filter":"bars",
+    "type":"bars","name":"sunsportBars","data":[
+      {"w":600,"h":60,"x":1400,"y":659},
+      {"w":600,"h":60,"x":1400,"y":789},
+      {"w":600,"h":60,"x":1400,"y":919},
+      {"w":600,"h":60,"x":1400,"y":1049},
+      {"w":600,"h":60,"x":1400,"y":1179},
+      {"w":600,"h":60,"x":1400,"y":1309}
+    ]
+  }, {
+    "query":"sunsport.all",
     "key":"percentage","helper":"percent",
     "type":"text","name":"sunsportPercentage","data":[
-      {"w":100,"h":40,"x":1430,"y":667,"size":36},
-      {"w":100,"h":40,"x":1430,"y":797,"size":36},
-      {"w":100,"h":40,"x":1430,"y":927,"size":36},
-      {"w":100,"h":40,"x":1430,"y":1057,"size":36},
-      {"w":100,"h":40,"x":1430,"y":1187,"size":36},
-      {"w":100,"h":40,"x":1430,"y":1317,"size":36}
+      {"color":"#ffffff","w":100,"h":40,"x":1430,"y":667,"size":36},
+      {"color":"#ffffff","w":100,"h":40,"x":1430,"y":797,"size":36},
+      {"color":"#ffffff","w":100,"h":40,"x":1430,"y":927,"size":36},
+      {"color":"#ffffff","w":100,"h":40,"x":1430,"y":1057,"size":36},
+      {"color":"#ffffff","w":100,"h":40,"x":1430,"y":1187,"size":36},
+      {"color":"#ffffff","w":100,"h":40,"x":1430,"y":1317,"size":36}
     ]
   }, {
     "query":"sunsport.all",
@@ -435,7 +446,7 @@ size = {width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:stude
   "type":"text","name":"artEvaluation2","data":[
     {"empty":"暂无评价","query":"handbook.音乐#desc#5#音乐","color":"#231815","size":36,"line":44,"w":514,"h":382,"x":292,"y":694},
     {"empty":"暂无评价","query":"handbook.美术#desc#5#美术","color":"#231815","size":36,"line":44,"w":514,"h":382,"x":988,"y":694},
-    {"empty":"暂无评价","query":"handbook.自我评价#artRecord#1#null","color":"#231815","size":36,"line":44,"w":504,"h":382,"x":1684,"y":694}
+    {"empty":"暂无评价","query":"handbook.自我评价#desc#1#null","color":"#231815","size":36,"line":44,"w":504,"h":382,"x":1684,"y":694}
   ]
 }]}
 
