@@ -238,7 +238,12 @@ var DanganSVG = function() {
       .attr('height', _height);
     _defs = _svg.append('defs').attr('id', 'dangan-defs');
     _elements = _svg.append('g').attr('id', 'dangan-elements');
-
+    
+    if (_rotate) {
+      var matrix = 'matrix(0,1,-1,0,'+_height+',0)';
+      _bg.attr('transform', matrix);
+      _elements.attr('transform', matrix);
+    }
   };
   
   var putLayout = function(layout) {
