@@ -58,7 +58,7 @@ var Dangan = (function(undefined) {
   };
   
   var init = function(options, callback) {
-    _svg.init(options.svgId, _svgInteractions);
+    _svg.init(options.svgId, _svgInteractions, options.rotate);
     
     if (LOG) console.log('***init with method loadSystem');
     DanganCore.init(options.method||'autoRefresh', {//loadSystem

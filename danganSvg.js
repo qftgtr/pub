@@ -9,12 +9,12 @@ var DanganSVG = function() {
       _defs, _elements, _bg,
       _interactions, _flag = '';
   
-  var _width, _height, _zoom;
+  var _width, _height, _zoom, _rotate;
   
   var _layout; // data object
   
   var _overNode;
-  var init = function(targetId, interactions) {
+  var init = function(targetId, interactions, rotate) {
     _target = d3.select('#'+targetId);
     _svg = _target.append('svg')
       .attr('xmlns', 'http://www.w3.org/2000/svg')
@@ -25,6 +25,9 @@ var DanganSVG = function() {
     _bg = _svg.append('image').attr('id', 'dangan-background');
     _defs = _svg.append('defs').attr('id', 'dangan-defs');
     _elements = _svg.append('g').attr('id', 'dangan-elements');
+    
+    _rotate = rotate;
+    
     _interactions = {
       click: interactions.onclick || function() {},
       drag: interactions.ondragend || function() {},
@@ -40,8 +43,16 @@ var DanganSVG = function() {
     _svg.append('style').attr('type', 'text/css')
       .text('text,tspan{font-family:"SimHei";}.radar-chart .axis line,.radar-chart .level{stroke:grey;stroke-width:.5}.radar-chart .axis .legend{font-size:'+44*_zoom+'px}.radar-chart .axis .legend.left{text-anchor:end}.radar-chart .axis .legend.middle{text-anchor:middle}.radar-chart .axis .legend.right{text-anchor:start}.radar-chart .tooltip{font-size:13px;transition:opacity .2s;opacity:0}.radar-chart .tooltip.visible{opacity:1}.radar-chart .area{stroke-width:2;fill-opacity:.1}.radar-chart.focus .area.focused{fill-opacity:.6}');
     
-    _svg.attr('width', _width)
-        .attr('height', _height);
+    if (_rotate) {
+      _svg.attr('width', _height)
+          .attr('height', _width);
+      var matrix = 'matrix(0,1,-1,0,'+_height+',0)';
+      _bg.attr('transform', matrix);
+      _elements.attr('transform', matrix);
+    } else {
+      _svg.attr('width', _width)
+          .attr('height', _height);
+    }
     
     _bg.attr('width', _width)
       .attr('height', _height);
