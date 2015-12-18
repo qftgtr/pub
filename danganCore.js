@@ -364,7 +364,7 @@ var DanganCore = (function(undefined) {
           });
           
           for (;i<data.length;i++) {
-            data[i].value = _defaultGrowth;
+            data[i].value = data[i].value || _defaultGrowth;
           }
           
           __defer.resolve();
