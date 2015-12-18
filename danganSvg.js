@@ -80,10 +80,12 @@ var DanganSVG = function() {
       .attr('width', function(d) {return 2*_zoom*d.r;})
       .attr('height', function(d) {return 2*_zoom*d.r;})
       .attr('transform', function(d) { return 'translate(' + _zoom*d.x + ',' + _zoom*d.y + ')'; })
-      .on('mouseenter', function(d,i) {
+      .each(function(d,i) {
         if (d.modify) {
-          if (LOG > 2) console.log('enter');
-          _overNode = {node:this, data:d, index:i};
+          $(this).on('mouseenter', function() {
+            if (LOG > 2) console.log('enter');
+            _overNode = {node:this, data:d, index:i};
+          });
         }
       })
       .on('mouseout', function(d) {
@@ -103,10 +105,12 @@ var DanganSVG = function() {
       .attr('width', function(d) {return _zoom*d.w;})
       .attr('height', function(d) {return _zoom*d.h;})
       .attr('transform', function(d) { return 'translate(' + _zoom*d.x + ',' + _zoom*d.y + ')'; })
-      .on('mouseenter', function(d,i) {
+      .each(function(d,i) {
         if (d.modify) {
-          if (LOG > 2) console.log('enter');
-          _overNode = {node:this, data:d, index:i};
+          $(this).on('mouseenter', function() {
+            if (LOG > 2) console.log('enter');
+            _overNode = {node:this, data:d, index:i};
+          });
         }
       })
       .on('mouseout', function(d) {
