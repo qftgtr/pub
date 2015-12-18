@@ -271,7 +271,7 @@ var DanganSVG = function() {
         var _array=[];
         elem.data.forEach(function(d) {
           if (d.value)
-            _array.push(x);
+            _array.push(d);
         });
         putImgCircle(_array, elem.name);
       }
@@ -280,7 +280,7 @@ var DanganSVG = function() {
         var _array=[];
         elem.data.forEach(function(d) {
           if (d.value)
-            _array.push(x);
+            _array.push(d);
         });
         putImage(_array, elem.name);
       }
