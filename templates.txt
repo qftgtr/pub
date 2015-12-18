@@ -1,7 +1,5 @@
 Dangan.init({width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:studentId,userTemplate:userTemplate,method:"loadSystem"}, MXPreviewTools.createPagerList);
 
-size = {width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:studentId,userTemplate:userTemplate,method:"loadSystem"}
-
 // 封面
 {"elem":[{"type":"text","name":"frontPage","data":[
   {"query":"school.name",       "w":2000,"h":50,"x":1050,"y":1151,"size":50},
@@ -246,9 +244,9 @@ size = {width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:stude
 // 10.人文素养三段评语
 {"elem":[{
   "type":"text","name":"humanity","data":[
-    {"empty":"暂无评价","query":"handbook.道德品质#desc#1#null","x":370,"y":420,"w":870,"h":180,"size":34,"color":"#595757","line":44},
-    {"empty":"暂无评价","query":"handbook.行为习惯#desc#1#null","x":370,"y":738,"w":870,"h":180,"size":34,"color":"#595757","line":44},
-    {"empty":"暂无评价","query":"handbook.心理健康#desc#1#null","x":370,"y":1069,"w":870,"h":180,"size":34,"color":"#595757","line":44}
+    {"empty":"暂无评价","query":"handbook.道德品质#desc#1#null","x":370,"y":420,"w":870,"h":200,"size":34,"color":"#595757","line":44},
+    {"empty":"暂无评价","query":"handbook.行为习惯#desc#1#null","x":370,"y":738,"w":870,"h":200,"size":34,"color":"#595757","line":44},
+    {"empty":"暂无评价","query":"handbook.心理健康#desc#1#null","x":370,"y":1069,"w":870,"h":200,"size":34,"color":"#595757","line":44}
   ]
 },{
   "type":"image","name":"humanityStar","helper":"star1","data":[
