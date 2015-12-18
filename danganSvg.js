@@ -316,7 +316,10 @@ var DanganSVG = function() {
     clear: clear,
     put: putLayout,
     getJson: function() { return JSON.stringify(_layout); },
-    getSvg: function() { return _target.html(); },
+    getSvg: function() {
+      d3.selectAll('.tooltip').remove();
+      return _target.html();
+    },
     dragEnd: function() {
       if (_overNode && _interactions.drag && _interactions.drag.apply) {
         _interactions.drag(_overNode);
