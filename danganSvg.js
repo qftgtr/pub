@@ -268,11 +268,21 @@ var DanganSVG = function() {
       if (LOG>2) console.log([JSON.stringify(elem)]);
       
       if (type === 'img-circle') {
-        putImgCircle(elem.data, elem.name);
+        var _array=[];
+        elem.data.forEach(function(d) {
+          if (d.value)
+            _array.push(x);
+        });
+        putImgCircle(_array, elem.name);
       }
       
       if (type === 'image') {
-        putImage(elem.data, elem.name);
+        var _array=[];
+        elem.data.forEach(function(d) {
+          if (d.value)
+            _array.push(x);
+        });
+        putImage(_array, elem.name);
       }
       
       if (type === 'text') {
