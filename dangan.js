@@ -128,7 +128,7 @@ var Dangan = (function(undefined) {
           var __svg_hidden = _svg.clone('svg-hidden-'+__i);
           goPage(__i, __svg_hidden).done(function() {
             savePage(__i, __svg_hidden);
-            $('#svg-hidden-'+__i).empty();
+//            $('#svg-hidden-'+__i).empty();
           });
         }(i));
       }
