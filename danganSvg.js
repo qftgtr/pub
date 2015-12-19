@@ -342,7 +342,7 @@ var DanganSVG = function() {
       _clone.init(id, {});
       
       size = size || {};
-      _clone.size(size.w||(_width/_zoom), size.h||(_height/_zoom), size.zoom||_zoom);
+      _clone.size(size.w||(_width/_zoom), size.h||(_height/_zoom), size.zoom||1);
       return _clone;
     },
     wrapText: wrapText
