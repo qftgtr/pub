@@ -127,8 +127,10 @@ var Dangan = (function(undefined) {
           $('body').append('<div id="svg-hidden-'+__i+'" style="display:hidden"></div>');
           var __svg_hidden = _svg.clone('svg-hidden-'+__i);
           goPage(__i, __svg_hidden).done(function() {
-            savePage(__i, __svg_hidden);
-//            $('#svg-hidden-'+__i).empty();
+            setTimeout(function() {
+              savePage(__i, __svg_hidden);
+              $('#svg-hidden-'+__i).empty();
+            }, 200);
           });
         }(i));
       }
