@@ -64,7 +64,8 @@ var Dangan = (function(undefined) {
     DanganCore.init(options.method||'autoRefresh', {//loadSystem
       studentId: options.studentId,
       sysTemplate: options.sysTemplate,
-      userTemplate: options.userTemplate
+      userTemplate: options.userTemplate,
+      termId: options.termId
     }).done(function(data) {
       if (LOG) console.log('***init get result back');
       

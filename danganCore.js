@@ -4,7 +4,7 @@ var DanganCore = (function(undefined) {
       _sysTmpl = [], _userTmpl = [],
       _pageReady = []; // undefined for nothing, false for sysTmpl, true for userTmpl
   
-  var _studentId, _userTemplate, _sysTemplate;
+  var _studentId, _userTemplate, _sysTemplate, _termId;
   
   var _imageObj = {
     '优秀':   'score_1.png',
@@ -226,6 +226,7 @@ var DanganCore = (function(undefined) {
     _studentId = options.studentId;
     _sysTemplate = options.sysTemplate;
     _userTemplate = options.userTemplate;
+    _termId = options.termId;
     
     if (method === 'loadSystem') {
       var defer = $.Deferred();
@@ -426,7 +427,8 @@ var DanganCore = (function(undefined) {
     
     if (LOG > 2) console.log('Core._parseSysTmpl query for data');
     DanganNetwork.call('getData', {
-      studentId: _studentId
+      studentId: _studentId,
+      termId: _termId
     }).done(function(result) {
       $.when.apply(this, queries).done(function() {
         setTimeout(function() {
@@ -469,7 +471,8 @@ var DanganCore = (function(undefined) {
     
     DanganNetwork.call('getGrowth', {
       pageNum: page,
-      studentId: _studentId
+      studentId: _studentId,
+      termId: _termId
     }).done(function(result) {
       var growth = [];
       result[0] && result[0].data.forEach(function(r) {
