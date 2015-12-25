@@ -283,6 +283,7 @@ var DanganCore = (function(undefined) {
 
           if (result.pages[page].json === '') {//no result
             __save.push(page);
+            _userTmpl[page] = $.Deferred();
             _pageReady[page] = false;
             needSystem = true;
           } else {
@@ -328,8 +329,9 @@ var DanganCore = (function(undefined) {
   }
   
   var _parseSysTmpl = function(page, noGrowth) {
-    var defer = $.Deferred();
-    _userTmpl[page] = defer.promise();
+    if (!_userTmpl[page]) {
+      _userTmpl[page] = $.Deferred();
+    }
     ///// the most compliated part
     if (LOG > 1) console.log('Core._parseSysTmpl for page '+page);
     var elements = _sysTmpl[page].elem;
@@ -434,7 +436,7 @@ var DanganCore = (function(undefined) {
         setTimeout(function() {
           _pageReady[page] = true;
           if (LOG > 2) console.log('Core._parseSysTmpl done for page '+page);
-          defer.resolve(_parseHelper(_sysTmpl[page], page));
+          _userTmpl[page].resolve(_parseHelper(_sysTmpl[page], page));
         }, 100);
       });
     });
