@@ -276,7 +276,7 @@ var DanganCore = (function(undefined) {
         
         var needSystem = false;
         for (var page = 0; page < _nPage; page++) {
-          if (LOG > 2) console.log('Core.(raw sysTmpl) page '+page+':');
+          if (LOG > 2) console.log('Core.(raw userTmpl) page '+page+':');
           if (LOG > 2) console.log(result.pages[page].json);
 
           _pageReady[page] = true;
@@ -459,7 +459,7 @@ var DanganCore = (function(undefined) {
       });
     });
     
-    if (LOG) console.log('Core.(sysTempl parsed) page '+page);
+    if (LOG) console.log('Core.(sysTmpl parsed) page '+page);
     if (LOG) console.log([JSON.stringify(pageObj)]);
     return pageObj;
   };
