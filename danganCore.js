@@ -242,6 +242,8 @@ var DanganCore = (function(undefined) {
           var pageObj = JSON.parse(result.pages[page].json);
           if (result.pages[page].bg !== '')
             pageObj.bg = result.pages[page].bg;
+          if (result.pages[page].bg2 !== '')
+            pageObj.bg2 = result.pages[page].bg2;
           _sysTmpl[page] = pageObj;
           _pageReady[page] = false;
         }
@@ -300,6 +302,8 @@ var DanganCore = (function(undefined) {
               var pageObj = JSON.parse(result.pages[page].json);
               if (result.pages[page].bg !== '')
                 pageObj.bg = result.pages[page].bg;
+              if (result.pages[page].bg2 !== '')
+                pageObj.bg2 = result.pages[page].bg2;
               _sysTmpl[page] = pageObj;
               if (!_pageReady[page])
                 _parseSysTmpl(page);

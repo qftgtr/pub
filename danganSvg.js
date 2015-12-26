@@ -14,8 +14,12 @@ var DanganSVG = function() {
   var _layout; // data object
   
   var _overNode;
-  var init = function(targetId, interactions, rotate) {
-    _target = d3.select('#'+targetId);
+  var init = function(target, interactions, rotate) {
+    if (typeof target === 'string')
+      _target = d3.select('#'+target);
+    else
+      _target = d3.select(target);
+    
     _svg = _target.append('svg')
       .attr('xmlns', 'http://www.w3.org/2000/svg')
       .attr('version', '1.1')
@@ -98,6 +102,18 @@ var DanganSVG = function() {
   
   var putImage = function(data, name) {
     var elementName = 'dangan-image-' + name;
+    
+    var clipName = 'dangan-image-' + name + '-clip';
+    _defs.selectAll('.'+clipName).data(data).enter()
+      .append('clipPath')
+      .attr('class', clipName)
+      .attr('id', function(d,i) { return clipName+i; })
+      .append('rect')
+      .attr('width', function(d) { return _zoom * d.w; })
+      .attr('height', function(d) { return _zoom * d.h; })
+      .attr('transform', function(d) { return 'translate(' + _zoom*d.x + ',' + _zoom*d.y + ')'; });
+    
+    
     _elements.selectAll('.'+elementName).data(data).enter()
       .append('image')
       .attr('class', function(d,i) { return elementName+'-'+i;})// + (d.modify?' dangan-modify':'');})
@@ -250,12 +266,15 @@ var DanganSVG = function() {
     }
   };
   
-  var putLayout = function(layout) {
+  var putLayout = function(layout, fullBg) {
     _layout = layout;
     if (LOG) console.log('Svg.putLayout');
     if (LOG) console.log(JSON.stringify(layout));
     
-    _bg.attr('xlink:href', dev_ip+layout.bg);
+    if (fullBg)
+      _bg.attr('xlink:href', dev_ip+layout.bg);
+    else
+      _bg.attr('xlink:href', dev_ip+layout.bg2);
     
     var elements = layout.elem,
         length = elements.length;
@@ -337,9 +356,9 @@ var DanganSVG = function() {
       _overNode = undefined;
     },
     draggingImage: draggingImage,
-    clone: function(id, size) {
+    clone: function(dom, size) {
       var _clone = DanganSVG();
-      _clone.init(id, {});
+      _clone.init(dom, {});
       
       size = size || {};
       _clone.size(size.w||(_width/_zoom), size.h||(_height/_zoom), size.zoom||1);

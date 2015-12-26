@@ -84,7 +84,7 @@ var Dangan = (function(undefined) {
     });
   };
   
-  var goPage = function(page, svg) {
+  var goPage = function(page, svg, fullBg) {
     if (svg) {
       var __svg = svg;
     } else {
@@ -105,7 +105,7 @@ var Dangan = (function(undefined) {
       if (svg || page === _page) {
         // if svg target is set or the selected is current page
         __svg.clear();
-        __svg.put(layout);
+        __svg.put(layout, fullBg);
         if (LOG > 1) console.log('***goPage done');
       }
     });
@@ -125,9 +125,8 @@ var Dangan = (function(undefined) {
     for (var i=0; i<_nPage; i++) {
       if (pages==='all' || pages.indexOf(i) > -1) {
         (function(__i) {
-          $('body').append('<div id="svg-hidden-'+__i+'" style="display:hidden"></div>');
-          var __svg_hidden = _svg.clone('svg-hidden-'+__i);
-          goPage(__i, __svg_hidden).done(function() {
+          var __svg_hidden = _svg.clone($('<div id="svg-hidden-'+__i+'"></div>'));
+          goPage(__i, __svg_hidden, true).done(function() {
             setTimeout(function() {
               savePage(__i, __svg_hidden);
               $('#svg-hidden-'+__i).empty();
