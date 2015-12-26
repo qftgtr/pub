@@ -125,7 +125,7 @@ var Dangan = (function(undefined) {
     for (var i=0; i<_nPage; i++) {
       if (pages==='all' || pages.indexOf(i) > -1) {
         (function(__i) {
-          var __svg_hidden = _svg.clone($('<div id="svg-hidden-'+__i+'"></div>'));
+          var __svg_hidden = _svg.clone($('<div id="svg-hidden-'+__i+'"></div>')[0]);
           goPage(__i, __svg_hidden, true).done(function() {
             setTimeout(function() {
               savePage(__i, __svg_hidden);
