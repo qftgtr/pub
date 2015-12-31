@@ -150,7 +150,7 @@ var DanganSVG = function() {
 //        if (d3.event.defaultPrevented) return; // click suppressed
       
         d.scale = (d.scale||1) * 1.1;
-        d3.select(this).attr('transform', function(d) {
+        d3.select(this.parentNode.firstChild).attr('transform', function(d) {
           return 'translate('+_zoom*(d.x-d.w/2)+','+_zoom*(d.y-d.h/2)+') rotate('+(d.rotate||0)+' '+_zoom*d.w/2+' '+_zoom*d.h/2+') \
             scale('+(d.scale||1)+') translate('+_zoom*d.w/2+','+_zoom*d.h/2+')';
         });
@@ -164,7 +164,7 @@ var DanganSVG = function() {
 //        if (d3.event.defaultPrevented) return; // click suppressed
       
         d.scale = (d.scale||1) / 1.1;
-        d3.select(this).attr('transform', function(d) {
+        d3.select(this.parentNode.firstChild).attr('transform', function(d) {
           return 'translate('+_zoom*(d.x-d.w/2)+','+_zoom*(d.y-d.h/2)+') rotate('+(d.rotate||0)+' '+_zoom*d.w/2+' '+_zoom*d.h/2+') \
             scale('+(d.scale||1)+') translate('+_zoom*d.w/2+','+_zoom*d.h/2+')';
         });
@@ -178,7 +178,7 @@ var DanganSVG = function() {
 //        if (d3.event.defaultPrevented) return; // click suppressed
       
         d.rotate = (d.rotate||0) +90;
-        d3.select(this).attr('transform', function(d) {
+        d3.select(this.parentNode.firstChild).attr('transform', function(d) {
           return 'translate('+_zoom*(d.x-d.w/2)+','+_zoom*(d.y-d.h/2)+') rotate('+(d.rotate||0)+' '+_zoom*d.w/2+' '+_zoom*d.h/2+') \
             scale('+(d.scale||1)+') translate('+_zoom*d.w/2+','+_zoom*d.h/2+')';
         });
