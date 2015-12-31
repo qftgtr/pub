@@ -82,15 +82,19 @@ var DanganCore = (function(undefined) {
         d.value = 'x '+d.value;
     },
     'getAstro': function(d) {
-      var ymd = d.value.split('-');
-      if (ymd.length === 1)
-        ymd = d.value.split('/');
-      
-      if (ymd.length === 1)
-        d.value = '';
-      else {
-        var m = ymd[1], day = ymd[2];
-        d.value = "魔羯水瓶双鱼白羊金牛双子巨蟹狮子处女天秤天蝎射手魔羯".substr(m*2-(day<"102123444543".charAt(m-1)- -19)*2,2)+'座';
+      if (d.value) {
+        var ymd = d.value.split('-');
+        if (ymd.length === 1)
+          ymd = d.value.split('/');
+
+        if (ymd.length === 1)
+          d.value = '';
+        else {
+          var m = ymd[1], day = ymd[2];
+          d.value = '魔羯水瓶双鱼白羊金牛双子巨蟹狮子处女天秤天蝎射手魔羯'.substr(m*2-(day<'102123444543'.charAt(m-1)- -19)*2,2)+'座';
+        }
+      } else {
+        d.value = '未知星座'
       }
     },
     'percent': function(d) {
