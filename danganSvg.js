@@ -148,18 +148,41 @@ var DanganSVG = function() {
       .attr('transform', function(d) { return 'translate(' + _zoom*d.x + ',' + _zoom*d.y + ')'; })
       .on('click', function(d) {
 //        if (d3.event.defaultPrevented) return; // click suppressed
-        console.log(d);
+      
+        d.scale = (d.scale||1) * 1.1;
+        d3.select(this).attr('transform', function(d) {
+          return 'translate('+_zoom*(d.x-d.w/2)+','+_zoom*(d.y-d.h/2)+') rotate('+(d.rotate||0)+' '+_zoom*d.w/2+' '+_zoom*d.h/2+') \
+            scale('+(d.scale||1)+') translate('+_zoom*d.w/2+','+_zoom*d.h/2+')';
+        });
       });
     
     clipBox.append('image')
       .style('cursor', 'pointer')
       .attr('width', 20).attr('height', 20)
-      .attr('transform', function(d) { return 'translate(' + (_zoom*d.x+20) + ',' + _zoom*d.y + ')'; });
+      .attr('transform', function(d) { return 'translate(' + (_zoom*d.x+20) + ',' + _zoom*d.y + ')'; })
+      .on('click', function(d) {
+//        if (d3.event.defaultPrevented) return; // click suppressed
+      
+        d.scale = (d.scale||1) / 1.1;
+        d3.select(this).attr('transform', function(d) {
+          return 'translate('+_zoom*(d.x-d.w/2)+','+_zoom*(d.y-d.h/2)+') rotate('+(d.rotate||0)+' '+_zoom*d.w/2+' '+_zoom*d.h/2+') \
+            scale('+(d.scale||1)+') translate('+_zoom*d.w/2+','+_zoom*d.h/2+')';
+        });
+      });
     
     clipBox.append('image')
       .style('cursor', 'pointer')
       .attr('width', 20).attr('height', 20)
-      .attr('transform', function(d) { return 'translate(' + (_zoom*(d.x+d.w)-20) + ',' + _zoom*d.y + ')'; });
+      .attr('transform', function(d) { return 'translate(' + (_zoom*(d.x+d.w)-20) + ',' + _zoom*d.y + ')'; })
+      .on('click', function(d) {
+//        if (d3.event.defaultPrevented) return; // click suppressed
+      
+        d.rotate = (d.rotate||0) +90;
+        d3.select(this).attr('transform', function(d) {
+          return 'translate('+_zoom*(d.x-d.w/2)+','+_zoom*(d.y-d.h/2)+') rotate('+(d.rotate||0)+' '+_zoom*d.w/2+' '+_zoom*d.h/2+') \
+            scale('+(d.scale||1)+') translate('+_zoom*d.w/2+','+_zoom*d.h/2+')';
+        });
+      });
   };
   
   var putText = function(data, name) {
