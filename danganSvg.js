@@ -115,6 +115,9 @@ var DanganSVG = function() {
     
     
     _elements.selectAll('.'+elementName).data(data).enter()
+      .append('g')
+      .attr('class', function(d) { return elementName + (d.click?' dangan-click':'');})
+      .attr('clip-path', function(d,i) { return 'url(#'+clipName+i+')'; })
       .append('image')
       .attr('class', function(d,i) { return elementName+'-'+i;})// + (d.modify?' dangan-modify':'');})
       .attr('xlink:href', function(d) {return d.value && (dev_ip+d.value);})
