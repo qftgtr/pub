@@ -113,12 +113,12 @@ var DanganSVG = function() {
       .attr('height', function(d) { return _zoom * d.h; })
       .attr('transform', function(d) { return 'translate(' + _zoom*d.x + ',' + _zoom*d.y + ')'; });
     
-    
-    _elements.selectAll('.'+elementName).data(data).enter()
+    var clipBox = _elements.selectAll('.'+elementName).data(data).enter()
       .append('g')
       .attr('class', function(d) { return elementName + (d.click?' dangan-click':'');})
-      .attr('clip-path', function(d,i) { return 'url(#'+clipName+i+')'; })
-      .append('image')
+      .attr('clip-path', function(d,i) { return 'url(#'+clipName+i+')'; });
+    
+    clipBox.append('image')
       .attr('class', function(d,i) { return elementName+'-'+i;})// + (d.modify?' dangan-modify':'');})
       .attr('xlink:href', function(d) {return d.value && (dev_ip+d.value);})
       .attr('width', function(d) {return _zoom*d.w;})
@@ -138,6 +138,21 @@ var DanganSVG = function() {
           _overNode = undefined;
         }
       });
+    
+    clipBox.append('image')
+      .style('cursor', 'pointer')
+      .attr('width', 20).attr('height', 20)
+      .attr('transform', function(d) { return 'translate(' + _zoom*d.x + ',' + _zoom*d.y + ')'; });
+    
+    clipBox.append('image')
+      .style('cursor', 'pointer')
+      .attr('width', 20).attr('height', 20)
+      .attr('transform', function(d) { return 'translate(' + (_zoom*d.x+20) + ',' + _zoom*d.y + ')'; });
+    
+    clipBox.append('image')
+      .style('cursor', 'pointer')
+      .attr('width', 20).attr('height', 20)
+      .attr('transform', function(d) { return 'translate(' + (_zoom*(d.x+d.w)-20) + ',' + _zoom*d.y + ')'; });
   };
   
   var putText = function(data, name) {
