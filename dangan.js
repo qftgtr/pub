@@ -18,7 +18,7 @@ var Dangan = (function(undefined) {
       if (_imgUrl) {
         _pageChanged = true;
         node.data.value = _imgUrl;
-        d3.select(node.node).attr('xlink:href', '');
+        d3.select(node.node).attr('xlink:href', 'http://preevaluate.mexue.com/static/images/print/MX_loading.png');
         d3.select(node.node).attr('xlink:href', _imgUrl);
         
         var className = node.node.getAttribute('class'),
