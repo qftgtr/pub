@@ -111,33 +111,29 @@ var Dangan = (function(undefined) {
     });
   };
   
-  var savePage = function(page, svg) {
-    if (!svg) {
-      svg = _svg;
-      page = page || _page;
-      _pageChanged = false;
-    }
-    if (LOG) console.log('***savePage: '+page);
-    DanganCore.savePage(page, svg.getSvg(), svg.getJson());
+  var savePage = function(page) {
+    page = page || _page;
+    
+    var _svg_hidden = _svg.clone($('<div id="svg-hidden-'+page+'"></div>')[0]);
+    goPage(page, _svg_hidden, true).done(function() {
+      setTimeout(function() {
+        if (LOG) console.log('***savePage: '+page);
+        DanganCore.savePage(page, _svg_hidden.getSvg(), _svg_hidden.getJson());
+        $('#svg-hidden-'+__i).empty();
+        _pageChanged = false;
+      }, 200);
+    });
   };
   
   var saveAllPages = function(pages) {
     for (var i=0; i<_nPage; i++) {
       if (pages==='all' || pages.indexOf(i) > -1) {
-        (function(__i) {
-          var __svg_hidden = _svg.clone($('<div id="svg-hidden-'+__i+'"></div>')[0]);
-          goPage(__i, __svg_hidden, true).done(function() {
-            setTimeout(function() {
-              savePage(__i, __svg_hidden);
-              $('#svg-hidden-'+__i).empty();
-            }, 200);
-          });
-        }(i));
+        savePage(i);
       }
     }
-  }
+  };
   
-    //page, 
+  //page, 
   var getGrowth = function(page, callback) {
     DanganCore.getGrowth(page+1).done(function(result) {
       callback && callback.apply && callback(result);
