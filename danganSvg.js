@@ -138,16 +138,14 @@ var DanganSVG = function() {
             _overNode = {node:this, data:d, index:i};
             d3.select(this.parentNode).selectAll('.dangan-image-buttons').style('display','initial');
           });
-        }
-      })
-      .on('mouseout', function(d) {
-        if (d.modify) {
-          if (LOG > 2) console.log('out');
-          _overNode = undefined;
-          d3.select(this.parentNode).selectAll('.dangan-image-buttons').style('display','none');
+          
+          $(this).on('mouseleave', function() {
+            if (LOG > 2) console.log('out');
+            _overNode = undefined;
+            d3.select(this.parentNode).selectAll('.dangan-image-buttons').style('display','none');
+          });
         }
       });
-    
     
     if (!_original) {
       clipBox.filter(function(d) {return d.modify;}).append('image')
