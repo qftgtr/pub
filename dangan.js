@@ -119,7 +119,7 @@ var Dangan = (function(undefined) {
       setTimeout(function() {
         if (LOG) console.log('***savePage: '+page);
         DanganCore.savePage(page, _svg_hidden.getSvg(), _svg_hidden.getJson());
-        $('#svg-hidden-'+__i).empty();
+        $('#svg-hidden-'+_i).empty();
         _pageChanged = false;
       }, 200);
     });
