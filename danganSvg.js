@@ -136,6 +136,7 @@ var DanganSVG = function() {
           $(this).on('mouseenter', function() {
             if (LOG > 2) console.log('enter');
             _overNode = {node:this, data:d, index:i};
+            d3.select(this).selectAll('.dangan-image-buttons').style('display','initial');
           });
         }
       })
@@ -143,12 +144,14 @@ var DanganSVG = function() {
         if (d.modify) {
           if (LOG > 2) console.log('out');
           _overNode = undefined;
+          d3.select(this).selectAll('.dangan-image-buttons').style('display','hidden');
         }
       });
     
     
     if (!_original) {
       clipBox.append('image')
+        .attr('class', 'dangan-image-buttons')
         .style('cursor', 'pointer')
         .attr('xlink:href', '/static/images/print/template/zoomin.png')
         .attr('width', 20).attr('height', 20)
@@ -163,6 +166,7 @@ var DanganSVG = function() {
         });
 
       clipBox.append('image')
+        .attr('class', 'dangan-image-buttons')
         .style('cursor', 'pointer')
         .attr('xlink:href', '/static/images/print/template/zoomout.png')
         .attr('width', 20).attr('height', 20)
@@ -177,6 +181,7 @@ var DanganSVG = function() {
         });
 
       clipBox.append('image')
+        .attr('class', 'dangan-image-buttons')
         .style('cursor', 'pointer')
         .attr('xlink:href', '/static/images/print/template/rotate.png')
         .attr('width', 20).attr('height', 20)
