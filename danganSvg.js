@@ -124,12 +124,12 @@ var DanganSVG = function() {
       .attr('clip-path', function(d,i) { return 'url(#'+clipName+i+')'; })
       .on('mouseenter', function(d) {
         if (d.modify) {
-          d3.selete(this).selectAll('.dangan-image-buttons').style('display','initial');
+          d3.select(this).selectAll('.dangan-image-buttons').style('display','initial');
         }
       })
       .on('mouseout', function(d) {
         if (d.modify) {
-          d3.selete(this).selectAll('.dangan-image-buttons').style('display','none');
+          d3.select(this).selectAll('.dangan-image-buttons').style('display','none');
         }
       })
     
