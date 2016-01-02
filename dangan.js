@@ -9,16 +9,16 @@ var Dangan = (function(undefined) {
   
   
   var _svgInteractions = {
-    onclick: function(d,i) {
-      if (LOG) console.log('***onclick');
-//      d.img = _image;
-//      d3.select(this).attr('xlink:href', d.img);
+    onchange: function(d,i) {
+      if (LOG) console.log('***onchange');
+      _pageChanged = true;
     },
     ondragend: function(node) {
       if (LOG) console.log('***ondragend');
       if (_imgUrl) {
         _pageChanged = true;
         node.data.value = _imgUrl;
+        d3.select(node.node).attr('xlink:href', '');
         d3.select(node.node).attr('xlink:href', _imgUrl);
         
         var className = node.node.getAttribute('class'),

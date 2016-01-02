@@ -38,7 +38,7 @@ var DanganSVG = function() {
     _rotate = rotate;
     
     _interactions = {
-      click: interactions.onclick || function() {},
+      change: interactions.onchange || function() {},
       drag: interactions.ondragend || function() {},
       changeText: interactions.changeText || function() {}
     };
@@ -171,6 +171,8 @@ var DanganSVG = function() {
           d3.select(this.parentNode.firstChild).attr('transform', function(d) {
             return 'translate('+_zoom*(d.x+d.w/2)+','+_zoom*(d.y+d.h/2)+') scale('+(d.scale||1)+') translate('+(-_zoom*d.w/2)+','+(-_zoom*d.h/2)+') rotate('+(d.rotate||0)+' '+_zoom*d.w/2+' '+_zoom*d.h/2+')';
           });
+        
+          _interactions.change();
         });
 
       clipBox.filter(function(d) {return d.modify;}).append('image')
@@ -187,6 +189,8 @@ var DanganSVG = function() {
           d3.select(this.parentNode.firstChild).attr('transform', function(d) {
             return 'translate('+_zoom*(d.x+d.w/2)+','+_zoom*(d.y+d.h/2)+') scale('+(d.scale||1)+') translate('+(-_zoom*d.w/2)+','+(-_zoom*d.h/2)+') rotate('+(d.rotate||0)+' '+_zoom*d.w/2+' '+_zoom*d.h/2+')';
           });
+          
+          _interactions.change();
         });
 
       clipBox.filter(function(d) {return d.modify;}).append('image')
@@ -203,6 +207,8 @@ var DanganSVG = function() {
           d3.select(this.parentNode.firstChild).attr('transform', function(d) {
             return 'translate('+_zoom*(d.x+d.w/2)+','+_zoom*(d.y+d.h/2)+') scale('+(d.scale||1)+') translate('+(-_zoom*d.w/2)+','+(-_zoom*d.h/2)+') rotate('+(d.rotate||0)+' '+_zoom*d.w/2+' '+_zoom*d.h/2+')';
           });
+          
+          _interactions.change();
         });
     }
   };
