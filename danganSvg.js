@@ -134,6 +134,11 @@ var DanganSVG = function() {
         }
       });
     
+    clipBox.append('rect')
+      .attr('width', function(d) {return _zoom*d.w;})
+      .attr('height', function(d) {return _zoom*d.h;})
+      .attr('transform', function(d) { return 'translate('+_zoom*d.x+','+_zoom*d.y+')'; });
+    
     clipBox.append('image')
       .attr('class', function(d,i) { return elementName+'-'+i;})// + (d.modify?' dangan-modify':'');})
       .attr('xlink:href', function(d) {return d.value && (dev_ip+d.value);})
@@ -168,7 +173,7 @@ var DanganSVG = function() {
   //        if (d3.event.defaultPrevented) return; // click suppressed
 
           d.scale = (d.scale||1) * 1.1;
-          d3.select(this.parentNode.firstChild).attr('transform', function(d) {
+          d3.select(this.parentNode.children[1]).attr('transform', function(d) {
             return 'translate('+_zoom*(d.x+d.w/2)+','+_zoom*(d.y+d.h/2)+') scale('+(d.scale||1)+') translate('+(-_zoom*d.w/2)+','+(-_zoom*d.h/2)+') rotate('+(d.rotate||0)+' '+_zoom*d.w/2+' '+_zoom*d.h/2+')';
           });
         
@@ -186,7 +191,7 @@ var DanganSVG = function() {
   //        if (d3.event.defaultPrevented) return; // click suppressed
 
           d.scale = (d.scale||1) / 1.1;
-          d3.select(this.parentNode.firstChild).attr('transform', function(d) {
+          d3.select(this.parentNode.children[1]).attr('transform', function(d) {
             return 'translate('+_zoom*(d.x+d.w/2)+','+_zoom*(d.y+d.h/2)+') scale('+(d.scale||1)+') translate('+(-_zoom*d.w/2)+','+(-_zoom*d.h/2)+') rotate('+(d.rotate||0)+' '+_zoom*d.w/2+' '+_zoom*d.h/2+')';
           });
           
@@ -204,7 +209,7 @@ var DanganSVG = function() {
   //        if (d3.event.defaultPrevented) return; // click suppressed
 
           d.rotate = (d.rotate||0) +90;
-          d3.select(this.parentNode.firstChild).attr('transform', function(d) {
+          d3.select(this.parentNode.children[1]).attr('transform', function(d) {
             return 'translate('+_zoom*(d.x+d.w/2)+','+_zoom*(d.y+d.h/2)+') scale('+(d.scale||1)+') translate('+(-_zoom*d.w/2)+','+(-_zoom*d.h/2)+') rotate('+(d.rotate||0)+' '+_zoom*d.w/2+' '+_zoom*d.h/2+')';
           });
           
