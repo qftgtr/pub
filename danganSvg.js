@@ -136,7 +136,7 @@ var DanganSVG = function() {
           $(this).on('mouseenter', function() {
             if (LOG > 2) console.log('enter');
             _overNode = {node:this, data:d, index:i};
-            d3.select(this).selectAll('.dangan-image-buttons').style('display','initial');
+            d3.select(this.parentNode).selectAll('.dangan-image-buttons').style('display','initial');
           });
         }
       })
@@ -144,7 +144,7 @@ var DanganSVG = function() {
         if (d.modify) {
           if (LOG > 2) console.log('out');
           _overNode = undefined;
-          d3.select(this).selectAll('.dangan-image-buttons').style('display','hidden');
+          d3.select(this.parentNode).selectAll('.dangan-image-buttons').style('display','hidden');
         }
       });
     
@@ -153,6 +153,7 @@ var DanganSVG = function() {
       clipBox.filter(function(d) {return d.modify;}).append('image')
         .attr('class', 'dangan-image-buttons')
         .style('cursor', 'pointer')
+        .style('display', 'hidden')
         .attr('xlink:href', '/static/images/print/template/zoomin.png')
         .attr('width', 20).attr('height', 20)
         .attr('transform', function(d) { return 'translate('+_zoom*d.x+','+_zoom*d.y+')'; })
@@ -168,6 +169,7 @@ var DanganSVG = function() {
       clipBox.filter(function(d) {return d.modify;}).append('image')
         .attr('class', 'dangan-image-buttons')
         .style('cursor', 'pointer')
+        .style('display', 'hidden')
         .attr('xlink:href', '/static/images/print/template/zoomout.png')
         .attr('width', 20).attr('height', 20)
         .attr('transform', function(d) { return 'translate('+(_zoom*d.x+20)+','+_zoom*d.y+')'; })
@@ -183,6 +185,7 @@ var DanganSVG = function() {
       clipBox.filter(function(d) {return d.modify;}).append('image')
         .attr('class', 'dangan-image-buttons')
         .style('cursor', 'pointer')
+        .style('display', 'hidden')
         .attr('xlink:href', '/static/images/print/template/rotate.png')
         .attr('width', 20).attr('height', 20)
         .attr('transform', function(d) { return 'translate('+(_zoom*(d.x+d.w)-20)+','+_zoom*d.y+')'; })
