@@ -150,7 +150,7 @@ var DanganSVG = function() {
     
     
     if (!_original) {
-      clipBox.append('image')
+      clipBox.filter(function(d) {return d.modify;}).append('image')
         .attr('class', 'dangan-image-buttons')
         .style('cursor', 'pointer')
         .attr('xlink:href', '/static/images/print/template/zoomin.png')
@@ -165,7 +165,7 @@ var DanganSVG = function() {
           });
         });
 
-      clipBox.append('image')
+      clipBox.filter(function(d) {return d.modify;}).append('image')
         .attr('class', 'dangan-image-buttons')
         .style('cursor', 'pointer')
         .attr('xlink:href', '/static/images/print/template/zoomout.png')
@@ -180,7 +180,7 @@ var DanganSVG = function() {
           });
         });
 
-      clipBox.append('image')
+      clipBox.filter(function(d) {return d.modify;}).append('image')
         .attr('class', 'dangan-image-buttons')
         .style('cursor', 'pointer')
         .attr('xlink:href', '/static/images/print/template/rotate.png')
