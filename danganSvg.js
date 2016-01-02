@@ -123,7 +123,7 @@ var DanganSVG = function() {
       .attr('class', function(d) { return elementName + (d.click?' dangan-click':'');})
       .attr('clip-path', function(d,i) { return 'url(#'+clipName+i+')'; })
       .each(function(d,i) {
-        if (d.modify) {
+        if (d.modify && !_rotate) {
           $(this).on('mouseenter', function() {
             d3.select(this.firstChild).style('opacity', 0.1);
             d3.select(this).selectAll('.dangan-image-buttons').style('display','initial');

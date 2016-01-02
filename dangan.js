@@ -111,7 +111,7 @@ var Dangan = (function(undefined) {
     });
   };
   
-  var savePage = function(page) {
+  var savePage = function(page, callback) {
     page = page || _page;
     
     var _svg_hidden = _svg.clone($('<div id="svg-hidden-'+page+'"></div>')[0]);
@@ -121,6 +121,12 @@ var Dangan = (function(undefined) {
         DanganCore.savePage(page, _svg_hidden.getSvg(), _svg_hidden.getJson());
         $('#svg-hidden-'+_i).empty();
         _pageChanged = false;
+        
+        if (callback && callback.apply) {
+          callback(page);
+        } else {
+          console.log('保存成功');
+        }
       }, 200);
     });
   };
