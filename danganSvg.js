@@ -136,7 +136,7 @@ var DanganSVG = function() {
         }
       });
     
-    clipBox.append('rect')
+    clipBox.filter(function(d) {return d.modify;}).append('rect')
       .attr('width', function(d) {return _zoom*d.w;})
       .attr('height', function(d) {return _zoom*d.h;})
       .attr('transform', function(d) { return 'translate('+_zoom*d.x+','+_zoom*d.y+')'; })
