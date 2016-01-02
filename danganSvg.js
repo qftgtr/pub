@@ -144,7 +144,7 @@ var DanganSVG = function() {
         if (d.modify) {
           if (LOG > 2) console.log('out');
           _overNode = undefined;
-          d3.select(this.parentNode).selectAll('.dangan-image-buttons').style('display','hidden');
+          d3.select(this.parentNode).selectAll('.dangan-image-buttons').style('display','none');
         }
       });
     
