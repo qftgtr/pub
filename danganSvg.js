@@ -125,10 +125,12 @@ var DanganSVG = function() {
       .each(function(d,i) {
         if (d.modify) {
           $(this).on('mouseenter', function() {
+            d3.select(this.firstChild).style('opacity', 0.1);
             d3.select(this).selectAll('.dangan-image-buttons').style('display','initial');
           });
           
           $(this).on('mouseleave', function() {
+            d3.select(this.firstChild).style('opacity', 0);
             d3.select(this).selectAll('.dangan-image-buttons').style('display','none');
           });
         }
@@ -137,7 +139,8 @@ var DanganSVG = function() {
     clipBox.append('rect')
       .attr('width', function(d) {return _zoom*d.w;})
       .attr('height', function(d) {return _zoom*d.h;})
-      .attr('transform', function(d) { return 'translate('+_zoom*d.x+','+_zoom*d.y+')'; });
+      .attr('transform', function(d) { return 'translate('+_zoom*d.x+','+_zoom*d.y+')'; })
+      .style('opacity', 0);
     
     clipBox.append('image')
       .attr('class', function(d,i) { return elementName+'-'+i;})// + (d.modify?' dangan-modify':'');})
