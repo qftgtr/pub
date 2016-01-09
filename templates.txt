@@ -2,7 +2,7 @@ Dangan.init({width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:
 
 // 封面
 {"elem":[{"type":"text","name":"frontPage","data":[
-  {"query":"school.name",       "w":2000,"h":50,"x":1050,"y":1151,"size":50},
+  {"query":"school.name",       "w":2240,"h":80,"x":1240,"y":1090,"size":68,"align":"middle"},
   {"query":"school.termName",   "w":1000,"h":50,"x":1050,"y":1237,"size":50},
   {"query":"class.name",        "w":1000,"h":50,"x":1050,"y":1324,"size":50},
   {"query":"basic.studentName", "w":1000,"h":50,"x":1050,"y":1409,"size":50}
@@ -115,11 +115,11 @@ Dangan.init({width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:
     ]
   },{
     "type":"text","name":"evalDesc","data":[
-      {"empty":"暂无评价","query":"handbook.语文课堂#desc#5#语文","x":585,"y":491,"w":614,"h":272,"size":36,"color":"#595757","line":40},
-      {"empty":"暂无评价","query":"handbook.数学课堂#desc#5#数学","x":1280,"y":491,"w":614,"h":272,"size":36,"color":"#595757","line":40},
-      {"empty":"暂无评价","query":"handbook.英语课堂#desc#5#英语","x":238,"y":1059,"w":614,"h":272,"size":36,"color":"#595757","line":40},
-      {"empty":"暂无评价","query":"handbook.信息课堂#desc#5#信息技术","x":933,"y":1059,"w":614,"h":272,"size":36,"color":"#595757","line":40},
-      {"empty":"暂无评价","query":"handbook.科学课堂#desc#5#科学","x":1628,"y":1059,"w":614,"h":272,"size":36,"color":"#595757","line":40}
+      {"empty":"暂无评价","query":"handbook.语文评语#desc#5#语文","x":585,"y":491,"w":614,"h":272,"size":36,"color":"#595757","line":40},
+      {"empty":"暂无评价","query":"handbook.数学评语#desc#5#数学","x":1280,"y":491,"w":614,"h":272,"size":36,"color":"#595757","line":40},
+      {"empty":"暂无评价","query":"handbook.英语评语#desc#5#英语","x":238,"y":1059,"w":614,"h":272,"size":36,"color":"#595757","line":40},
+      {"empty":"暂无评价","query":"handbook.信息评语#desc#5#信息技术","x":933,"y":1059,"w":614,"h":272,"size":36,"color":"#595757","line":40},
+      {"empty":"暂无评价","query":"handbook.科学评语#desc#5#科学","x":1628,"y":1059,"w":614,"h":272,"size":36,"color":"#595757","line":40}
     ]
   }
 ]}
