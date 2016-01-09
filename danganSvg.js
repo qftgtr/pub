@@ -6,7 +6,7 @@ var DanganSVG = function() {
   var dev_ip = 'http://preevaluate.mexue.com';
   var LOG = Math.max(LOG||0, 3);
   var _target, _svg,
-      _defs, _elements, _bg,
+      _defs, _elements, _textElements, _bg,
       _interactions, _flag = '',
       _original;
   
@@ -34,6 +34,18 @@ var DanganSVG = function() {
     _bg = _svg.append('image').attr('id', 'dangan-background');
     _defs = _svg.append('defs').attr('id', 'dangan-defs');
     _elements = _svg.append('g').attr('id', 'dangan-elements');
+    _textElements = _svg.append('g').attr('id', 'dangan-text-elements');
+    
+    if (_original === true) {
+      if (!document.getElementById('dangan-svg-hidden')) {
+        d3.select('body').append('svg')
+          .attr('xmlns', 'http://www.w3.org/2000/svg')
+          .attr('version', '1.1')
+          .attr('xmlns:xlink', 'http://www.w3.org/1999/xlink')
+          .attr('id', 'dangan-svg-hidden');
+      }
+      document.getElementById('dangan-svg-hidden').appendChild(_textElements[0][0]);
+    }
     
     _rotate = rotate;
     
@@ -58,6 +70,7 @@ var DanganSVG = function() {
       var matrix = 'matrix(0,1,-1,0,'+_height+',0)';
       _bg.attr('transform', matrix);
       _elements.attr('transform', matrix);
+      _textElements.attr('transform', matrix);
     } else {
       _svg.attr('width', _width)
           .attr('height', _height);
@@ -223,7 +236,7 @@ var DanganSVG = function() {
   
   var putText = function(data, name) {
     var elementName = 'dangan-text-' + name;
-    _elements.selectAll('.'+elementName).data(data).enter()
+    _textElements.selectAll('.'+elementName).data(data).enter()
       .append('g')
       .attr('class', function(d,i) { return elementName+'-'+i;})
       .attr('transform', function(d) { return 'translate(' + _zoom*d.x + ',' + _zoom*d.y + ')'; })
@@ -339,16 +352,19 @@ var DanganSVG = function() {
     _bg.remove();
     _defs.remove();
     _elements.remove();
+    _textElements.remove();
     _bg = _svg.append('image').attr('id', 'dangan-background')
       .attr('width', _width)
       .attr('height', _height);
     _defs = _svg.append('defs').attr('id', 'dangan-defs');
     _elements = _svg.append('g').attr('id', 'dangan-elements');
+    _textElements = _svg.append('g').attr('id', 'dangan-text-elements');
     
     if (_rotate) {
       var matrix = 'matrix(0,1,-1,0,'+_height+',0)';
       _bg.attr('transform', matrix);
       _elements.attr('transform', matrix);
+      _textElements.attr('transform', matrix);
     }
   };
   
@@ -432,6 +448,7 @@ var DanganSVG = function() {
     put: putLayout,
     getJson: function() { return JSON.stringify(_layout); },
     getSvg: function() {
+      _svg[0][0].appendChild(_textElements[0][0]);
       _target.selectAll('.tooltip').remove();
       return _target.html();
     },
