@@ -72,7 +72,7 @@ var DanganSVG = function() {
         .attr('width', _width)
         .attr('height', _height)
         .append('style').attr('type', 'text/css')
-      .text('text,tspan{font-family:"SimHei";}.radar-chart .axis line,.radar-chart .level{stroke:grey;stroke-width:.5}.radar-chart .axis .legend{font-size:'+44*_zoom+'px}.radar-chart .axis .legend.left{text-anchor:end}.radar-chart .axis .legend.middle{text-anchor:middle}.radar-chart .axis .legend.right{text-anchor:start}.radar-chart .tooltip{font-size:13px;transition:opacity .2s;opacity:0}.radar-chart .tooltip.visible{opacity:1}.radar-chart .area{stroke-width:2;fill-opacity:.1}.radar-chart.focus .area.focused{fill-opacity:.6}');
+        .text('text,tspan{font-family:"SimHei";}.radar-chart .axis line,.radar-chart .level{stroke:grey;stroke-width:.5}.radar-chart .axis .legend{font-size:'+44*_zoom+'px}.radar-chart .axis .legend.left{text-anchor:end}.radar-chart .axis .legend.middle{text-anchor:middle}.radar-chart .axis .legend.right{text-anchor:start}.radar-chart .tooltip{font-size:13px;transition:opacity .2s;opacity:0}.radar-chart .tooltip.visible{opacity:1}.radar-chart .area{stroke-width:2;fill-opacity:.1}.radar-chart.focus .area.focused{fill-opacity:.6}');
     }
     
     if (_rotate) {
@@ -369,13 +369,13 @@ var DanganSVG = function() {
       .attr('height', _height);
     _defs = _svg.append('defs').attr('id', 'dangan-defs');
     _elements = _svg.append('g').attr('id', 'dangan-elements');
-    _textElements = _svg.append('g').attr('id', 'dangan-text-elements');
+    //_textElements = _svg.append('g').attr('id', 'dangan-text-elements');
     
     if (_rotate) {
       var matrix = 'matrix(0,1,-1,0,'+_height+',0)';
       _bg.attr('transform', matrix);
       _elements.attr('transform', matrix);
-      _textElements.attr('transform', matrix);
+      //_textElements.attr('transform', matrix);
     }
   };
   
