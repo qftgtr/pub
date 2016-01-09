@@ -318,6 +318,8 @@ var DanganSVG = function() {
       .attr('width', data.w*_zoom)
       .attr('height', data.h*_zoom)
       .datum(radar).call(chart);
+    
+    $('.tooltip').remove();
   };
   
   var putBars = function(data, name) {
@@ -326,7 +328,7 @@ var DanganSVG = function() {
       .append('rect')
       .attr('class', elementName)
       .attr('transform', function(d) { return 'translate(' + _zoom*d.x + ',' + _zoom*d.y + ')'; })
-      .attr('width', function(d) {return _zoom*d.w * d.value[0];})
+      .attr('width', function(d) {return (_zoom*d.w||0) * d.value[0];})
       .attr('height', function(d) {return _zoom*d.h;})
       .attr('rx', function(d) {return _zoom*d.h/2;})
       .attr('ry', function(d) {return _zoom*d.h/2;})
