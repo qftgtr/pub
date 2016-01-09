@@ -34,7 +34,6 @@ var DanganSVG = function() {
     _bg = _svg.append('image').attr('id', 'dangan-background');
     _defs = _svg.append('defs').attr('id', 'dangan-defs');
     _elements = _svg.append('g').attr('id', 'dangan-elements');
-    _textElements = _svg.append('g').attr('id', 'dangan-text-elements');
     
     if (_original === true) {
       if (!document.getElementById('dangan-svg-hidden')) {
@@ -44,7 +43,11 @@ var DanganSVG = function() {
           .attr('xmlns:xlink', 'http://www.w3.org/1999/xlink')
           .attr('id', 'dangan-svg-hidden');
       }
-      document.getElementById('dangan-svg-hidden').appendChild(_textElements[0][0]);
+      
+      _textElements = d3.select('#dangan-svg-hidden').append('g').attr('id', 'dangan-text-elements');
+//      document.getElementById('dangan-svg-hidden').appendChild(_textElements[0][0]);
+    } else {
+      _textElements = _svg.append('g').attr('id', 'dangan-text-elements');
     }
     
     _rotate = rotate;
