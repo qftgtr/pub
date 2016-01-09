@@ -35,7 +35,7 @@ var DanganSVG = function() {
     _defs = _svg.append('defs').attr('id', 'dangan-defs');
     _elements = _svg.append('g').attr('id', 'dangan-elements');
     
-    if (_original === true) {
+    if (_original) {
       if (!document.getElementById('dangan-svg-hidden')) {
         d3.select('body').append('svg')
           .attr('xmlns', 'http://www.w3.org/2000/svg')
@@ -363,7 +363,7 @@ var DanganSVG = function() {
     _bg.remove();
     _defs.remove();
     _elements.remove();
-//    _textElements.remove();
+    (!_original) && _textElements.remove();
     _bg = _svg.append('image').attr('id', 'dangan-background')
       .attr('width', _width)
       .attr('height', _height);
@@ -459,7 +459,7 @@ var DanganSVG = function() {
     put: putLayout,
     getJson: function() { return JSON.stringify(_layout); },
     getSvg: function() {
-//      _target[0][0].appendChild(_textElements[0][0]);
+//      _svg[0][0].appendChild(_textElements[0][0]);
       _target.selectAll('.tooltip').remove();
       return _target.html();
     },
