@@ -363,19 +363,22 @@ var DanganSVG = function() {
     _bg.remove();
     _defs.remove();
     _elements.remove();
-    (!_original) && _textElements.remove();
+    _textElements.remove();
     _bg = _svg.append('image').attr('id', 'dangan-background')
       .attr('width', _width)
       .attr('height', _height);
     _defs = _svg.append('defs').attr('id', 'dangan-defs');
     _elements = _svg.append('g').attr('id', 'dangan-elements');
-    //_textElements = _svg.append('g').attr('id', 'dangan-text-elements');
+    if (_original)
+      _textElements = d3.select('#dangan-svg-hidden').append('g').attr('id', 'dangan-text-elements');
+    else
+      _textElements = _svg.append('g').attr('id', 'dangan-text-elements');
     
     if (_rotate) {
       var matrix = 'matrix(0,1,-1,0,'+_height+',0)';
       _bg.attr('transform', matrix);
       _elements.attr('transform', matrix);
-      //_textElements.attr('transform', matrix);
+      _textElements.attr('transform', matrix);
     }
   };
   
@@ -459,7 +462,7 @@ var DanganSVG = function() {
     put: putLayout,
     getJson: function() { return JSON.stringify(_layout); },
     getSvg: function() {
-//      _svg[0][0].appendChild(_textElements[0][0]);
+      _svg[0][0].appendChild(_textElements[0][0]);
       _target.selectAll('.tooltip').remove();
       return _target.html();
     },
