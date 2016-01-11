@@ -86,6 +86,14 @@ var DanganCore = (function(undefined) {
         var ymd = d.value.split('-');
         if (ymd.length === 1)
           ymd = d.value.split('/');
+        if (ymd.length === 1) {
+          var yMD = d.value.split('年'),
+              mD = yMD[1].split('月'),
+              D = mD[1].split('日');
+          
+          ymd = [yMD[0], mD[0], D[0]];
+        }
+          
 
         if (ymd.length === 1)
           d.value = '';
