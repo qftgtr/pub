@@ -114,7 +114,9 @@ var Dangan = (function(undefined) {
   var savePage = function(page, callback) {
     page = page || _page;
     
-    var _svg_hidden = _svg.clone($('<div id="svg-hidden-'+page+'"></div>')[0]);
+    var _svg_hidden = _svg.clone($('<div id="svg-hidden-'+page+'"></div>')[0], {
+      w: 2520, h: 1620
+    });
     goPage(page, _svg_hidden, true).done(function() {
       setTimeout(function() {
         if (LOG) console.log('***savePage: '+page);
