@@ -118,10 +118,10 @@ var DanganCore = (function(undefined) {
       console.log(result);
       var total = 0;
       result.forEach(function(r) {
-        total += parseFloat(r.data) || 0;
+        total += parseFloat(r.data)*100 || 0;
       });
       
-      return total;
+      return total/100;
     },
     'evaluation': function(result) {
       var newResult = [];
