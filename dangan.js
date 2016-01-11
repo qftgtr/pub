@@ -115,7 +115,7 @@ var Dangan = (function(undefined) {
     page = page || _page;
     
     var _svg_hidden = _svg.clone($('<div id="svg-hidden-'+page+'"></div>')[0], {
-      w: 2520, h: 1620, zoom: 1.0161290322581
+      w: 2520, h: 1620, zoom: 1.0161
     });
     goPage(page, _svg_hidden, true).done(function() {
       setTimeout(function() {
