@@ -1,5 +1,5 @@
 var DanganCore = (function(undefined) {
-  var LOG = Math.max(LOG||0, 3);
+  //var LOG = Math.max(LOG||0,0);
   var _width, _height, _nPage, _titles, _remarks,
       _sysTmpl = [], _userTmpl = [],
       _pageReady = []; // undefined for nothing, false for sysTmpl, true for userTmpl
@@ -14,7 +14,8 @@ var DanganCore = (function(undefined) {
     '达标':   'score_4.png',
     '不达标': 'score_5.png',
     '合格':   'score_6.png',
-    '不合格': 'score_7.png'
+    '不合格': 'score_7.png',
+    '加油': 'score_9.png'
   };
   
   var _star1 = {
@@ -83,17 +84,16 @@ var DanganCore = (function(undefined) {
     },
     'getAstro': function(d) {
       if (d.value) {
-        var ymd = d.value.split('-');
-        if (ymd.length === 1)
-          ymd = d.value.split('/');
-        if (ymd.length === 1) {
-          var yMD = d.value.split('年'),
-              mD = yMD[1].split('月'),
-              D = mD[1].split('日');
-          
-          ymd = [yMD[0], mD[0], D[0]];
-        }
-          
+		  var ymd = d.value.split('-');
+	      if (ymd.length === 1)
+	        ymd = d.value.split('/');
+	      if (ymd.length === 1) {
+	        var yMD = d.value.split('年'),
+	            mD = yMD[1].split('月'),
+	            D = mD[1].split('日');
+	        
+	        ymd = [yMD[0], mD[0], D[0]];
+	      }
 
         if (ymd.length === 1)
           d.value = '';

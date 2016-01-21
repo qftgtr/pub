@@ -2,10 +2,8 @@
 var _d,_this;
 var DanganSVG = function() {
   var undefined = undefined, $ = jQuery;
-  
-  var dev_ip = 'http://www.mexue.com';
 //  var dev_ip = 'http://preevaluate.mexue.com';
-  var LOG = Math.max(LOG||0, 3);
+  var LOG = 0;
   var _target, _svg,
       _defs, _elements, _textElements, _bg,
       _interactions, _flag = '',
@@ -63,12 +61,6 @@ var DanganSVG = function() {
   var size = function(w, h, zoom) {
     _width = w*zoom;
     _height = h*zoom;
-    
-    if (_original) {
-      _width = w;
-      _height = h;
-    }
-    
     _zoom = zoom;
     
     _svg.append('style').attr('type', 'text/css')
@@ -79,7 +71,7 @@ var DanganSVG = function() {
         .attr('width', _width)
         .attr('height', _height)
         .append('style').attr('type', 'text/css')
-        .text('text,tspan{font-family:"SimHei";}.radar-chart .axis line,.radar-chart .level{stroke:grey;stroke-width:.5}.radar-chart .axis .legend{font-size:'+44*_zoom+'px}.radar-chart .axis .legend.left{text-anchor:end}.radar-chart .axis .legend.middle{text-anchor:middle}.radar-chart .axis .legend.right{text-anchor:start}.radar-chart .tooltip{font-size:13px;transition:opacity .2s;opacity:0}.radar-chart .tooltip.visible{opacity:1}.radar-chart .area{stroke-width:2;fill-opacity:.1}.radar-chart.focus .area.focused{fill-opacity:.6}');
+        .text('text,tspan{font-family:"SimHei";}#dangan-svg-hidden .radar-chart .axis .legend{font-size:'+44*_zoom+'px}.radar-chart .axis .legend.left{text-anchor:end}.radar-chart .axis .legend.middle{text-anchor:middle}.radar-chart .axis .legend.right{text-anchor:start}');
     }
     
     if (_rotate) {
@@ -116,7 +108,12 @@ var DanganSVG = function() {
       .attr('class', function(d) { return elementName + (d.click?' dangan-click':'');})
       .attr('clip-path', function(d,i) { return 'url(#'+clipName+i+')'; })
       .append('image')
-      .attr('xlink:href', function(d) {return d.value && (dev_ip+d.value);})
+      .attr('xlink:href', function(d) {
+    	  if (d.value && d.value[0] !== 'h')
+    		  return dev_ip+d.value;
+    	  else
+    		  return d.value;
+      })
       .attr('width', function(d) {return 2*_zoom*d.r;})
       .attr('height', function(d) {return 2*_zoom*d.r;})
       .attr('transform', function(d) { return 'translate(' + _zoom*d.x + ',' + _zoom*d.y + ')'; })
@@ -175,7 +172,12 @@ var DanganSVG = function() {
     
     clipBox.append('image')
       .attr('class', function(d,i) { return elementName+'-'+i;})// + (d.modify?' dangan-modify':'');})
-      .attr('xlink:href', function(d) {return d.value && (dev_ip+d.value);})
+      .attr('xlink:href', function(d) {
+    	  if (d.value && d.value[0] !== 'h')
+    		  return dev_ip+d.value;
+    	  else
+    		  return d.value;
+      })
       .attr('width', function(d) {return _zoom*d.w;})
       .attr('height', function(d) {return _zoom*d.h;})
       .attr('transform', function(d) {
@@ -395,9 +397,20 @@ var DanganSVG = function() {
     if (LOG) console.log(JSON.stringify(layout));
     
     if (fullBg)
-      _bg.attr('xlink:href', dev_ip+layout.bg);
+      _bg.attr('xlink:href', function() {
+    	  if (layout.bg && layout.bg[0] !== 'h')
+    		  return dev_ip+layout.bg;
+    	  else
+    		  return layout.bg;
+    	  
+      });
     else
-      _bg.attr('xlink:href', dev_ip+layout.bg2);
+      _bg.attr('xlink:href', function() {
+    	  if (layout.bg2 && layout.bg2[0] !== 'h')
+    		  return dev_ip+layout.bg2;
+    	  else
+    		  return layout.bg2;
+      });
     
     var elements = layout.elem,
         length = elements.length;
@@ -471,7 +484,7 @@ var DanganSVG = function() {
     getSvg: function() {
       _svg[0][0].appendChild(_textElements[0][0]);
       _target.selectAll('.tooltip').remove();
-      return _target.html();
+      return _target.html().replace(/ NS[0-9]{1,2}:/g,' xlink:').replace(/ href/g,' xlink:href').replace(/ xlink=/,' xmlns:xlink=').replace(/&nbsp;/g,'');
     },
     dragEnd: function() {
       if (_overNode && _interactions.drag && _interactions.drag.apply) {

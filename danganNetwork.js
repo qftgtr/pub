@@ -1,5 +1,5 @@
 var DanganNetwork = (function(undefined, $) {
-  var LOG = Math.max(LOG||0, 1);
+  //var LOG = Math.max(LOG||0, 0);
   
   var url = '/mobile/api/evaluate/print/record';
   

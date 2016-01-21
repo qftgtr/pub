@@ -409,7 +409,7 @@ Dangan.init({width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:
     
     {"query":"artRecord.total","align":"end","size":40,"color":"#ea5514","w":98,"h":40,"x":2123,"y":890},
 
-    {"filter":"sum","query":["handbook.基础指标-课程学习（美）#itemCheck#5#美术","handbook.基础指标-课外活动（美）#itemCheck#5#美术","handbook.学业指标-基础知识（美）#itemCheck#5#美术","handbook.学业指标-基本技能（美）#itemCheck#5#美术","handbook.基础指标-课程学习（音）#itemCheck#5#音乐","handbook.基础指标-课外活动（音）#itemCheck#5#音乐","handbook.学业指标-基础知识（音）#itemCheck#5#音乐","handbook.学业指标-基本技能（音）#itemCheck#5#音乐","artRecord.total"],"align":"end","size":40,"color":"#ea5514","w":127,"h":40,"x":1441,"y":1247},
+    {"filter":"sum","query":["handbook.基础指标-课程学习（美）#itemCheck#5#美术","handbook.基础指标-课外活动（美）#itemCheck#5#美术","handbook.学业指标-基础知识（美）#itemCheck#5#美术","handbook.学业指标-基本技能（美）#itemCheck#5#美术","handbook.基础指标-课程学习（音）#itemCheck#5#音乐","handbook.基础指标-课外活动（音）#itemCheck#5#音乐","handbook.学业指标-基础知识（音）#itemCheck#5#音乐","handbook.学业指标-基本技能（音）#itemCheck#5#音乐","artRecord.total"],"align":"end","size":40,"color":"#ea5514","w":260,"h":40,"x":1441,"y":1247},
     {"helper":"artGrade","filter":"sum","query":["handbook.基础指标-课程学习（美）#itemCheck#5#美术","handbook.基础指标-课外活动（美）#itemCheck#5#美术","handbook.学业指标-基础知识（美）#itemCheck#5#美术","handbook.学业指标-基本技能（美）#itemCheck#5#美术","handbook.基础指标-课程学习（音）#itemCheck#5#音乐","handbook.基础指标-课外活动（音）#itemCheck#5#音乐","handbook.学业指标-基础知识（音）#itemCheck#5#音乐","handbook.学业指标-基本技能（音）#itemCheck#5#音乐","artRecord.total"],"align":"end","size":40,"color":"#ea5514","w":130,"h":40,"x":1496,"y":1187}
   ]
 }, {

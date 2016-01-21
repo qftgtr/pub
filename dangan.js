@@ -1,5 +1,5 @@
 var Dangan = (function(undefined) {
-  var LOG = Math.max(LOG||0, 0);
+  //var LOG = Math.max(LOG||0, 0);
   var _svg = DanganSVG(),
       _svg_hidden;
   
@@ -18,7 +18,7 @@ var Dangan = (function(undefined) {
       if (_imgUrl) {
         _pageChanged = true;
         node.data.value = _imgUrl;
-        d3.select(node.node).attr('xlink:href', 'http://preevaluate.mexue.com/static/images/print/MX_loading.png');
+        d3.select(node.node).attr('xlink:href', '/static/images/print/MX_loading.png');
         d3.select(node.node).attr('xlink:href', _imgUrl);
         
         var className = node.node.getAttribute('class'),
@@ -114,9 +114,7 @@ var Dangan = (function(undefined) {
   var savePage = function(page, callback) {
     page = page || _page;
     
-    var _svg_hidden = _svg.clone($('<div id="svg-hidden-'+page+'"></div>')[0], {
-      w: 2520, h: 1620, zoom: 1.0161
-    });
+    var _svg_hidden = _svg.clone($('<div id="svg-hidden-'+page+'"></div>')[0]);
     goPage(page, _svg_hidden, true).done(function() {
       setTimeout(function() {
         if (LOG) console.log('***savePage: '+page);
