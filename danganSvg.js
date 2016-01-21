@@ -468,8 +468,8 @@ var DanganSVG = function() {
     } else if (status === 'stop') {
       
     }
-  };  
-  
+  };
+
   var wrapText = function(node) {
     var d = node.datum();
     node.textwrap({width: _zoom*d.w, height: _zoom*d.h, x:0, y:0}, 0);
@@ -481,10 +481,12 @@ var DanganSVG = function() {
     clear: clear,
     put: putLayout,
     getJson: function() { return JSON.stringify(_layout); },
-    getSvg: function() {
+    getSvg: function(addEmpty) {
       _svg[0][0].appendChild(_textElements[0][0]);
       _target.selectAll('.tooltip').remove();
-      return _target.html().replace(/ NS[0-9]{1,2}:/g,' xlink:').replace(/ href/g,' xlink:href').replace(/ xlink=/,' xmlns:xlink=').replace(/&nbsp;/g,'');
+      var svgStr = _target.html().replace(/ NS[0-9]{1,2}:/g,' xlink:').replace(/ href/g,' xlink:href').replace(/ xlink=/,' xmlns:xlink=').replace(/&nbsp;/g,'');
+      addEmpty(svgStr.match(/growth_default.png/g).length);
+      return svgStr;
     },
     dragEnd: function() {
       if (_overNode && _interactions.drag && _interactions.drag.apply) {
