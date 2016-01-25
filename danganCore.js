@@ -74,9 +74,9 @@ var DanganCore = (function(undefined) {
         }
         
         if (d.value > 0 && d.offset) {
-          d.x = d.x-106;
-          d.offset = false;
-        }
+            d.x = d.x-106;
+            d.offset = false;
+          }
         
         d.value = '/static/images/print/template/red%20flower.png';
       }

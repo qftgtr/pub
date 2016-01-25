@@ -323,9 +323,9 @@ var DanganSVG = function() {
       h: data.h*_zoom,
       factor: 0.85,
       factorLegend: 1,
-      levels: 4,
+      levels: 5,
       maxValue: 100,
-      minValue: 60,//55,
+      minValue: 50,//55,
       radians: 2 * Math.PI,
       color: d3.scale.category10(), // pass a noop (function() {}) to decide color via css
       axisLine: true,
@@ -484,7 +484,7 @@ var DanganSVG = function() {
     getSvg: function(addEmpty) {
       _svg[0][0].appendChild(_textElements[0][0]);
       _target.selectAll('.tooltip').remove();
-      var svgStr = _target.html().replace(/点击添加成长记录文字/g,'').replace(/ NS[0-9]{1,2}:/g,' xlink:').replace(/ href/g,' xlink:href').replace(/ xlink=/,' xmlns:xlink=').replace(/&nbsp;/g,'');
+      var svgStr = _target.html().replace(/暂无评价/g,'').replace(/点击添加成长记录文字/g,'').replace(/成长记录无文字/g,'').replace(/ NS[0-9]{1,2}:/g,' xlink:').replace(/ href/g,' xlink:href').replace(/ xlink=/,' xmlns:xlink=').replace(/&nbsp;/g,'');
       var matchDefault = svgStr.match(/growth_default.png/g);
       addEmpty && addEmpty(matchDefault?matchDefault.length:0);
       return svgStr;
