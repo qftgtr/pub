@@ -118,26 +118,55 @@ var Dangan = (function(undefined) {
     var _svg_hidden = _svg.clone($('<div id="svg-hidden-'+page+'"></div>')[0]);
     goPage(page, _svg_hidden, true).done(function() {
       setTimeout(function() {
-        if (LOG) console.log('***savePage: '+page);
-        DanganCore.savePage(page, _svg_hidden.getSvg(function(x) {nEmpty+=x;}), _svg_hidden.getJson());
-        $('#svg-hidden-'+page).empty();
-        _pageChanged = false;
+        //if (LOG) console.log('***savePage: '+page);
+    	var svgStr = _svg_hidden.getSvg(function(x) {nEmpty+=x;});
+    	
+    	if (svgStr.indexOf('polygon')>-1 && svgStr.indexOf('points')<0) {
+//    		console.log('%%%%%%%%%%%%%wait');
+    		var h = setInterval(function() {
+    			svgStr = _svg_hidden.getSvg();
+    			if (svgStr.indexOf('polygon')>-1 && svgStr.indexOf('points')<0) {
+//    				console.log('%%%%%%%%%%%%%wait');
+    			} else {
+//    				console.log(svgStr);
+    				DanganCore.savePage(page, svgStr, _svg_hidden.getJson());
+        	        $('#svg-hidden-'+page).empty();
+        	        _pageChanged = false;
+        	        
+        	        if (callback && callback.apply) {
+        	          callback(page, nEmpty);
+        	        } else {
+//        	          console.log('保存成功');
+        	        }
+        	        
+        	        clearInterval(h);
+    			}
+    		}, 200);
+    	} else {
+    		DanganCore.savePage(page, svgStr, _svg_hidden.getJson());
+	        $('#svg-hidden-'+page).empty();
+	        _pageChanged = false;
+	        
+	        if (callback && callback.apply) {
+	          callback(page, nEmpty);
+	        } else {
+//	          console.log('保存成功');
+	        }
+    	}
+    	
         
-        if (callback && callback.apply) {
-          callback(page, nEmpty);
-        } else {
-          console.log('保存成功');
-        }
       }, 200);
     });
   };
   
   var saveAllPages = function(pages, callback) {
-    var pageDone = 0;
+    var pageDone = 0, nEmpty=0;
     for (var i=0; i<_nPage; i++) {
       if (pages==='all' || pages.indexOf(i) > -1) {
-        savePage(i, function(page,nEmpty) {
+        savePage(i, function(page,empty) {
           pageDone++;
+          nEmpty += empty;
+//          console.log('xxxxxxxxx'+_nPage+'xxxxxx'+pageDone+'xxxx'+empty+'xxx'+nEmpty);
           if (pageDone === _nPage)
             callback && callback.apply && callback(nEmpty);
         });
