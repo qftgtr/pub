@@ -117,7 +117,6 @@ var Dangan = (function(undefined) {
     var nEmpty = 0;
     var _svg_hidden = _svg.clone($('<div id="svg-hidden-'+page+'"></div>')[0]);
     goPage(page, _svg_hidden, true).done(function() {
-      var _page = page;
       setTimeout(function() {
         //if (LOG) console.log('***savePage: '+page);
     	var svgStr = _svg_hidden.getSvg(function(x) {nEmpty+=x;});
@@ -132,7 +131,7 @@ var Dangan = (function(undefined) {
 //    				console.log(svgStr);
     				DanganCore.savePage(page, svgStr, _svg_hidden.getJson()).done(function(result) {
                       if (callback && callback.apply) {
-                        callback(_page, nEmpty);
+                        callback(page, nEmpty);
                       } else {
 //                        console.log('保存成功');
                       }
@@ -146,7 +145,7 @@ var Dangan = (function(undefined) {
     	} else {
     		DanganCore.savePage(page, svgStr, _svg_hidden.getJson()).done(function(result) {
               if (callback && callback.apply) {
-                callback(_page, nEmpty);
+                callback(page, nEmpty);
               } else {
 //                console.log('保存成功');
               }
