@@ -102,6 +102,8 @@ var DanganNetwork = (function(undefined, $) {
         if (LOG) console.log('Network.call saveUserTmpl done page '+(data.page-1));
         if (LOG) console.log(JSON.stringify(result));
         defer.resolve(result);
+      }).fail(function(jqXHR, textStatus, errorThrown) {
+        
       });
     }
     

@@ -484,7 +484,7 @@ var DanganSVG = function() {
     getSvg: function(addEmpty) {
       _svg[0][0].appendChild(_textElements[0][0]);
       _target.selectAll('.tooltip').remove();
-      var svgStr = _target.html().replace(/暂无评价/g,'').replace(/点击添加成长记录文字/g,'').replace(/成长记录无文字/g,'').replace(/ NS[0-9]{1,2}:/g,' xlink:').replace(/ href/g,' xlink:href').replace(/ xlink=/,' xmlns:xlink=').replace(/&nbsp;/g,'');
+      var svgStr = _target.html().replace(/暂无评价/g,'').replace(/点击添加文字描述/g,'').replace(/点击添加成长记录文字/g,'').replace(/成长记录无文字/g,'').replace(/ NS[0-9]{1,2}:/g,' xlink:').replace(/ href/g,' xlink:href').replace(/ xlink=/,' xmlns:xlink=').replace(/&nbsp;/g,'');
       var matchDefault = svgStr.match(/growth_default.png/g);
       addEmpty && addEmpty(matchDefault?matchDefault.length:0);
       return svgStr;
