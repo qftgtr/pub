@@ -240,10 +240,12 @@ var DanganCore = (function(undefined) {
   var init = function(method, options) {
     if (LOG) console.log('Core.init with method '+method);
     
-    _studentId = options.studentId;
-    _sysTemplate = options.sysTemplate;
-    _userTemplate = options.userTemplate;
-    _termId = options.termId;
+    if (method !== 'randomGrowth') {
+      _studentId = options.studentId;
+      _sysTemplate = options.sysTemplate;
+      _userTemplate = options.userTemplate;
+      _termId = options.termId;
+    }
     
     if (method === 'loadSystem' || method === 'randomGrowth') {
       var defer = $.Deferred();

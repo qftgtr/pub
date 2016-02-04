@@ -215,12 +215,7 @@ var Dangan = (function(undefined) {
 //  var _randomGrowth
   
   var randomGrowth = function() {
-    DanganCore.init('randomGrowth', {//loadSystem
-      studentId: options.studentId,
-      sysTemplate: options.sysTemplate,
-      userTemplate: options.userTemplate,
-      termId: options.termId
-    }).done(function(data) {
+    DanganCore.init('randomGrowth').done(function(data) {
       if (LOG) console.log('***init get result back');
       
       _nPage = data.nPage;
