@@ -242,13 +242,12 @@ var DanganCore = (function(undefined) {
     if (LOG) console.log('Core.init with method '+method);
     
     if (method !== 'randomGrowth') {
-      _growthCacheIndex = {first: 0, second: 0};
       _studentId = options.studentId;
       _sysTemplate = options.sysTemplate;
       _userTemplate = options.userTemplate;
       _termId = options.termId;
     }
-    
+    _growthCacheIndex = {first: 0, second: 0};
     if (method === 'loadSystem' || method === 'randomGrowth') {
       var defer = $.Deferred();
       _loadSystemTmpl().done(function(result) {
