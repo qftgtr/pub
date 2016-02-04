@@ -370,35 +370,47 @@ var DanganCore = (function(undefined) {
           q = elem.query,
           g = elem.growth;
       
-      if (g && !randomGrowth) {
-        var __defer = $.Deferred();
-        queries.push(__defer.promise());
-        
-        DanganNetwork.call('getGrowth', {
-          tagId: g,
-          pageNum: 1,
-          pageSize: data.length,
-          studentId: _studentId
-        }).done(function(result) {
-          var i=0;
-          
-          result.forEach(function(r) {
-            r.data.forEach(function(d) {
-              if (i<data.length) {
-                data[i].value = data[i].value || d.imgs[0];
-                if ($.trim(d.text))
-                  data[i].gText = data[i].gText || d.text;
-                i++;
-              }
+      if (g) {
+        if (randomGrowth) {
+          data.forEach(function(d) {
+            var defer = $.Deferred();
+            queries.push(defer.promise());
+            getGrowthFromCache().done(function(g) {
+              d.value = g.img;
+              d.gText = g.text;
+              defer.resolve();
             });
           });
-          
-          for (;i<data.length;i++) {
-            data[i].value = data[i].value || _defaultGrowth;
-          }
-          
-          __defer.resolve();
-        });
+        } else {
+          var __defer = $.Deferred();
+          queries.push(__defer.promise());
+
+          DanganNetwork.call('getGrowth', {
+            tagId: g,
+            pageNum: 1,
+            pageSize: data.length,
+            studentId: _studentId
+          }).done(function(result) {
+            var i=0;
+
+            result.forEach(function(r) {
+              r.data.forEach(function(d) {
+                if (i<data.length) {
+                  data[i].value = data[i].value || d.imgs[0];
+                  if ($.trim(d.text))
+                    data[i].gText = data[i].gText || d.text;
+                  i++;
+                }
+              });
+            });
+
+            for (;i<data.length;i++) {
+              data[i].value = data[i].value || _defaultGrowth;
+            }
+
+            __defer.resolve();
+          });
+        }
       }
       
       
@@ -518,11 +530,11 @@ var DanganCore = (function(undefined) {
   var getGrowth = function(page, pageSize) {
     var defer = $.Deferred();
     
-    if (_growthCache[page-1]) {
-      defer.resolve(_growthCache[page-1]);
+    if (_growthCache[page]) {
+      defer.resolve(_growthCache[page]);
     } else {
       DanganNetwork.call('getGrowth', {
-        pageNum: page,
+        pageNum: page+1,
         studentId: _studentId,
         pageSize: pageSize,
         termId: _termId

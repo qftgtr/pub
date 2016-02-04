@@ -196,7 +196,7 @@ var Dangan = (function(undefined) {
   
   //page, 
   var getGrowth = function(page, callback) {
-    DanganCore.getGrowth(page+1).done(function(result) {
+    DanganCore.getGrowth(page).done(function(result) {
       callback && callback.apply && callback(result);
     });
   };
