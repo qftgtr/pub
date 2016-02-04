@@ -549,7 +549,7 @@ var DanganCore = (function(undefined) {
         });
 
         if (!pageSize)
-          _growthCache.push(growth);
+          _growthCache[page] = growth;
 
         defer.resolve(growth);
       });
@@ -582,7 +582,8 @@ var DanganCore = (function(undefined) {
 //    clearImage: clearImage,
 //    setText: setText,
     savePage: savePage,
-    getGrowthFromCache: getGrowthFromCache
+    getGrowthFromCache: getGrowthFromCache,
+    growthIndex: _growthCacheIndex
   }
 
 }(undefined));
