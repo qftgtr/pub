@@ -134,15 +134,15 @@ var Dangan = (function(undefined) {
                   
                     if (incomplete) {
                       alertCallback && alertCallback.apply && alertCallback(incomplete);
-                    } else {
-                      DanganCore.savePage(page, svgStr, JSON.stringify(json)).done(function(result) {
-                        if (callback && callback.apply) {
-                          callback(page, nEmpty);
-                        } else {
-  //                        console.log('保存成功');
-                        }
-                      });
                     }
+                  
+                    DanganCore.savePage(page, svgStr, JSON.stringify(json)).done(function(result) {
+                      if (callback && callback.apply) {
+                        callback(page, nEmpty);
+                      } else {
+//                        console.log('保存成功');
+                      }
+                    });
     				
         	        $('#svg-hidden-'+page).empty();
         	        _pageChanged = false;
@@ -156,16 +156,15 @@ var Dangan = (function(undefined) {
           
           if (incomplete) {
             alertCallback && alertCallback.apply && alertCallback(incomplete);
-          } else {
-    		DanganCore.savePage(page, svgStr, JSON.stringify(json)).done(function(result) {
-              if (callback && callback.apply) {
-                callback(page, nEmpty);
-              } else {
-//                console.log('保存成功');
-              }
-              
-            });
           }
+          
+          DanganCore.savePage(page, svgStr, JSON.stringify(json)).done(function(result) {
+            if (callback && callback.apply) {
+              callback(page, nEmpty);
+            } else {
+//                console.log('保存成功');
+            }
+          });
           
           $('#svg-hidden-'+page).empty();
           _pageChanged = false;
@@ -178,15 +177,19 @@ var Dangan = (function(undefined) {
   
   var saveAllPages = function(pages, callback, alertCallback) {
     var pageDone = 0, nEmpty=0;
+    var fail;
     for (var i=0; i<_nPage; i++) {
       if (pages==='all' || pages.indexOf(i) > -1) {
         savePage(i, function(page,empty) {
           pageDone++;
           nEmpty += empty;
 //          console.log('xxxxxxxxx'+_nPage+'xxxxxx'+pageDone+'xxxx'+empty+'xxx'+nEmpty);
-          if (pageDone === _nPage)
+          if (pageDone === _nPage && !fail)
             callback && callback.apply && callback(nEmpty);
-        }, alertCallback || alert);
+        }, function(msg) {
+          fail = true;
+          (alertCallback && alertCallback.apply) ? alertCallback(msg) : DanganMask.setMsg(msg);
+        });
       }
     }
   };
