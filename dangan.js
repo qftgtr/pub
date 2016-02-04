@@ -241,12 +241,18 @@ var Dangan = (function(undefined) {
     }
     
     if (page === 3) {
-      console.log({page: page, svg: svg, json: json,value:json.elem[0].data[0].value});
+      var nSubjects = 0;
+      for (var i=0;i<9;i++) {
+        if (json.elem[0].data[i].value)
+          nSubjects++;
+      }
       
-      if (json.elem[0].data[0].value)
+      console.log({page: page, svg: svg, json: json,value:nSubjects});
+      
+      if (nSubjects >= 4)
         return false;
       else 
-        return '期末考试还未发布，请联系班主任发布成绩';
+        return '期末考试成绩还未发布或科目不足，请联系班主任发布成绩';
     }
     
     if (page === 16) {
@@ -255,16 +261,16 @@ var Dangan = (function(undefined) {
       if (json.elem[3].data[4].value && json.elem[3].data[9].value)
         return false;
       else
-        return '艺术素质测评，请联系音乐或美术老师发布成绩';
+        return '艺术素质测评不足，请联系音乐或美术老师发布成绩';
     }
     
     if (page === 17) {
       console.log({page: page, svg: svg, json: json,value:json.elem[4].data[0].value,value2:json.elem[4].data[1].value});
       
-      if (json.elem[4].data[0].value && json.elem[4].data[1].value)
+      if (json.elem[4].data[0].value!=='暂无评价' && json.elem[4].data[1].value!=='暂无评价' && json.elem[4].data[2].value!=='暂无评价')
         return false;
       else
-        return '艺术素质测评，请联系音乐或美术老师发布成绩';
+        return '艺术素质测评不足，请检查自我评价或联系音乐美术老师发布成绩';
     }
   };
   
