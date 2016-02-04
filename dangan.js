@@ -221,16 +221,8 @@ var Dangan = (function(undefined) {
     DanganCore.init('randomGrowth').done(function(data) {
       if (LOG) console.log('***init get result back');
       
-      _nPage = data.nPage;
-      var w = data.width,
-          h = data.height,
-          zoom = Math.min(options.width/w, options.height/h);
-      
-      if (LOG>1) console.log({w: w, h: h, zoom: zoom});
-      
-      _svg.size(w, h, zoom);
-      goPage(0);
-//      goPage(_page);
+//      goPage(0);
+      goPage(_page);
       
       saveAllPages(data.save);
     });
