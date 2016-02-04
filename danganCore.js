@@ -242,6 +242,7 @@ var DanganCore = (function(undefined) {
     if (LOG) console.log('Core.init with method '+method);
     
     if (method !== 'randomGrowth') {
+      _growthCacheIndex = {first: 0, second: 0};
       _studentId = options.studentId;
       _sysTemplate = options.sysTemplate;
       _userTemplate = options.userTemplate;
@@ -376,8 +377,13 @@ var DanganCore = (function(undefined) {
             var defer = $.Deferred();
             queries.push(defer.promise());
             getGrowthFromCache().done(function(g) {
-              d.value = g.img || _defaultGrowth;
-              d.gText = g.text;
+              if (g) {
+                d.value = g.img;
+                d.gText = g.text;
+              } else {
+                d.value = _defaultGrowth;
+              }
+              
               defer.resolve();
             });
           });
