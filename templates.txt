@@ -10,7 +10,7 @@ Dangan.init({width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:
 
 // 2.班级合照
 {"elem":[
-  {"type":"image","name":"page2","growth":"25","data":[{"value":"/static/images/print/template/classs_photo_default.png","w":2080,"h":998,"x":200,"y":200,"modify":true}]},{
+  {"type":"image","name":"page2","data":[{"query":"class.photo","value":"/static/images/print/template/classs_photo_default.png","w":2080,"h":998,"x":200,"y":200,"modify":true}]},{
     "type":"text","name":"page2","data":[
       {"value":"点击添加文字描述","w":2126,"h":36,"x":1240,"y":1319,"size":36,"align":"middle","modify":true,"limit":58},
       {"value":"班级合影","w":2126,"h":36,"x":1240,"y":1260,"size":36,"align":"middle"}

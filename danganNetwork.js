@@ -106,8 +106,9 @@ var DanganNetwork = (function(undefined, $) {
     }
     
     if (cmd === 'getData') {
+      if (LOG) console.log('Network.call getData');
+      if (LOG) console.log(JSON.stringify(data));
       var didQuery = dataCache.query(function(data) {
-        if (LOG) console.log('Network.call getData');
         if (LOG) console.log(JSON.stringify(data));
         data.m = 'getData';
         return $.ajax({ url: url, data: data }).done(function(result) {
