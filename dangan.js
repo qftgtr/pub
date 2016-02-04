@@ -153,6 +153,7 @@ var Dangan = (function(undefined) {
     	} else {
           var json = _svg_hidden.getJson(),
               incomplete = _checkCompleteness(page, svgStr, json);
+          
           if (incomplete) {
             alertCallback && alertCallback.apply && alertCallback(incomplete);
           } else {
@@ -185,7 +186,7 @@ var Dangan = (function(undefined) {
 //          console.log('xxxxxxxxx'+_nPage+'xxxxxx'+pageDone+'xxxx'+empty+'xxx'+nEmpty);
           if (pageDone === _nPage)
             callback && callback.apply && callback(nEmpty);
-        }, alertCallback);
+        }, alertCallback || alert);
       }
     }
   };
@@ -219,10 +220,11 @@ var Dangan = (function(undefined) {
   
   var _checkCompleteness = function(page, svg, json) {
     console.log('check completeness');
-    console.log({page: page, svg: svg, json: json});
+    
     
     if (page === 0) {
-//      console.log(json.elem[0].data[0]);
+      console.log({page: page, svg: svg, json: json,value:json.elem[0].data[0].value});
+      
       if (json.elem[0].data[0].value)
         return false;
       else
@@ -230,7 +232,8 @@ var Dangan = (function(undefined) {
     }
     
     if (page === 1) {
-//      console.log(json.elem[0].data[0]);
+      console.log({page: page, svg: svg, json: json,value:json.elem[0].data[0].value});
+      
       if (json.elem[0].data[0].value !== '/static/images/print/template/classs_photo_default.png')
         return false;
       else 
@@ -238,7 +241,8 @@ var Dangan = (function(undefined) {
     }
     
     if (page === 3) {
-//      console.log(json.elem[0].data[0]);
+      console.log({page: page, svg: svg, json: json,value:json.elem[0].data[0].value});
+      
       if (json.elem[0].data[0].value)
         return false;
       else 
@@ -246,7 +250,8 @@ var Dangan = (function(undefined) {
     }
     
     if (page === 16) {
-//      console.log(json.elem[0].data[0]);
+      console.log({page: page, svg: svg, json: json,value:json.elem[3].data[4].value,value2:json.elem[3].data[9].value});
+      
       if (json.elem[3].data[4].value && json.elem[3].data[9].value)
         return false;
       else
@@ -254,7 +259,8 @@ var Dangan = (function(undefined) {
     }
     
     if (page === 17) {
-//      console.log(json.elem[0].data[0]);
+      console.log({page: page, svg: svg, json: json,value:json.elem[4].data[0].value,value2:json.elem[4].data[1].value});
+      
       if (json.elem[4].data[0].value && json.elem[4].data[1].value)
         return false;
       else
