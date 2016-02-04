@@ -218,6 +218,9 @@ var Dangan = (function(undefined) {
   };
   
   var _checkCompleteness = function(page, svg, json) {
+    console.log('check completeness');
+    console.log({page: page, svg: svg, json: json});
+    
     if (page === 0) {
 //      console.log(json.elem[0].data[0]);
       if (json.elem[0].data[0].value)
