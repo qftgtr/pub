@@ -111,7 +111,7 @@ var Dangan = (function(undefined) {
     });
   };
   
-  var savePage = function(page, callback) {
+  var savePage = function(page, callback, alertCallback) {
     page = page || _page;
     
     var nEmpty = 0;
@@ -120,7 +120,7 @@ var Dangan = (function(undefined) {
       setTimeout(function() {
         //if (LOG) console.log('***savePage: '+page);
     	var svgStr = _svg_hidden.getSvg(function(x) {nEmpty+=x;});
-    	
+        
     	if (svgStr.indexOf('polygon')>-1 && svgStr.indexOf('points')<0) {
 //    		console.log('%%%%%%%%%%%%%wait');
     		var h = setInterval(function() {
@@ -129,13 +129,21 @@ var Dangan = (function(undefined) {
 //    				console.log('%%%%%%%%%%%%%wait');
     			} else {
 //    				console.log(svgStr);
-    				DanganCore.savePage(page, svgStr, _svg_hidden.getJson()).done(function(result) {
-                      if (callback && callback.apply) {
-                        callback(page, nEmpty);
-                      } else {
-//                        console.log('保存成功');
-                      }
-                    });
+                  var json = _svg_hidden.getJson(),
+                      incomplete = _checkCompleteness(page, svgStr, json);
+                  
+                    if (incomplete) {
+                      alertCallback && alertCallback.apply && alertCallback(incomplete);
+                    } else {
+                      DanganCore.savePage(page, svgStr, JSON.stringify(json)).done(function(result) {
+                        if (callback && callback.apply) {
+                          callback(page, nEmpty);
+                        } else {
+  //                        console.log('保存成功');
+                        }
+                      });
+                    }
+    				
         	        $('#svg-hidden-'+page).empty();
         	        _pageChanged = false;
         	        
@@ -143,7 +151,12 @@ var Dangan = (function(undefined) {
     			}
     		}, 200);
     	} else {
-    		DanganCore.savePage(page, svgStr, _svg_hidden.getJson()).done(function(result) {
+          var json = _svg_hidden.getJson(),
+              incomplete = _checkCompleteness(page, svgStr, json);
+          if (incomplete) {
+            alertCallback && alertCallback.apply && alertCallback(incomplete);
+          } else {
+    		DanganCore.savePage(page, svgStr, JSON.stringify(json)).done(function(result) {
               if (callback && callback.apply) {
                 callback(page, nEmpty);
               } else {
@@ -151,8 +164,10 @@ var Dangan = (function(undefined) {
               }
               
             });
-	        $('#svg-hidden-'+page).empty();
-	        _pageChanged = false;
+          }
+          
+          $('#svg-hidden-'+page).empty();
+          _pageChanged = false;
     	}
     	
         
@@ -160,7 +175,7 @@ var Dangan = (function(undefined) {
     });
   };
   
-  var saveAllPages = function(pages, callback) {
+  var saveAllPages = function(pages, callback, alertCallback) {
     var pageDone = 0, nEmpty=0;
     for (var i=0; i<_nPage; i++) {
       if (pages==='all' || pages.indexOf(i) > -1) {
@@ -170,7 +185,7 @@ var Dangan = (function(undefined) {
 //          console.log('xxxxxxxxx'+_nPage+'xxxxxx'+pageDone+'xxxx'+empty+'xxx'+nEmpty);
           if (pageDone === _nPage)
             callback && callback.apply && callback(nEmpty);
-        });
+        }, alertCallback);
       }
     }
   };
@@ -199,9 +214,49 @@ var Dangan = (function(undefined) {
 //  var _randomGrowth
   
   var randomGrowth = function() {
-    getGrowth(0, function(i) {
-      
-    });
+    alert('randomGrowth');
+  };
+  
+  var _checkCompleteness = function(page, svg, json) {
+    if (page === 0) {
+//      console.log(json.elem[0].data[0]);
+      if (json.elem[0].data[0].value);
+        return false;
+      else 
+        return '基本信息无数据，请您刷新后重试';
+    }
+    
+    if (page === 1) {
+//      console.log(json.elem[0].data[0]);
+      if (json.elem[0].data[0].value !== '/static/images/print/template/classs_photo_default.png');
+        return false;
+      else 
+        return '班级合影页无数据，请联系班主任上传';
+    }
+    
+    if (page === 3) {
+//      console.log(json.elem[0].data[0]);
+      if (json.elem[0].data[0].value);
+        return false;
+      else 
+        return '期末考试还未发布，请联系班主任发布成绩';
+    }
+    
+    if (page === 16) {
+//      console.log(json.elem[0].data[0]);
+      if (json.elem[3].data[4].value && json.elem[3].data[9].value);
+        return false;
+      else
+        return '艺术素质测评，请联系音乐或美术老师发布成绩';
+    }
+    
+    if (page === 17) {
+//      console.log(json.elem[0].data[0]);
+      if (json.elem[4].data[0].value && json.elem[4].data[1].value);
+        return false;
+      else
+        return '艺术素质测评，请联系音乐或美术老师发布成绩';
+    }
   };
   
   return {

@@ -480,7 +480,7 @@ var DanganSVG = function() {
     size: size,
     clear: clear,
     put: putLayout,
-    getJson: function() { return JSON.stringify(_layout); },
+    getJson: function() { return _layout; },
     getSvg: function(addEmpty) {
       _svg[0][0].appendChild(_textElements[0][0]);
       _target.selectAll('.tooltip').remove();
