@@ -215,15 +215,36 @@ var Dangan = (function(undefined) {
 //  var _randomGrowth
   
   var randomGrowth = function() {
+    DanganCore.init('randomGrowth', {//loadSystem
+      studentId: options.studentId,
+      sysTemplate: options.sysTemplate,
+      userTemplate: options.userTemplate,
+      termId: options.termId
+    }).done(function(data) {
+      if (LOG) console.log('***init get result back');
+      
+      _nPage = data.nPage;
+      var w = data.width,
+          h = data.height,
+          zoom = Math.min(options.width/w, options.height/h);
+      
+      if (LOG>1) console.log({w: w, h: h, zoom: zoom});
+      
+      _svg.size(w, h, zoom);
+      goPage(_page);
+      
+      saveAllPages(data.save);
+    });
+    
     alert('randomGrowth');
   };
   
   var _checkCompleteness = function(page, svg, json) {
-    console.log('check completeness');
+    if (LOG) console.log('check completeness');
     
     
     if (page === 0) {
-      console.log({page: page, svg: svg, json: json,value:json.elem[0].data[0].value});
+      if (LOG) console.log({page: page, svg: svg, json: json,value:json.elem[0].data[0].value});
       
       if (json.elem[0].data[0].value)
         return false;
@@ -232,7 +253,7 @@ var Dangan = (function(undefined) {
     }
     
     if (page === 1) {
-      console.log({page: page, svg: svg, json: json,value:json.elem[0].data[0].value});
+      if (LOG) console.log({page: page, svg: svg, json: json,value:json.elem[0].data[0].value});
       
       if (json.elem[0].data[0].value !== '/static/images/print/template/classs_photo_default.png')
         return false;
@@ -247,7 +268,7 @@ var Dangan = (function(undefined) {
           nSubjects++;
       }
       
-      console.log({page: page, svg: svg, json: json,value:nSubjects});
+      if (LOG) console.log({page: page, svg: svg, json: json,value:nSubjects});
       
       if (nSubjects >= 4)
         return false;
@@ -256,7 +277,7 @@ var Dangan = (function(undefined) {
     }
     
     if (page === 16) {
-      console.log({page: page, svg: svg, json: json,value:json.elem[3].data[4].value,value2:json.elem[3].data[9].value});
+      if (LOG) console.log({page: page, svg: svg, json: json,value:json.elem[3].data[4].value,value2:json.elem[3].data[9].value});
       
       if (json.elem[3].data[4].value && json.elem[3].data[9].value)
         return false;
@@ -265,7 +286,7 @@ var Dangan = (function(undefined) {
     }
     
     if (page === 17) {
-      console.log({page: page, svg: svg, json: json,value:json.elem[4].data[0].value,value2:json.elem[4].data[1].value});
+      if (LOG) console.log({page: page, svg: svg, json: json,value:json.elem[4].data[0].value,value2:json.elem[4].data[1].value});
       
       if (json.elem[4].data[0].value!=='暂无评价' && json.elem[4].data[1].value!=='暂无评价' && json.elem[4].data[2].value!=='暂无评价')
         return false;
