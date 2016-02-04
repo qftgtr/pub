@@ -220,15 +220,15 @@ var Dangan = (function(undefined) {
   var _checkCompleteness = function(page, svg, json) {
     if (page === 0) {
 //      console.log(json.elem[0].data[0]);
-      if (json.elem[0].data[0].value);
+      if (json.elem[0].data[0].value)
         return false;
-      else 
+      else
         return '基本信息无数据，请您刷新后重试';
     }
     
     if (page === 1) {
 //      console.log(json.elem[0].data[0]);
-      if (json.elem[0].data[0].value !== '/static/images/print/template/classs_photo_default.png');
+      if (json.elem[0].data[0].value !== '/static/images/print/template/classs_photo_default.png')
         return false;
       else 
         return '班级合影页无数据，请联系班主任上传';
@@ -236,7 +236,7 @@ var Dangan = (function(undefined) {
     
     if (page === 3) {
 //      console.log(json.elem[0].data[0]);
-      if (json.elem[0].data[0].value);
+      if (json.elem[0].data[0].value)
         return false;
       else 
         return '期末考试还未发布，请联系班主任发布成绩';
@@ -244,7 +244,7 @@ var Dangan = (function(undefined) {
     
     if (page === 16) {
 //      console.log(json.elem[0].data[0]);
-      if (json.elem[3].data[4].value && json.elem[3].data[9].value);
+      if (json.elem[3].data[4].value && json.elem[3].data[9].value)
         return false;
       else
         return '艺术素质测评，请联系音乐或美术老师发布成绩';
