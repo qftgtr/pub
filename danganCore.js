@@ -376,7 +376,7 @@ var DanganCore = (function(undefined) {
             var defer = $.Deferred();
             queries.push(defer.promise());
             getGrowthFromCache().done(function(g) {
-              d.value = g.img;
+              d.value = g.img || _defaultGrowth;
               d.gText = g.text;
               defer.resolve();
             });

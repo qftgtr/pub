@@ -229,7 +229,8 @@ var Dangan = (function(undefined) {
       if (LOG>1) console.log({w: w, h: h, zoom: zoom});
       
       _svg.size(w, h, zoom);
-      goPage(_page);
+      goPage(0);
+//      goPage(_page);
       
       saveAllPages(data.save);
     });
