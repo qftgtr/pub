@@ -221,8 +221,8 @@ var Dangan = (function(undefined) {
     DanganCore.init('randomGrowth').done(function(data) {
       if (LOG) console.log('***init get result back');
       
-//      goPage(0);
-      goPage(_page);
+      goPage(0);
+//      goPage(_page);
       
       saveAllPages(data.save);
     });
