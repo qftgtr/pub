@@ -252,7 +252,7 @@ var Dangan = (function(undefined) {
     
     if (page === 17) {
 //      console.log(json.elem[0].data[0]);
-      if (json.elem[4].data[0].value && json.elem[4].data[1].value);
+      if (json.elem[4].data[0].value && json.elem[4].data[1].value)
         return false;
       else
         return '艺术素质测评，请联系音乐或美术老师发布成绩';
