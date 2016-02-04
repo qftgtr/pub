@@ -2,7 +2,8 @@ var DanganCore = (function(undefined) {
   //var LOG = Math.max(LOG||0,0);
   var _width, _height, _nPage, _titles, _remarks,
       _sysTmpl = [], _userTmpl = [],
-      _pageReady = []; // undefined for nothing, false for sysTmpl, true for userTmpl
+      _pageReady = [], // undefined for nothing, false for sysTmpl, true for userTmpl
+      _growthCache = [], _growthCacheIndex = {first: 0, second: 0};
   
   var _studentId, _userTemplate, _sysTemplate, _termId;
   
@@ -197,7 +198,7 @@ var DanganCore = (function(undefined) {
       
       return result.map(function(r) {
         return [r.percentage/max, r.color];
-      })
+      });
     }
     
   };
@@ -268,7 +269,10 @@ var DanganCore = (function(undefined) {
         }
         
         for (var page = 0; page < _nPage; page++) {
-          _parseSysTmpl(page);
+          if (method === 'randomGrowth')
+            _parseSysTmpl(page, true);
+          else
+            _parseSysTmpl(page);
         }
         
         if (LOG) console.log('Core.init resolved');
@@ -351,7 +355,7 @@ var DanganCore = (function(undefined) {
     _parseSysTmpl(page, false);
   }
   
-  var _parseSysTmpl = function(page, noGrowth) {
+  var _parseSysTmpl = function(page, randomGrowth) {
     if (!_userTmpl[page]) {
       _userTmpl[page] = $.Deferred();
     }
@@ -366,7 +370,7 @@ var DanganCore = (function(undefined) {
           q = elem.query,
           g = elem.growth;
       
-      if (g && !noGrowth) {
+      if (g && !randomGrowth) {
         var __defer = $.Deferred();
         queries.push(__defer.promise());
         
@@ -492,26 +496,52 @@ var DanganCore = (function(undefined) {
     return $.when(_userTmpl[page]);
   };
   
+  var getGrowthFromCache = function() {
+    var defer = $.Deferred();
+    getGrowth(_growthCacheIndex.first).done(function(growth) {
+      if (growth[_growthCacheIndex.second]) {
+        _growthCacheIndex.second++;
+        defer.resolve(growth[_growthCacheIndex.second-1]);
+      } else if (_growthCacheIndex.second > 0) {
+        _growthCacheIndex.second = 0;
+        _growthCacheIndex.first++;
+        getGrowthFromCache().done(function(result) {
+          defer.resolve(result);
+        });
+      } else {
+        defer.resolve(undefined);
+      }
+    });
+    return $.when(defer.promise());
+  };
+  
   var getGrowth = function(page, pageSize) {
     var defer = $.Deferred();
     
-    DanganNetwork.call('getGrowth', {
-      pageNum: page,
-      studentId: _studentId,
-      pageSize: pageSize,
-      termId: _termId
-    }).done(function(result) {
-      var growth = [];
-      result[0] && result[0].data.forEach(function(r) {
-        var i=0;
-        r.imgs.forEach(function(img) {
-          growth.push({ text:r.text, img:img, preview: r.preview[i]});
-          i++;
+    if (_growthCache[page-1]) {
+      defer.resolve(_growthCache[page-1]);
+    } else {
+      DanganNetwork.call('getGrowth', {
+        pageNum: page,
+        studentId: _studentId,
+        pageSize: pageSize,
+        termId: _termId
+      }).done(function(result) {
+        var growth = [];
+        result[0] && result[0].data.forEach(function(r) {
+          var i=0;
+          r.imgs.forEach(function(img) {
+            growth.push({ text:r.text, img:img, preview: r.preview[i]});
+            i++;
+          });
         });
+
+        if (!pageSize)
+          _growthCache.push(growth);
+
+        defer.resolve(growth);
       });
-      
-      defer.resolve(growth);
-    });
+    }
     
     return $.when(defer.promise());
   };
@@ -539,7 +569,8 @@ var DanganCore = (function(undefined) {
     setImage: setImage,
 //    clearImage: clearImage,
 //    setText: setText,
-    savePage: savePage
+    savePage: savePage,
+    getGrowthFromCache: getGrowthFromCache
   }
 
 }(undefined));
