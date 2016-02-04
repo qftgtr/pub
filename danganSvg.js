@@ -151,7 +151,7 @@ var DanganSVG = function() {
       .attr('class', function(d) { return elementName + (d.click?' dangan-click':'');})
       .attr('clip-path', function(d,i) { return 'url(#'+clipName+i+')'; })
       .each(function(d,i) {
-        if ((d.modify || d.rotate) && !_rotate) {
+        if ((d.modify || d.rotateOnly) && !_rotate) {
           $(this).on('mouseenter', function() {
             d3.select(this.firstChild).style('opacity', 0.1);
             d3.select(this).selectAll('.dangan-image-buttons').style('display','initial');
@@ -164,7 +164,7 @@ var DanganSVG = function() {
         }
       });
     
-    clipBox.filter(function(d) {return d.modify||d.rotate;}).append('rect')
+    clipBox.filter(function(d) {return d.modify||d.rotateOnly;}).append('rect')
       .attr('width', function(d) {return _zoom*d.w;})
       .attr('height', function(d) {return _zoom*d.h;})
       .attr('transform', function(d) { return 'translate('+_zoom*d.x+','+_zoom*d.y+')'; })
@@ -198,7 +198,7 @@ var DanganSVG = function() {
       });
     
     if (!_original) {
-      clipBox.filter(function(d) {return (d.modify || d.rotate);}).append('image')
+      clipBox.filter(function(d) {return (d.modify || d.rotateOnly);}).append('image')
         .attr('class', 'dangan-image-buttons')
         .style('cursor', 'pointer')
         .style('display', 'none')
@@ -216,7 +216,7 @@ var DanganSVG = function() {
           _interactions.change();
         });
 
-      clipBox.filter(function(d) {return (d.modify || d.rotate);}).append('image')
+      clipBox.filter(function(d) {return (d.modify || d.rotateOnly);}).append('image')
         .attr('class', 'dangan-image-buttons')
         .style('cursor', 'pointer')
         .style('display', 'none')
@@ -234,7 +234,7 @@ var DanganSVG = function() {
           _interactions.change();
         });
 
-      clipBox.filter(function(d) {return (d.modify || d.rotate);}).append('image')
+      clipBox.filter(function(d) {return (d.modify || d.rotateOnly);}).append('image')
         .attr('class', 'dangan-image-buttons')
         .style('cursor', 'pointer')
         .style('display', 'none')
