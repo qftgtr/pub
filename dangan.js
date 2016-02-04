@@ -227,8 +227,6 @@ var Dangan = (function(undefined) {
       
       saveAllPages(data.save);
     });
-    
-    alert('randomGrowth');
   };
   
   var _checkCompleteness = function(page, svg, json) {
