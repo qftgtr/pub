@@ -1,6 +1,6 @@
 // svg 排版, requires d3, d3textwrap
 var _d,_this;
-var DanganSVG = function() {
+window.DanganSVG = function() {
   var undefined = undefined, $ = jQuery;
 //  var dev_ip = 'http://preevaluate.mexue.com';
   var LOG = 0;
