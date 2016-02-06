@@ -1,4 +1,5 @@
-var DanganCore = (function(undefined) {
+const DanganNetwork = window.DanganNetwork;
+window.DanganCore = (function(undefined) {
   //var LOG = Math.max(LOG||0,0);
   var _width, _height, _nPage, _titles, _remarks,
       _sysTmpl = [], _userTmpl = [],
