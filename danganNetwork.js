@@ -2,10 +2,10 @@ window.DanganNetwork = (function(undefined, $) {
   //var LOG = Math.max(LOG||0, 0);
   
   const url = '/mobile/api/evaluate/print/record';
-  
+
   var dataCache = (function() {
     var _promises = {};
-    
+
     var delay = function(qs) {
       if (qs.constructor === Array) {
         return Promise.all(qs.map(q => delay(q)));
@@ -17,15 +17,15 @@ window.DanganNetwork = (function(undefined, $) {
         });
       }
     };
-    
+
     var query = function(sendReq, data) {
       if (data.queries)
         delay(data.queries);
-      
+
       if (_delaying.length > 0) {
         data.queries = _delaying.join(';');
         _delaying = [];
-        
+
         sendReq(data).then(result => {
           result.forEach(r => {
             _promises[r.query].resolve(r);
@@ -35,20 +35,20 @@ window.DanganNetwork = (function(undefined, $) {
       }
       return false;
     };
-    
+
     return {
       delay: delay,
       query: query
     };
   }());
-  
+
   var delay = function(cmd, query) {
     if (cmd === 'getData') {
       if (LOG > 2) console.log('Network.delay getData '+query);
       return $.when(dataCache.delay(query));
     }
   };
-  
+
   var call = function(cmd, data) {
     return new Promise((resolve, reject) => {
       if (cmd === 'getSysTmpl') {
@@ -60,7 +60,7 @@ window.DanganNetwork = (function(undefined, $) {
           resolve(result);
         });
       }
-      
+
       if (cmd === 'loadUserTmpl') {
         if (LOG) console.log('Network.call loadUserTmpl');
         data.m = 'loadUserTmpl';
@@ -70,7 +70,7 @@ window.DanganNetwork = (function(undefined, $) {
           resolve(result);
         });
       }
-      
+
       if (cmd === 'saveUserTmpl') {
         if (LOG > 1) console.log('Network.call saveUserTmpl page '+(data.page-1));
         if (LOG > 1) console.log(data);
@@ -81,7 +81,7 @@ window.DanganNetwork = (function(undefined, $) {
           resolve(result);
         });
       }
-      
+
       if (cmd === 'getData') {
         if (LOG) console.log('Network.call getData');
         if (LOG) console.log(JSON.stringify(data));
@@ -99,7 +99,7 @@ window.DanganNetwork = (function(undefined, $) {
         if (!didQuery)
           resolve();
       }
-      
+
       if (cmd === 'getGrowth') {
         data.m = 'getGrowth';
         data.pageSize = data.pageSize || 3;
@@ -115,8 +115,8 @@ window.DanganNetwork = (function(undefined, $) {
       }
     });
   };
-  
-  
+
+
   return {
     call: call,
     delay: delay
