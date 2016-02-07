@@ -217,13 +217,26 @@ window.DanganCore = (function(undefined) {
       _titles.push(result.pages[page].title);
       _remarks.push(result.pages[page].remark);
     }
+    
+    _sysTmpl = new Array(_nPage);
+    _userTmpl = new Array(_nPage);
+    _pageReady = new Array(_nPage);
+    
+    return {
+      width: _width,
+      height: _height,
+      nPage: _nPage,
+      titles: _titles,
+      remarks: _remarks,
+      save: undefined
+    };
   };
   
-  var _loadSystemTmpl = function(callback) {
+  var _loadSystemTmpl = function() {
     if (LOG > 2) console.log('Core._loadSystemTmpl');
     return DanganNetwork.call('getSysTmpl', {
       templateId: _sysTemplate
-    }).done(function(result) {
+    }).then(result => {
       if (LOG) console.log('Core._loadSystemTmpl finished');
       if (LOG) console.log(result);
     });
@@ -232,8 +245,8 @@ window.DanganCore = (function(undefined) {
   var _loadUserTmpl = function() {
     if (LOG > 2) console.log('Core._loadUserTmpl');
     return DanganNetwork.call('loadUserTmpl', {
-        templateId: _userTemplate
-    }).done(function(result) {
+      templateId: _userTemplate
+    }).then(result => {
       if (LOG) console.log('Core._loadUserTmpl finished');
       if (LOG) console.log(result);
     });
@@ -242,119 +255,88 @@ window.DanganCore = (function(undefined) {
   var init = function(method, options) {
     if (LOG) console.log('Core.init with method '+method);
     
-    if (method !== 'randomGrowth') {
+    if (options) {
       _studentId = options.studentId;
       _sysTemplate = options.sysTemplate;
       _userTemplate = options.userTemplate;
       _termId = options.termId;
     }
     _growthCacheIndex = {first: 0, second: 0};
+    
     if (method === 'loadSystem' || method === 'randomGrowth') {
-      var defer = $.Deferred();
-      _loadSystemTmpl().done(function(result) {
-        _saveTmplData(result);
-        
-        _sysTmpl = new Array(_nPage);
-        _userTmpl = new Array(_nPage);
-        _pageReady = new Array(_nPage);
-        
-        for (var page = 0; page < _nPage; page++) {
-          if (LOG) console.log('Core.(parsing json) page '+page);
-          var pageObj = JSON.parse(result.pages[page].json);
-          if (result.pages[page].bg !== '')
+      return new Promise((resolve, reject) => {
+        _loadSystemTmpl().then(result => {
+          let basicData = _saveTmplData(result);
+          basicData.save = 'all';
+          
+          for (var page = 0; page < _nPage; page++) {
+            if (LOG) console.log('Core.(parsing json) page '+page);
+            let pageObj = JSON.parse(result.pages[page].json);
             pageObj.bg = result.pages[page].bg;
-          if (result.pages[page].bg2 !== '')
             pageObj.bg2 = result.pages[page].bg2;
-          _sysTmpl[page] = pageObj;
-          _pageReady[page] = false;
-        }
-        
-        for (var page = 0; page < _nPage; page++) {
-          if (method === 'randomGrowth')
-            _parseSysTmpl(page, true);
-          else
-            _parseSysTmpl(page);
-        }
-        
-        if (LOG) console.log('Core.init resolved');
-        defer.resolve({
-          width: _width,
-          height: _height,
-          nPage: _nPage,
-          titles: _titles,
-          remarks: _remarks,
-          save: 'all'
+            _sysTmpl[page] = pageObj;
+            _pageReady[page] = false;
+            
+            _parseSysTmpl(page, method==='randomGrowth');
+          }
+
+          if (LOG) console.log('Core.init resolved');
+          resolve(basicData);
         });
       });
-      
-      return $.when(defer.promise());
     }
     
     if (method === 'loadUser' || method === 'autoRefresh') {
-      var defer = $.Deferred();
-      _loadUserTmpl().done(function(result) {
-        _saveTmplData(result);
-        var __save = [];
-        
-        _sysTmpl = new Array(_nPage);
-        _userTmpl = new Array(_nPage);
-        _pageReady = new Array(_nPage);
-        
-        var needSystem = false;
-        for (var page = 0; page < _nPage; page++) {
-          if (LOG > 2) console.log('Core.(raw userTmpl) page '+page+':');
-          if (LOG > 2) console.log(result.pages[page].json);
+      return new Promise((resolve, reject) => {
+        _loadUserTmpl().then(result => {
+          let basicData = _saveTmplData(result);
+          basicData.save = [];
 
-          _pageReady[page] = true;
+          var needSystem = false;
+          for (var page = 0; page < _nPage; page++) {
+            if (LOG > 2) console.log('Core.(raw userTmpl) page '+page+':');
+            if (LOG > 2) console.log(result.pages[page].json);
 
-          if (result.pages[page].json === '') {//no result
-            __save.push(page);
-            _userTmpl[page] = $.Deferred();
-            _pageReady[page] = false;
-            needSystem = true;
-          } else {
-            _userTmpl[page] = JSON.parse(result.pages[page].json);
-            if (method === 'autoRefresh')
-              _parseUserTmpl(page);
-          }
-        }
-        
-        if (needSystem) {
-          _loadSystemTmpl().done(function(result) {
-            _sysTmpl = new Array(_nPage);
-            for (var page = 0; page < _nPage; page++) {
-              var pageObj = JSON.parse(result.pages[page].json);
-              if (result.pages[page].bg !== '')
-                pageObj.bg = result.pages[page].bg;
-              if (result.pages[page].bg2 !== '')
-                pageObj.bg2 = result.pages[page].bg2;
-              _sysTmpl[page] = pageObj;
-              if (!_pageReady[page])
-                _parseSysTmpl(page);
+            _pageReady[page] = true;
+            
+            if (result.pages[page].json === '') {//no result
+              basicData.save.push(page);
+              _userTmpl[page] = $.Deferred();
+              _pageReady[page] = false;
+              needSystem = true;
+            } else {
+              _userTmpl[page] = JSON.parse(result.pages[page].json);
+              if (method === 'autoRefresh')
+                _parseUserTmpl(page);
             }
-          });
-        }
-        
-        if (LOG) console.log('Core.init resolved');
-        defer.resolve({
-          width: _width,
-          height: _height,
-          nPage: _nPage,
-          titles: _titles,
-          remarks: _remarks,
-          save: __save
-        });
-      }); // _loadUserTmpl().done
-      
-      return $.when(defer.promise());
-    } // if (method === 'loadUser')
+          }
+
+          if (needSystem) {
+            _loadSystemTmpl().then(result => {
+              _sysTmpl = new Array(_nPage);
+              for (var page = 0; page < _nPage; page++) {
+                var pageObj = JSON.parse(result.pages[page].json);
+                pageObj.bg = result.pages[page].bg;
+                pageObj.bg2 = result.pages[page].bg2;
+                _sysTmpl[page] = pageObj;
+                
+                if (!_pageReady[page])
+                  _parseSysTmpl(page);
+              }
+            });
+          }
+
+          if (LOG) console.log('Core.init resolved');
+          resolve(basicData);
+      }); // _loadUserTmpl() done
+    }); // if (method === 'loadUser')
   };
   
   var _parseUserTmpl = function(page) {
     _sysTmpl[page] = _userTmpl[page];
     _userTmpl[page] = undefined;
     _parseSysTmpl(page, false);
-  }
+  };
   
   var _parseSysTmpl = function(page, randomGrowth) {
     if (!_userTmpl[page]) {
@@ -362,112 +344,86 @@ window.DanganCore = (function(undefined) {
     }
     ///// the most compliated part
     if (LOG > 1) console.log('Core._parseSysTmpl for page '+page);
-    var elements = _sysTmpl[page].elem;
+    let elements = _sysTmpl[page].elem;
     
-    var queries = [],
+    let __promises = [],
         growthTags, growthTarget;
-    elements && elements.forEach(function(elem) {
-      var data = elem.data,
+    elements && elements.forEach(elem => {
+      let data = elem.data,
           q = elem.query,
           g = elem.growth;
       
       if (g) {
         if (randomGrowth) {
-          data.forEach(function(d) {
-            var defer = $.Deferred();
-            queries.push(defer.promise());
-            getGrowthFromCache().done(function(g) {
-              if (g) {
-                d.value = g.img;
-                d.gText = g.text;
-              } else {
-                d.value = _defaultGrowth;
-              }
-              
-              defer.resolve();
-            });
+          data.forEach(d => {
+            __promises.push(
+              getGrowthFromCache().then(g => {
+                if (g) {
+                  d.value = g.img;
+                  d.gText = g.text;
+                } else {
+                  d.value = _defaultGrowth;
+                }
+              });
+            );
           });
         } else {
-          var __defer = $.Deferred();
-          queries.push(__defer.promise());
-
-          DanganNetwork.call('getGrowth', {
-            tagId: g,
-            pageNum: 1,
-            pageSize: data.length,
-            studentId: _studentId
-          }).done(function(result) {
-            var i=0;
-
-            result.forEach(function(r) {
-              r.data.forEach(function(d) {
-                if (i<data.length) {
-                  data[i].value = data[i].value || d.imgs[0];
-                  if ($.trim(d.text))
-                    data[i].gText = data[i].gText || d.text;
-                  i++;
+          __promises.push(
+            DanganNetwork.call('getGrowth', {
+              tagId: g,
+              pageNum: 1,
+              pageSize: data.length,
+              studentId: _studentId
+            }).then(result => {
+              data.forEach((d,i) => {
+                if (result[i]) {
+                  d.value = d.value || result[i].imgs[0];
+                  d.gText = d.gText || result[i].text;
+                } else {
+                  d.value = d.value || _defaultGrowth;
                 }
               });
             });
-
-            for (;i<data.length;i++) {
-              data[i].value = data[i].value || _defaultGrowth;
-            }
-
-            __defer.resolve();
-          });
+          );
         }
       }
       
       
       if (q) {
-        (function() {
-          var __defer = $.Deferred();
-          queries.push(__defer.promise());
-          
-          DanganNetwork.delay('getData', q).done(function(result) {
-            var qResult = result.data || [],
+        __promises.push(
+          DanganNetwork.delay('getData', q).then(result => {
+            let resultData = result.data || [],
                 filter = elem.filter;
             
             if (filter && _filter[filter]) {
-              qResult = _filter[filter](qResult);
+              resultData = _filter[filter](resultData);
             }
-
-            //length = Math.min(data.length, qResult.length);
-            length=data.length;
             
             if (elem.key) {
-              for (var l=0; l<length; l++) {
-                data[l].value = qResult[l] && qResult[l][elem.key];
-              }
+              data.forEach((d,i) => {
+                d.value = resultData[i] && resultData[i][elem.key];
+              });
             } else {
-              for (var l=0; l<length; l++) {
-                data[l].value = qResult[l];
-              }
+              data.forEach((d,i) => {
+                d.value = resultData[i];
+              });
             }
-
-            __defer.resolve();
           });
-        }());
+        );
       } else {
-        data.forEach(function(d) {
-          if (d.query) {
-            var __defer = $.Deferred();
-            queries.push(__defer.promise());
-            
-            DanganNetwork.delay('getData', d.query).done(function(r) {
-              var data,
-                  filter = d.filter;
+        data.forEach(d => {
+          d.query && __promises.push(
+            DanganNetwork.delay('getData', d.query).then(result => {
+              let filter = d.filter, data;
               if (filter && _filter[filter]) {
-                data = _filter[filter](r || []);
+                data = _filter[filter](result || []);
               } else {
-                data = r.data;
+                data = result.data;
               }
-              
-              d.value = (data===null) ? (d.empty||'') : data;
-              __defer.resolve();
+
+              d.value = (data==null) ? (d.empty||'') : data;
             });
-          }
+          );
         });
       }
     });
@@ -477,24 +433,22 @@ window.DanganCore = (function(undefined) {
     DanganNetwork.call('getData', {
       studentId: _studentId,
       termId: _termId
-    }).done(function(result) {
-      $.when.apply(this, queries).done(function() {
-        setTimeout(function() {
-          _pageReady[page] = true;
-          if (LOG > 2) console.log('Core._parseSysTmpl done for page '+page);
-          _userTmpl[page].resolve(_parseHelper(_sysTmpl[page], page));
-        }, 100);
+    }).then(() => {
+      Promise.all(__promises).then(() => {
+        _pageReady[page] = true;
+        if (LOG > 2) console.log('Core._parseSysTmpl done for page '+page);
+        _userTmpl[page].resolve(_parseHelper(_sysTmpl[page], page));
       });
     });
   };
   
   var _parseHelper = function(pageObj, page) {
-    pageObj.elem.forEach(function(elem) {
+    pageObj.elem.forEach(elem => {
       if (LOG>2) console.log('Core._parseHelper page '+page);
       if (LOG>2) console.log([JSON.stringify(elem)]);
       var helper = elem.helper;
       
-      elem.data.forEach(function(d) {
+      elem.data.forEach(d => {
         var h = d.helper || helper;
         if (h && _helpers[h]) {
           if (LOG) console.log('Core.(helper) '+h);
@@ -515,57 +469,48 @@ window.DanganCore = (function(undefined) {
   };
   
   var getGrowthFromCache = function() {
-    var defer = $.Deferred();
-    getGrowth(_growthCacheIndex.first).done(function(growth) {
-      if (growth[_growthCacheIndex.second]) {
-        _growthCacheIndex.second++;
-        defer.resolve(growth[_growthCacheIndex.second-1]);
-      } else if (_growthCacheIndex.second > 0) {
-        _growthCacheIndex.second = 0;
-        _growthCacheIndex.first++;
-        getGrowthFromCache().done(function(result) {
-          defer.resolve(result);
-        });
-      } else {
-        defer.resolve(undefined);
-      }
+    return new Promise((resolve, reject) => {
+      getGrowth(_growthCacheIndex.first).then(growth => {
+        if (growth[_growthCacheIndex.second])
+          return resolve(growth[_growthCacheIndex.second++]);
+        
+        if (_growthCacheIndex.second > 0) {
+          _growthCacheIndex.second = 0;
+          _growthCacheIndex.first++;
+          return getGrowthFromCache().then(resolve);
+        }
+        
+        resolve(undefined);
+      });
     });
-    return $.when(defer.promise());
   };
   
   var getGrowth = function(page, pageSize) {
-    var defer = $.Deferred();
-    
-    if (_growthCache[page]) {
-      defer.resolve(_growthCache[page]);
-    } else {
+    return new Promise((resolve, reject) => {
+      if (_growthCache[page])
+        return resolve(_growthCache[page]);
+      
       DanganNetwork.call('getGrowth', {
         pageNum: page+1,
         studentId: _studentId,
         pageSize: pageSize,
         termId: _termId
-      }).done(function(result) {
+      }).then(result => {
         var growth = [];
-        result[0] && result[0].data.forEach(function(r) {
-          var i=0;
-          r.imgs.forEach(function(img) {
-            growth.push({ text:r.text, img:img, preview: r.preview[i]});
-            i++;
-          });
+        result[0] && result[0].data.forEach(r => {
+          r.imgs.forEach((img,i) => growth.push({
+            text: r.text,
+            img: img,
+            preview: r.preview[i]
+          }));
         });
-
+        
         if (!pageSize)
           _growthCache[page] = growth;
 
-        defer.resolve(growth);
+        resolve(growth);
       });
-    }
-    
-    return $.when(defer.promise());
-  };
-  
-  var setImage = function(page, id, url) {
-    return true; // success
+    });
   };
   
   var savePage = function(page, svg, json) {
@@ -579,14 +524,10 @@ window.DanganCore = (function(undefined) {
     });
   };
   
-  
   return {
     init: init,
     getPage: getPage,
     getGrowth: getGrowth,
-    setImage: setImage,
-//    clearImage: clearImage,
-//    setText: setText,
     savePage: savePage,
     getGrowthFromCache: getGrowthFromCache,
     growthIndex: _growthCacheIndex
