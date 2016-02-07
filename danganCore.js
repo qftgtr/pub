@@ -6,7 +6,7 @@ window.DanganCore = (function(undefined) {
       _sysTmpl = [], _userTmpl = [],
       _pageReady = [], // undefined for nothing, false for sysTmpl, true for userTmpl
       _growthCache = [], _growthCacheIndex = {first: 0, second: 0};
-  
+
   var _studentId, _userTemplate, _sysTemplate, _termId;
 
   var _saveTmplData = function(result) {
@@ -68,53 +68,47 @@ window.DanganCore = (function(undefined) {
     }
     _growthCacheIndex = {first: 0, second: 0};
 
-    if (method === 'loadSystem' || method === 'randomGrowth') {
-      return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
+      if (method === 'loadSystem' || method === 'randomGrowth') {
         _loadSystemTmpl().then(result => {
           let basicData = _saveTmplData(result);
           basicData.save = 'all';
 
-          for (var page = 0; page < _nPage; page++) {
+          result.pages.forEach((pageData, page) => {
             if (LOG) console.log('Core.(parsing json) page '+page);
-            let pageObj = JSON.parse(result.pages[page].json);
-            pageObj.bg = result.pages[page].bg;
-            pageObj.bg2 = result.pages[page].bg2;
+            let pageObj = JSON.parse(resultData.json);
+            pageObj.bg = pageData.bg;
+            pageObj.bg2 = pageData.bg2;
+
             _sysTmpl[page] = pageObj;
             _pageReady[page] = false;
 
             _parseSysTmpl(page, method==='randomGrowth');
-          }
-
-          if (LOG) console.log('Core.init resolved');
-          resolve(basicData);
+          });
         });
-      });
-    }
+      }
 
-    if (method === 'loadUser' || method === 'autoRefresh') {
-      return new Promise((resolve, reject) => {
+      if (method === 'loadUser' || method === 'autoRefresh') {
         _loadUserTmpl().then(result => {
           let basicData = _saveTmplData(result);
           basicData.save = [];
 
           var needSystem = false;
-          for (var page = 0; page < _nPage; page++) {
+          result.pages.forEach((pageData, page) => {
             if (LOG > 2) console.log('Core.(raw userTmpl) page '+page+':');
             if (LOG > 2) console.log(result.pages[page].json);
 
             _pageReady[page] = true;
-
-            if (result.pages[page].json === '') {//no result
+            if (pageData.json === '') {
               basicData.save.push(page);
-              _userTmpl[page] = $.Deferred();
               _pageReady[page] = false;
               needSystem = true;
             } else {
-              _userTmpl[page] = JSON.parse(result.pages[page].json);
+              _userTmpl[page] = JSON.parse(pageData.json);
               if (method === 'autoRefresh')
-                _parseUserTmpl(page);
+                _parseTmpl(page, _userTmpl[page]);
             }
-          }
+          });
 
           if (needSystem) {
             _loadSystemTmpl().then(result => {
@@ -126,33 +120,33 @@ window.DanganCore = (function(undefined) {
                 _sysTmpl[page] = pageObj;
 
                 if (!_pageReady[page])
-                  _parseSysTmpl(page);
+                  _parseTmpl(page, pageObj);
               }
             });
           }
+        }); // _loadUserTmpl() done
+      }
 
-          if (LOG) console.log('Core.init resolved');
-          resolve(basicData);
-      }); // _loadUserTmpl() done
-    }); // if (method === 'loadUser')
+      if (LOG) console.log('Core.init resolved');
+      resolve(basicData);
+    });
   };
 
-  var _parseUserTmpl = function(page) {
-    _sysTmpl[page] = _userTmpl[page];
-    _userTmpl[page] = undefined;
-    _parseSysTmpl(page, false);
-  };
+  // var _parseUserTmpl = function(page, userTmpl) {
+  //   _sysTmpl[page] = _userTmpl[page];
+  //   _userTmpl[page] = undefined;
+  //   _parseSysTmpl(page, false);
+  // };
 
-  var _parseSysTmpl = function(page, randomGrowth) {
-    if (!_userTmpl[page]) {
-      _userTmpl[page] = $.Deferred();
-    }
+  var _parseTmpl = function(page, pageObj, randomGrowth) {
     ///// the most compliated part
-    if (LOG > 1) console.log('Core._parseSysTmpl for page '+page);
-    let elements = _sysTmpl[page].elem;
+    if (LOG > 1) console.log('Core._parseTmpl for page '+page);
+
+    let elements = pageObj.elem;
 
     let __promises = [],
         growthTags, growthTarget;
+
     elements && elements.forEach(elem => {
       let data = elem.data,
           q = elem.query,
@@ -234,16 +228,19 @@ window.DanganCore = (function(undefined) {
 
 
     if (LOG > 2) console.log('Core._parseSysTmpl query for data');
-    DanganNetwork.call('getData', {
+    __promises.push(DanganNetwork.call('getData', {
       studentId: _studentId,
       termId: _termId
-    }).then(() => {
-      Promise.all(__promises).then(() => {
-        _pageReady[page] = true;
-        if (LOG > 2) console.log('Core._parseSysTmpl done for page '+page);
-        _userTmpl[page].resolve(_parseHelper(_sysTmpl[page], page));
-      });
+    }));
+
+    _userTmpl[page] = Promise.all(__promises).then(() => {
+      if (LOG > 2) console.log('Core._parseSysTmpl done for page '+page);
+      _pageReady[page] = true;
+
+      return _parseHelper(pageObj, page);
     });
+
+    return _userTmpl[page];
   };
 
   var _parseHelper = function(pageObj, page) {
@@ -269,7 +266,7 @@ window.DanganCore = (function(undefined) {
   };
 
   var getPage = function(page) {
-    return $.when(_userTmpl[page]);
+    return _userTmpl[page];
   };
 
   var getGrowthFromCache = function() {
