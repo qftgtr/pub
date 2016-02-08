@@ -28,28 +28,28 @@ window.DanganCore = (function(undefined) {
     return _tmplBasic;
   };
 
-  var _loadSystemTmpl = function() {
-    if (LOG > 2) console.log('Core._loadSystemTmpl');
-    return DanganNetwork.call('getSysTmpl', {
+  var _loadSystemTmpl__ = function() {
+    if (LOG > 2) console.log('Core._loadSystemTmpl__');
+    return DanganNetwork.call__('getSysTmpl', {
       templateId: _sysTemplate
     }).then(result => {
-      if (LOG) console.log('Core._loadSystemTmpl finished');
+      if (LOG) console.log('Core._loadSystemTmpl__ resolved');
       if (LOG) console.log(result);
     });
   };
 
-  var _loadUserTmpl = function() {
-    if (LOG > 2) console.log('Core._loadUserTmpl');
-    return DanganNetwork.call('loadUserTmpl', {
+  var _loadUserTmpl__ = function() {
+    if (LOG > 2) console.log('Core._loadUserTmpl__');
+    return DanganNetwork.call__('loadUserTmpl', {
       templateId: _userTemplate
     }).then(result => {
-      if (LOG) console.log('Core._loadUserTmpl finished');
+      if (LOG) console.log('Core._loadUserTmpl__ resolved');
       if (LOG) console.log(result);
     });
   };
 
-  var init = function(method, options) {
-    if (LOG) console.log('Core.init with method '+method);
+  var init__ = function(method, options) {
+    if (LOG) console.log('Core.init__ for method '+method);
 
     if (options) {
       _studentId = options.studentId;
@@ -59,64 +59,65 @@ window.DanganCore = (function(undefined) {
     }
     _growthCacheIndex = {first: 0, second: 0};
 
-    return new Promise((resolve, reject) => {
-      if (method === 'loadSystem' || method === 'randomGrowth') {
-        _loadSystemTmpl().then(result => {
-          let basicData = _saveTmplBasic(result);
-          basicData.save = 'all';
+    if (method === 'loadSystem' || method === 'randomGrowth') {
+      return _loadSystemTmpl__().then(result => {
+        let basicData = _saveTmplBasic(result);
+        basicData.save = 'all';
 
-          result.pages.forEach((pageData, page) => {
-            if (LOG) console.log('Core.(parsing json) page '+page);
-            let pageObj = JSON.parse(pageData.json);
-            pageObj.bg = pageData.bg;
-            pageObj.bg2 = pageData.bg2;
+        result.pages.forEach((pageData, page) => {
+          if (LOG) console.log('Core.init__.(sysTmpl json) for page '+page);
+          let pageObj = JSON.parse(pageData.json);
+          pageObj.bg = pageData.bg;
+          pageObj.bg2 = pageData.bg2;
 
-            _userTmpl[page] = _parseTmpl(page, pageObj, method==='randomGrowth');
-          });
+          _userTmpl[page] = _parseTmpl__(page, pageObj, method==='randomGrowth');
         });
-      }
+        
+        if (LOG) console.log('Core.init__ resolved');
+        return basicData;
+      });
+    }
 
-      if (method === 'loadUser' || method === 'autoRefresh') {
-        _loadUserTmpl().then(result => {
-          let basicData = _saveTmplBasic(result);
-          basicData.save = [];
-          let needSysPages = basicData.save;
-          
-          result.pages.forEach((pageData, page) => {
-            if (LOG > 2) console.log('Core.(raw userTmpl) page '+page+':');
-            if (LOG > 2) console.log(pageData.json);
+    if (method === 'loadUser' || method === 'autoRefresh') {
+      return _loadUserTmpl__().then(result => {
+        let basicData = _saveTmplBasic(result);
+        basicData.save = [];
+        let needSysPages = basicData.save;
 
-            if (pageData.json === '')
-              needSysPages.push(page);
-            else if (method === 'loadUser')
-              _userTmpl[page] = JSON.parse(pageData.json);
-            else
-              _userTmpl[page] = _parseTmpl(page, JSON.parse(pageData.json));
-          });
-          
-          
-          if (needSysPages.length) {
-            _loadSystemTmpl().then(result => {
-              needSysPages.forEach(page => {
-                let pageData = result.pages[page],
-                    pageObj = JSON.parse(pageData.json);
-                pageObj.bg = pageData.bg;
-                pageObj.bg2 = pageData.bg2;
-                _userTmpl[page] = _parseTmpl(page, pageObj);
-              });
+        result.pages.forEach((pageData, page) => {
+          if (LOG > 2) console.log('Core.init__.(userTmpl json) for page '+page);
+          if (LOG > 2) console.log(pageData.json);
+
+          if (pageData.json === '')
+            needSysPages.push(page);
+          else if (method === 'loadUser')
+            _userTmpl[page] = Promise.resolve(JSON.parse(pageData.json));
+          else
+            _userTmpl[page] = _parseTmpl__(page, JSON.parse(pageData.json));
+        });
+
+
+        if (needSysPages.length) {
+          _loadSystemTmpl__().then(result => {
+            needSysPages.forEach(page => {
+              let pageData = result.pages[page],
+                  pageObj = JSON.parse(pageData.json);
+              pageObj.bg = pageData.bg;
+              pageObj.bg2 = pageData.bg2;
+              _userTmpl[page] = _parseTmpl__(page, pageObj);
             });
-          }
-        }); // _loadUserTmpl() done
-      }
-
-      if (LOG) console.log('Core.init resolved');
-      resolve(basicData);
-    });
+          });
+        }
+        
+        if (LOG) console.log('Core.init__ resolved');
+        return basicData;
+      }); // _loadUserTmpl() done
+    }
   };
 
-  var _parseTmpl = function(page, pageObj, randomGrowth) {
+  var _parseTmpl__ = function(page, pageObj, randomGrowth) {
     ///// the most compliated part
-    if (LOG > 1) console.log('Core._parseTmpl for page '+page);
+    if (LOG > 1) console.log('Core._parseTmpl__ for page '+page);
 
     let __promises = [];
     
@@ -183,18 +184,18 @@ window.DanganCore = (function(undefined) {
     });
     
     
-    if (LOG > 2) console.log('Core._parseSysTmpl query for data');
+    if (LOG > 2) console.log('Core._parseTmpl__');
     __promises.push(DanganNetwork.call('getData', {
       studentId: _studentId,
       termId: _termId
     }));
 
     return Promise.all(__promises).then(() => {
-      if (LOG>2) console.log('Core._parseHelper page '+page);
+      if (LOG>2) console.log('Core._parseHelper for page '+page);
       if (LOG>2) console.log([JSON.stringify(pageObj)]);
       return _parseHelper(pageObj);
     }).then((pageObj) => {
-      if (LOG) console.log('Core._parseHelper page done '+page);
+      if (LOG) console.log('Core._parseHelper done for page '+page);
       if (LOG) console.log([JSON.stringify(pageObj)]);
       return pageObj;
     });
@@ -211,7 +212,7 @@ window.DanganCore = (function(undefined) {
       elem.data.forEach(d => {
         var h = d.helper || elem.helper;
         if (h && DanganUtil.helpers[h]) {
-          if (LOG) console.log('Core.(helper) '+h);
+          if (LOG>2) console.log('Core._parseHelper for helper '+h);
           DanganUtil.helpers[h](d);
         }
         d.value = d.value || d.empty || '';
@@ -221,26 +222,26 @@ window.DanganCore = (function(undefined) {
     return pageObj;
   };
 
-  var getGrowthFromCache = function() {
-    return getGrowth(_growthCacheIndex.first).then(growth => {
+  var getGrowthFromCache__ = function() {
+    return getGrowth__(_growthCacheIndex.first).then(growth => {
       if (growth[_growthCacheIndex.second])
         return growth[_growthCacheIndex.second++];
 
       if (_growthCacheIndex.second) {
         _growthCacheIndex.second = 0;
         _growthCacheIndex.first++;
-        return getGrowthFromCache();
+        return getGrowthFromCache__();
       }
 
       return null;
     });
   };
 
-  var getGrowth = function(page, pageSize) {
+  var getGrowth__ = function(page, pageSize) {
     if (_growthCache[page])
       return Promise.resolve(_growthCache[page]);
     else {
-      return DanganNetwork.call('getGrowth', {
+      return DanganNetwork.call__('getGrowth', {
         pageNum: page+1,
         studentId: _studentId,
         pageSize: pageSize,
@@ -263,8 +264,8 @@ window.DanganCore = (function(undefined) {
     }
   };
 
-  var savePage = function(page, svg, json) {
-    if (LOG) console.log('Core.savePage page: '+page);
+  var savePage__ = function(page, svg, json) {
+    if (LOG) console.log('Core.savePage__ for page '+page);
     if (LOG) console.log({svg: svg, json: json});
 
     return DanganNetwork.call('saveUserTmpl', {
@@ -275,10 +276,10 @@ window.DanganCore = (function(undefined) {
   };
 
   return {
-    init: init,
-    getPage: page => _userTmpl[page],
-    getGrowth: getGrowth,
-    savePage: savePage
+    init__: init__,
+    getPage__: page => _userTmpl[page],
+    getGrowth__: getGrowth__,
+    savePage__: savePage__
   };
 
 }(undefined));
