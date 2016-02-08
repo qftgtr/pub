@@ -1,124 +1,80 @@
+'use strict';
 window.DanganNetwork = (function(undefined, $) {
-  //var LOG = Math.max(LOG||0, 0);
-  
   const url = '/mobile/api/evaluate/print/record';
 
-  var dataCache = (function() {
-    var _promises = {};
+  var _dataCache = (function() {
+    let _promises = {},
+        _queries = [];
 
-    var delay = function(qs) {
-      if (qs.constructor === Array) {
-        return Promise.all(qs.map(q => delay(q)));
+    var delay__ = function(query) {
+      if (query.constructor === Array) {
+        return Promise.all(query.map( q => delay__(q) ));
       } else {
-        return new Promise((resolve, reject) => {
-          _promises[qs].then(result => {
-            resolve(result);
+        if (!_promises[query]) {
+          _promises[query] = {};
+          _queries.push(query);
+          _promises[query].promise = new Promise((resolve, reject) => {
+            _promises[query].resolver = resolve;  
           });
-        });
+        }
+        return _promises[qs].promise;
       }
     };
-
-    var query = function(sendReq, data) {
-      if (data.queries)
-        delay(data.queries);
-
-      if (_delaying.length > 0) {
-        data.queries = _delaying.join(';');
-        _delaying = [];
-
-        sendReq(data).then(result => {
-          result.forEach(r => {
-            _promises[r.query].resolve(r);
+    
+    var query__ = function(data, $sendReq__) {
+      if (_queries.length) {
+        data.queries = _queries.join(';');
+        _queries = [];
+        
+        return new Promise((resolve, reject) => {
+          $sendReq__(data).done(result => {
+            result.forEach(r => _promises[r.query].resolver(r));
+            resolve();
           });
         });
-        return true;
-      }
-      return false;
+      } else
+        return Promise.resolve();
     };
 
     return {
-      delay: delay,
-      query: query
+      delay__: delay__,
+      query__: query__
     };
   }());
 
-  var delay = function(cmd, query) {
-    if (cmd === 'getData') {
-      if (LOG > 2) console.log('Network.delay getData '+query);
-      return $.when(dataCache.delay(query));
-    }
+  var delay__ = function(cmd, query) {
+    if (cmd === 'getData')
+      return _dataCache.delay__(query);
   };
 
-  var call = function(cmd, data) {
+  var call__ = function(cmd, data) {
     return new Promise((resolve, reject) => {
-      if (cmd === 'getSysTmpl') {
-        if (LOG) console.log('Network.call getSysTmpl');
-        data.m = 'getSysTmpl';
-        $.ajax({ url: url, data: data }).done(result => {
-          if (LOG > 1) console.log('Network.call getSysTmpl done');
-          if (LOG > 1) console.log(JSON.stringify(result));
-          resolve(result);
-        });
-      }
-
-      if (cmd === 'loadUserTmpl') {
-        if (LOG) console.log('Network.call loadUserTmpl');
-        data.m = 'loadUserTmpl';
-        $.ajax({ url: url, data: data }).done(result => {
-          if (LOG > 1) console.log('Network.call loadUserTmpl done');
-          if (LOG > 1) console.log(JSON.stringify(result));
-          resolve(result);
-        });
+      if (cmd === 'getSysTmpl' || cmd === 'loadUserTmpl') {
+        data.m = cmd;
+        $.ajax({ url: url, data: data }).done(resolve);
       }
 
       if (cmd === 'saveUserTmpl') {
-        if (LOG > 1) console.log('Network.call saveUserTmpl page '+(data.page-1));
-        if (LOG > 1) console.log(data);
-        data.m = 'saveUserTmpl';
-        $.ajax({ type: 'POST', url: url, data: data }).done(result => {
-          if (LOG) console.log('Network.call saveUserTmpl done page '+(data.page-1));
-          if (LOG) console.log(JSON.stringify(result));
-          resolve(result);
-        });
-      }
-
-      if (cmd === 'getData') {
-        if (LOG) console.log('Network.call getData');
-        if (LOG) console.log(JSON.stringify(data));
-        var didQuery = dataCache.query(data => {
-          if (LOG) console.log(JSON.stringify(data));
-          data.m = 'getData';
-          return $.ajax({ url: url, data: data }).done(result => {
-            if (LOG) console.log('Network.call getData done');
-            if (LOG) console.log(result.map(function(q){return q.query;}).join(';'));
-            if (LOG) console.log([JSON.stringify(result)]);
-            resolve(result);
-          });
-        }, data);
-
-        if (!didQuery)
-          resolve();
+        data.m = cmd;
+        $.ajax({ type: 'POST', url: url, data: data }).done(resolve);
       }
 
       if (cmd === 'getGrowth') {
-        data.m = 'getGrowth';
+        data.m = cmd;
         data.pageSize = data.pageSize || 3;
         data.pageNum = data.pageNum || 1;
-        if (LOG > 2) console.log('Network.call getGrowth');
-        if (LOG > 2) console.log(JSON.stringify(data));
-        $.ajax({ url: url, data: data }).done(result => {
-          if (LOG) console.log('Network.call getGrowth done');
-          if (LOG) console.log(result.map(function(g){return g.query;}).join(';'));
-          if (LOG) console.log([JSON.stringify(result)]);
-          resolve(result);
-        });
+        $.ajax({ url: url, data: data }).done(resolve);
+      }
+      
+      if (cmd === 'getData') {
+        data.m = cmd;
+        _dataCache.query__( data, data => $.ajax({url:url,data:data}) ).then(resolve);
       }
     });
   };
 
-
   return {
-    call: call,
-    delay: delay
+    call__: call__,
+    delay__: delay__
   };
 }(undefined, jQuery));
