@@ -64,7 +64,7 @@ window.Dangan = (function(undefined) {
     _svg.init(options.svgId, _svgInteractions, options.rotate);
 
     if (LOG) console.log('***init with method loadSystem');
-    DanganCore.init__(options.method||'autoRefresh', {//loadSystem
+    DanganCore.init__(options.method || 'autoRefresh', {
       studentId: options.studentId,
       sysTemplate: options.sysTemplate,
       userTemplate: options.userTemplate,
@@ -73,13 +73,12 @@ window.Dangan = (function(undefined) {
       if (LOG) console.log('***init get result back');
       _nPage = tmplBasic.nPage;
       
-      let w = tmplBasic.width,
-          h = tmplBasic.height,
-          zoom = Math.min(options.width/w, options.height/h);
+      const w = tmplBasic.width;
+      const h = tmplBasic.height;
+      const zoom = Math.min(options.width/w, options.height/h);
       _svg.size(w, h, zoom);
-      if (LOG>1) console.log({w: w, h: h, zoom: zoom});
+      if (LOG>1) console.log({w, h, zoom});
 
-      
       callback && callback.apply && callback(tmplBasic);
       goPage__(0);
 
@@ -114,9 +113,7 @@ window.Dangan = (function(undefined) {
     });
   };
 
-  var savePage = function(page, callback, alertCallback) {
-    page = page || _page;
-
+  function savePage(page = _page, callback, alertCallback) {
     var nEmpty = 0;
     var _svg_hidden = _svg.clone($('<div id="svg-hidden-'+page+'"></div>')[0]);
     goPage__(page, _svg_hidden, true).then(function() {
@@ -176,9 +173,9 @@ window.Dangan = (function(undefined) {
 
       }, 200);
     });
-  };
+  }
 
-  var saveAllPages = function(pages, callback, alertCallback) {
+  function saveAllPages(pages, callback, alertCallback) {
     var pageDone = 0, nEmpty=0;
     var fail;
     for (var i=0; i<_nPage; i++) {
@@ -195,32 +192,29 @@ window.Dangan = (function(undefined) {
         });
       }
     }
-  };
-
-  //page,
-  var getGrowth = function(page, callback) {
+  }
+  
+  function getGrowth(page, callback) {
     DanganCore.getGrowth__(page).then(function(result) {
       callback && callback.apply && callback(result);
     });
-  };
+  }
 
-  var setImage = function(url, text) {
+  function setImage(url, text) {
     _imgUrl = url;
     _imgText = text || '成长记录无文字';
     _svg.draggingImage('start');
     return true;
-  };
+  }
 
-  var dragEnd = function() {
+  function dragEnd() {
     _svg.dragEnd();
     _svg.draggingImage('end');
     _imgUrl = undefined;
     _imgText = undefined;
   };
 
-//  var _randomGrowth
-
-  var randomGrowth = function() {
+  function randomGrowth() {
     DanganCore.init__('randomGrowth').done(function(data) {
       if (LOG) console.log('***init get result back');
 
@@ -231,12 +225,12 @@ window.Dangan = (function(undefined) {
     });
   };
 
-  var _checkCompleteness = function(page, svg, json) {
+  function _checkCompleteness(page, svg, json) {
     if (LOG) console.log('check completeness');
 
 
     if (page === 0) {
-      if (LOG) console.log({page: page, svg: svg, json: json,value:json.elem[0].data[0].value});
+      if (LOG) console.log({page, svg, json, value: json.elem[0].data[0].value});
 
       if (json.elem[0].data[0].value)
         return false;
@@ -245,7 +239,7 @@ window.Dangan = (function(undefined) {
     }
 
     if (page === 1) {
-      if (LOG) console.log({page: page, svg: svg, json: json,value:json.elem[0].data[0].value});
+      if (LOG) console.log({page, svg, json, value: json.elem[0].data[0].value});
 
       if (json.elem[0].data[0].value !== '/static/images/print/template/classs_photo_default.png')
         return false;
@@ -255,12 +249,12 @@ window.Dangan = (function(undefined) {
 
     if (page === 3) {
       var nSubjects = 0;
-      for (var i=0;i<9;i++) {
+      for (var i = 0; i < 9; i++) {
         if (json.elem[0].data[i].value)
           nSubjects++;
       }
 
-      if (LOG) console.log({page: page, svg: svg, json: json,value:nSubjects});
+      if (LOG) console.log({page, svg, json, value: nSubjects});
 
       if (nSubjects >= 4)
         return false;
@@ -269,7 +263,11 @@ window.Dangan = (function(undefined) {
     }
 
     if (page === 16) {
-      if (LOG) console.log({page: page, svg: svg, json: json,value:json.elem[3].data[4].value,value2:json.elem[3].data[9].value});
+      if (LOG) console.log({
+        page, svg, json, 
+        value: json.elem[3].data[4].value,
+        value2: json.elem[3].data[9].value
+      });
 
       if (json.elem[3].data[4].value && json.elem[3].data[9].value)
         return false;
@@ -278,9 +276,13 @@ window.Dangan = (function(undefined) {
     }
 
     if (page === 17) {
-      if (LOG) console.log({page: page, svg: svg, json: json,value:json.elem[4].data[0].value,value2:json.elem[4].data[1].value});
+      if (LOG) console.log({
+        page, svg, json,
+        value: json.elem[4].data[0].value,
+        value2: json.elem[4].data[1].value
+      });
 
-      if (json.elem[4].data[0].value!=='暂无评价' && json.elem[4].data[1].value!=='暂无评价' && json.elem[4].data[2].value!=='暂无评价')
+      if (json.elem[4].data[0].value !== '暂无评价' && json.elem[4].data[1].value !== '暂无评价' && json.elem[4].data[2].value !== '暂无评价')
         return false;
       else
         return '艺术素质测评不足，请检查自我评价或联系音乐美术老师发布成绩';
@@ -288,14 +290,14 @@ window.Dangan = (function(undefined) {
   };
 
   return {
-    init: init,
+    init,
+    savePage,
+    getGrowth,
+    setImage,
+    dragEnd,
+    saveAllPages,
+    randomGrowth,
     goPage: goPage__,
-    savePage: savePage,
-    getGrowth: getGrowth,
-    setImage: setImage,
-    dragEnd: dragEnd,
-    saveAllPages: saveAllPages,
-    randomGrowth: randomGrowth
   }
 
 }(undefined));

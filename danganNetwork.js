@@ -2,79 +2,78 @@
 window.DanganNetwork = (function(undefined, $) {
   const url = '/mobile/api/evaluate/print/record';
 
-  var _dataCache = (function() {
-    let _promises = {},
+  const _dataCache = (function() {
+    let _promises = new Map(),
         _queries = [];
 
-    var delay__ = function(query) {
+    function delay__(query) {
       if (query.constructor === Array) {
         return Promise.all(query.map( q => delay__(q) ));
       } else {
-        if (!_promises[query]) {
-          _promises[query] = {};
+        if (!_promises.get(query)) {
           _queries.push(query);
-          _promises[query].promise = new Promise((resolve, reject) => {
-            _promises[query].resolver = resolve;  
+          const promise = { promise: null, resolver: null };
+          promise.promise = new Promise((resolve, reject) => {
+            promise.resolver = resolve;
           });
+          _promises.set(query, promise);
         }
-        return _promises[qs].promise;
+        return _promises.get(query).promise;
       }
-    };
+    }
     
-    var query__ = function(data, $sendReq__) {
+    function query__(data, $sendReq__) {
       if (_queries.length) {
         data.queries = _queries.join(';');
         _queries = [];
         
         return new Promise((resolve, reject) => {
           $sendReq__(data).done(result => {
-            result.forEach(r => _promises[r.query].resolver(r));
+            result.forEach(r => _promises.get(r.query).resolver(r));
             resolve();
           });
         });
       } else
         return Promise.resolve();
-    };
+    }
 
     return {
-      delay__: delay__,
-      query__: query__
+      delay__,
+      query__
     };
   }());
 
-  var delay__ = function(cmd, query) {
+  function delay__(cmd, query) {
     if (cmd === 'getData')
       return _dataCache.delay__(query);
-  };
+  }
 
-  var call__ = function(cmd, data) {
+  function call__(cmd, data) {
+    data.m = cmd;
     return new Promise((resolve, reject) => {
-      if (cmd === 'getSysTmpl' || cmd === 'loadUserTmpl') {
-        data.m = cmd;
-        $.ajax({ url: url, data: data }).done(resolve);
-      }
-
-      if (cmd === 'saveUserTmpl') {
-        data.m = cmd;
-        $.ajax({ type: 'POST', url: url, data: data }).done(resolve);
-      }
-
-      if (cmd === 'getGrowth') {
-        data.m = cmd;
-        data.pageSize = data.pageSize || 3;
-        data.pageNum = data.pageNum || 1;
-        $.ajax({ url: url, data: data }).done(resolve);
-      }
-      
-      if (cmd === 'getData') {
-        data.m = cmd;
-        _dataCache.query__( data, data => $.ajax({url:url,data:data}) ).then(resolve);
+      switch (cmd) {
+        case 'getSysTmpl':
+        case 'loadUserTmpl':
+          $.ajax({ url: url, data: data }).done(resolve);
+          break;
+        case 'saveUserTmpl':
+          $.ajax({ type: 'POST', url: url, data: data }).done(resolve);
+          break;
+        case 'getGrowth':
+          data.page++;
+          data.pageSize = data.pageSize || 3;
+          data.pageNum = data.pageNum || 1;
+          $.ajax({ url: url, data: data }).done(resolve);
+          break;
+        case 'getData':
+          _dataCache.query__( data, data => $.ajax({ url:url, data:data }) ).then(resolve);
+          break;
       }
     });
-  };
+  }
 
   return {
-    call__: call__,
-    delay__: delay__
+    call__,
+    delay__,
   };
 }(undefined, jQuery));
