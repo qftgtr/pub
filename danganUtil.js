@@ -1,5 +1,5 @@
 window.DanganUtil = (function(undefined) {
-  var _imageObj = {
+  const _imageObj = {
     '优秀':   'score_1.png',
     '良好':   'score_2.png',
     '一般':   'score_3.png',
@@ -11,7 +11,7 @@ window.DanganUtil = (function(undefined) {
     '加油': 'score_9.png'
   };
   
-  var _star1 = {
+  const _star1 = {
     '优秀':   'stars_5.png',
     '良好':   'stars_4.png',
     '中等':   'stars_3.png',
@@ -19,24 +19,24 @@ window.DanganUtil = (function(undefined) {
     '不合格': 'stars_1.png'
   };
 
-  var _star2 = {
+  const _star2 = {
     '优秀':   'star_4.png',
     '良好':   'star_3.png',
     '合格':   'star_2.png',
     '不合格': 'star_1.png'
   };
 
-  var defaultGrowth = '/static/images/print/template/growth_default.png';
+  const defaultGrowth = '/static/images/print/template/growth_default.png';
 
-  var helpers = {
-    'gradeImage': function(d) {
-      d.value = '/static/images/print/template/'+(_imageObj[d.value] || 'score.png');
+  const helpers = {
+    gradeImage(d) {
+      d.value = '/static/images/print/template/' + (_imageObj[d.value] || 'score.png');
     },
-    'star1': function(d) {
-      d.value = '/static/images/print/template/'+(_star1[d.value] || 'stars_0.png');
+    star1(d) {
+      d.value = '/static/images/print/template/' + (_star1[d.value] || 'stars_0.png');
     },
-    'artGrade': function(d) {
-      var v = d.value;
+    artGrade(d) {
+      const v = d.value;
       if (v >= 90)
         d.value = '优秀';
       else if (v >= 75)
@@ -46,8 +46,8 @@ window.DanganUtil = (function(undefined) {
       else if (v > -1)
         d.value = '不合格';
     },
-    'artStars': function(d) {
-      var v = d.value;
+    artStars(d) {
+      const v = d.value;
       if (v >= 90)
         v = '优秀';
       else if (v >= 75)
@@ -57,9 +57,9 @@ window.DanganUtil = (function(undefined) {
       else if (v > 0)
         v = '不合格';
 
-      d.value = '/static/images/print/template/'+(_star2[v] || 'star_0.png');
+      d.value = '/static/images/print/template/' + (_star2[v] || 'star_0.png');
     },
-    'emptyFlower': function(d) {
+    emptyFlower(d) {
       if (typeof d.value === 'number') {
         if (d.value === 0 && !d.offset) {
           d.x = d.x+106;
@@ -74,24 +74,21 @@ window.DanganUtil = (function(undefined) {
         d.value = '/static/images/print/template/red%20flower.png';
       }
     },
-    'hideZero': function(d) {
-      if (!d.value)
-        d.value = '';
-      else
-        d.value = 'x '+d.value;
+    hideZero(d) {
+      d.value = d.value ? 'x '+d.value : '';
     },
-    'getAstro': function(d) {
+    getAstro(d) {
       if (d.value) {
-		  var ymd = d.value.split('-');
-	      if (ymd.length === 1)
-	        ymd = d.value.split('/');
-	      if (ymd.length === 1) {
-	        var yMD = d.value.split('年'),
-	            mD = yMD[1].split('月'),
-	            D = mD[1].split('日');
+        var ymd = d.value.split('-');
+        if (ymd.length === 1)
+          ymd = d.value.split('/');
+        if (ymd.length === 1) {
+          var yMD = d.value.split('年'),
+              mD = yMD[1].split('月'),
+              D = mD[1].split('日');
 
-	        ymd = [yMD[0], mD[0], D[0]];
-	      }
+          ymd = [yMD[0], mD[0], D[0]];
+        }
 
         if (ymd.length === 1)
           d.value = '';
@@ -100,26 +97,26 @@ window.DanganUtil = (function(undefined) {
           d.value = '魔羯水瓶双鱼白羊金牛双子巨蟹狮子处女天秤天蝎射手魔羯'.substr(m*2-(day<'102123444543'.charAt(m-1)- -19)*2,2)+'座';
         }
       } else {
-        d.value = '未知星座'
+        d.value = '未知星座';
       }
     },
-    'percent': function(d) {
+    percent(d) {
       d.value = Math.round(d.value)+'%'
     }
   };
 
-  var _array_find = function(array, cond) {
-    for (var i=0; i<array.length; i++) {
+  function _array_find(array, cond) {
+    for (let i=0; i<array.length; i++) {
       if (cond(array[i]))
         return array[i];
     }
-  };
+  }
 
   var filters = {
-    'skip8': function(result) {
+    skip8(result) {
       return result.slice(8);
     },
-    'sum': function(result) {
+    sum(result) {
       console.log('****');
       console.log(result);
       var total = 0;
@@ -129,7 +126,7 @@ window.DanganUtil = (function(undefined) {
 
       return total/100;
     },
-    'evaluation': function(result) {
+    evaluation(result) {
       var newResult = [];
       newResult.push(_array_find(result, function(x) {
         for (var key in x.subjects)
@@ -164,7 +161,7 @@ window.DanganUtil = (function(undefined) {
       if (LOG>2) console.log(newResult)
       return newResult;
     },
-    'musicArt': function(result) {
+    musicArt(result) {
       var newResult = [];
       newResult.push(_array_find(result, function(x) {
         for (var key in x.subjects)
@@ -181,7 +178,7 @@ window.DanganUtil = (function(undefined) {
       if (LOG>2) console.log(newResult)
       return newResult;
     },
-    'bars': function(result) {
+    bars(result) {
       var max = 0;
       result.forEach(function(r) {
         if (max < r.percentage)
@@ -196,8 +193,8 @@ window.DanganUtil = (function(undefined) {
   };
 
   return {
-    defaultGrowth: defaultGrowth,
-    helpers: helpers,
-    filters: filters
+    defaultGrowth,
+    helpers,
+    filters,
   };
 });
