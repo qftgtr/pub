@@ -64,30 +64,30 @@ window.Dangan = (function(undefined) {
     _svg.init(options.svgId, _svgInteractions, options.rotate);
 
     if (LOG) console.log('***init with method loadSystem');
-    DanganCore.init(options.method||'autoRefresh', {//loadSystem
+    DanganCore.init__(options.method||'autoRefresh', {//loadSystem
       studentId: options.studentId,
       sysTemplate: options.sysTemplate,
       userTemplate: options.userTemplate,
       termId: options.termId
-    }).done(function(data) {
+    }).then(function(tmplBasic) {
       if (LOG) console.log('***init get result back');
-
-      _nPage = data.nPage;
-      var w = data.width,
-          h = data.height,
+      _nPage = tmplBasic.nPage;
+      
+      let w = tmplBasic.width,
+          h = tmplBasic.height,
           zoom = Math.min(options.width/w, options.height/h);
-
+      _svg.size(w, h, zoom);
       if (LOG>1) console.log({w: w, h: h, zoom: zoom});
 
-      _svg.size(w, h, zoom);
-      callback && callback.apply && callback(data);
-      goPage(0);
+      
+      callback && callback.apply && callback(tmplBasic);
+      goPage__(0);
 
-      saveAllPages(data.save);
+      saveAllPages(tmplBasic.save);
     });
   };
 
-  var goPage = function(page, svg, fullBg) {
+  var goPage__ = function(page, svg, fullBg) {
     if (svg) {
       var __svg = svg;
     } else {
@@ -104,7 +104,7 @@ window.Dangan = (function(undefined) {
       _page = page;
     }
 
-    return DanganCore.getPage(page).done(function(layout) {
+    return DanganCore.getPage__(page).then(function(layout) {
       if (svg || page === _page) {
         // if svg target is set or the selected is current page
         __svg.clear();
@@ -119,7 +119,7 @@ window.Dangan = (function(undefined) {
 
     var nEmpty = 0;
     var _svg_hidden = _svg.clone($('<div id="svg-hidden-'+page+'"></div>')[0]);
-    goPage(page, _svg_hidden, true).done(function() {
+    goPage__(page, _svg_hidden, true).then(function() {
       setTimeout(function() {
         //if (LOG) console.log('***savePage: '+page);
     	var svgStr = _svg_hidden.getSvg(function(x) {nEmpty+=x;});
@@ -139,7 +139,7 @@ window.Dangan = (function(undefined) {
                       alertCallback && alertCallback.apply && alertCallback(incomplete);
                     }
 
-                    DanganCore.savePage(page, svgStr, JSON.stringify(json)).done(function(result) {
+                    DanganCore.savePage__(page, svgStr, JSON.stringify(json)).then(function(result) {
                       if (callback && callback.apply) {
                         callback(page, nEmpty);
                       } else {
@@ -161,7 +161,7 @@ window.Dangan = (function(undefined) {
             alertCallback && alertCallback.apply && alertCallback(incomplete);
           }
 
-          DanganCore.savePage(page, svgStr, JSON.stringify(json)).done(function(result) {
+          DanganCore.savePage__(page, svgStr, JSON.stringify(json)).then(function(result) {
             if (callback && callback.apply) {
               callback(page, nEmpty);
             } else {
@@ -199,7 +199,7 @@ window.Dangan = (function(undefined) {
 
   //page,
   var getGrowth = function(page, callback) {
-    DanganCore.getGrowth(page).done(function(result) {
+    DanganCore.getGrowth__(page).then(function(result) {
       callback && callback.apply && callback(result);
     });
   };
@@ -221,12 +221,11 @@ window.Dangan = (function(undefined) {
 //  var _randomGrowth
 
   var randomGrowth = function() {
-    DanganCore.init('randomGrowth').done(function(data) {
+    DanganCore.init__('randomGrowth').done(function(data) {
       if (LOG) console.log('***init get result back');
 
       $('.click')[0].click();
-      goPage(0);
-//      goPage(_page);
+      goPage__(0);
 
       saveAllPages(data.save);
     });
@@ -290,7 +289,7 @@ window.Dangan = (function(undefined) {
 
   return {
     init: init,
-    goPage: goPage,
+    goPage: goPage__,
     savePage: savePage,
     getGrowth: getGrowth,
     setImage: setImage,
