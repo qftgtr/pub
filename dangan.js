@@ -218,6 +218,8 @@ var Dangan = (function(undefined) {
 //  var _randomGrowth
   
   var randomGrowth = function() {
+    DanganMask.setMsg('目前系统是根据学生的德智体美劳模块选取的成长照片，如果您选择随机填充成长照片，则成长照片无法按成长标签分布，请知晓');
+    
     DanganCore.init('randomGrowth').done(function(data) {
       if (LOG) console.log('***init get result back');
       
