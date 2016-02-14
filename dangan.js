@@ -265,7 +265,7 @@ var Dangan = (function(undefined) {
       if (nSubjects >= 4)
         return false;
       else 
-        return '期末考试成绩还未发布或科目不足，请联系班主任发布成绩';
+        return '期末考试还未发布或考试科目不全，请联系班主任发布成绩';
     }
     
     if (page === 16) {
@@ -274,7 +274,7 @@ var Dangan = (function(undefined) {
       if (json.elem[3].data[4].value && json.elem[3].data[9].value)
         return false;
       else
-        return '艺术素质测评不足，请联系音乐或美术老师发布成绩';
+        return '艺术素质测评数据缺失，请检查艺术测评自我评价或联系音乐美术老师补充评价数据';
     }
     
     if (page === 17) {
@@ -283,7 +283,7 @@ var Dangan = (function(undefined) {
       if (json.elem[4].data[0].value!=='暂无评价' && json.elem[4].data[1].value!=='暂无评价' && json.elem[4].data[2].value!=='暂无评价')
         return false;
       else
-        return '艺术素质测评不足，请检查自我评价或联系音乐美术老师发布成绩';
+        return '艺术素质测评数据缺失，请检查艺术测评自我评价或联系音乐美术老师补充评价数据';
     }
   };
   
