@@ -1,6 +1,6 @@
 // svg 排版, requires d3, d3textwrap
 var _d,_this;
-var DanganSVG = function() {
+window.DanganSVG = function() {
   var undefined = undefined, $ = jQuery;
 //  var dev_ip = 'http://preevaluate.mexue.com';
   var LOG = 0;
@@ -8,11 +8,11 @@ var DanganSVG = function() {
       _defs, _elements, _textElements, _bg,
       _interactions, _flag = '',
       _original;
-  
+
   var _width, _height, _zoom, _rotate;
-  
+
   var _layout; // data object
-  
+
   var _overNode;
   var init = function(target, interactions, rotate) {
     if (typeof target === 'string') {
@@ -23,17 +23,17 @@ var DanganSVG = function() {
       _target = d3.select(target);
       _original = true;
     }
-    
+
     _svg = _target.append('svg')
       .attr('xmlns', 'http://www.w3.org/2000/svg')
       .attr('version', '1.1')
       .attr('xmlns:xlink', 'http://www.w3.org/1999/xlink')
       .attr('id', 'dangan-svg');
-    
+
     _bg = _svg.append('image').attr('id', 'dangan-background');
     _defs = _svg.append('defs').attr('id', 'dangan-defs');
     _elements = _svg.append('g').attr('id', 'dangan-elements');
-    
+
     if (_original) {
       if (!document.getElementById('dangan-svg-hidden')) {
         d3.select('body').append('svg')
@@ -42,30 +42,30 @@ var DanganSVG = function() {
           .attr('xmlns:xlink', 'http://www.w3.org/1999/xlink')
           .attr('id', 'dangan-svg-hidden');
       }
-      
+
       _textElements = d3.select('#dangan-svg-hidden').append('g').attr('id', 'dangan-text-elements');
 //      document.getElementById('dangan-svg-hidden').appendChild(_textElements[0][0]);
     } else {
       _textElements = _svg.append('g').attr('id', 'dangan-text-elements');
     }
-    
+
     _rotate = rotate;
-    
+
     _interactions = {
       change: interactions.onchange || function() {},
       drag: interactions.ondragend || function() {},
       changeText: interactions.changeText || function() {}
     };
   };
-  
+
   var size = function(w, h, zoom) {
     _width = w*zoom;
     _height = h*zoom;
     _zoom = zoom;
-    
+
     _svg.append('style').attr('type', 'text/css')
       .text('text,tspan{font-family:"SimHei";}.radar-chart .axis line,.radar-chart .level{stroke:grey;stroke-width:.5}.radar-chart .axis .legend{font-size:'+44*_zoom+'px}.radar-chart .axis .legend.left{text-anchor:end}.radar-chart .axis .legend.middle{text-anchor:middle}.radar-chart .axis .legend.right{text-anchor:start}.radar-chart .tooltip{font-size:13px;transition:opacity .2s;opacity:0}.radar-chart .tooltip.visible{opacity:1}.radar-chart .area{stroke-width:2;fill-opacity:.1}.radar-chart.focus .area.focused{fill-opacity:.6}');
-    
+
     if (_original) {
       var svg_hidden = d3.select('#dangan-svg-hidden')
         .attr('width', _width)
@@ -73,7 +73,7 @@ var DanganSVG = function() {
         .append('style').attr('type', 'text/css')
         .text('text,tspan{font-family:"SimHei";}#dangan-svg-hidden .radar-chart .axis .legend{font-size:'+44*_zoom+'px}.radar-chart .axis .legend.left{text-anchor:end}.radar-chart .axis .legend.middle{text-anchor:middle}.radar-chart .axis .legend.right{text-anchor:start}');
     }
-    
+
     if (_rotate) {
       _svg.attr('width', _height)
           .attr('height', _width);
@@ -85,14 +85,14 @@ var DanganSVG = function() {
       _svg.attr('width', _width)
           .attr('height', _height);
     }
-    
+
     _bg.attr('width', _width)
       .attr('height', _height);
   };
-  
+
   var putImgCircle = function(data, name) {
     if (LOG>1) console.log(data);
-    
+
     var clipName = 'dangan-img-circle-' + name + '-clip';
     _defs.selectAll('.'+clipName).data(data).enter()
       .append('clipPath')
@@ -101,7 +101,7 @@ var DanganSVG = function() {
       .append('circle')
       .attr('r', function(d) { return _zoom * d.r; })
       .attr('transform', function(d) { return 'translate(' + _zoom*(d.x+d.r) + ',' + _zoom*(d.y+d.r) + ')'; });
-    
+
     var elementName = 'dangan-img-circle-' + name;
     _elements.selectAll('.'+elementName).data(data).enter()
       .append('g')
@@ -132,10 +132,10 @@ var DanganSVG = function() {
         }
       });
   };
-  
+
   var putImage = function(data, name) {
     var elementName = 'dangan-image-' + name;
-    
+
     var clipName = 'dangan-image-' + name + '-clip';
     _defs.selectAll('.'+clipName).data(data).enter()
       .append('clipPath')
@@ -145,7 +145,7 @@ var DanganSVG = function() {
       .attr('width', function(d) { return _zoom * d.w; })
       .attr('height', function(d) { return _zoom * d.h; })
       .attr('transform', function(d) { return 'translate(' + _zoom*d.x + ',' + _zoom*d.y + ')'; });
-    
+
     var clipBox = _elements.selectAll('.'+elementName).data(data).enter()
       .append('g')
       .attr('class', function(d) { return elementName + (d.click?' dangan-click':'');})
@@ -156,7 +156,7 @@ var DanganSVG = function() {
             d3.select(this.firstChild).style('opacity', 0.1);
             d3.select(this).selectAll('.dangan-image-buttons').style('display','initial');
           });
-          
+
           $(this).on('mouseleave', function() {
             d3.select(this.firstChild).style('opacity', 0);
             d3.select(this).selectAll('.dangan-image-buttons').style('display','none');
@@ -176,13 +176,13 @@ var DanganSVG = function() {
           });
         }
       });
-    
+
     clipBox.filter(function(d) {return d.modify||d.rotateOnly;}).append('rect')
       .attr('width', function(d) {return _zoom*d.w;})
       .attr('height', function(d) {return _zoom*d.h;})
       .attr('transform', function(d) { return 'translate('+_zoom*d.x+','+_zoom*d.y+')'; })
       .style('opacity', 0);
-    
+
     clipBox.append('image')
       .attr('class', function(d,i) { return elementName+'-'+i;})// + (d.modify?' dangan-modify':'');})
       .attr('xlink:href', function(d) {
@@ -196,7 +196,7 @@ var DanganSVG = function() {
       .attr('transform', function(d) {
         return 'translate('+_zoom*(d.x+d.w/2)+','+_zoom*(d.y+d.h/2)+') scale('+(d.scale||1)+') translate('+(-_zoom*d.w/2)+','+(-_zoom*d.h/2)+') rotate('+(d.rotate||0)+' '+_zoom*d.w/2+' '+_zoom*d.h/2+')';
       });
-    
+
     if (!_original) {
       clipBox.filter(function(d) {return (d.modify || d.rotateOnly);}).append('image')
         .attr('class', 'dangan-image-buttons')
@@ -212,7 +212,7 @@ var DanganSVG = function() {
           d3.select(this.parentNode.children[1]).attr('transform', function(d) {
             return 'translate('+_zoom*(d.x+d.w/2)+','+_zoom*(d.y+d.h/2)+') scale('+(d.scale||1)+') translate('+(-_zoom*d.w/2)+','+(-_zoom*d.h/2)+') rotate('+(d.rotate||0)+' '+_zoom*d.w/2+' '+_zoom*d.h/2+')';
           });
-        
+
           _interactions.change();
         });
 
@@ -230,7 +230,7 @@ var DanganSVG = function() {
           d3.select(this.parentNode.children[1]).attr('transform', function(d) {
             return 'translate('+_zoom*(d.x+d.w/2)+','+_zoom*(d.y+d.h/2)+') scale('+(d.scale||1)+') translate('+(-_zoom*d.w/2)+','+(-_zoom*d.h/2)+') rotate('+(d.rotate||0)+' '+_zoom*d.w/2+' '+_zoom*d.h/2+')';
           });
-          
+
           _interactions.change();
         });
 
@@ -248,12 +248,12 @@ var DanganSVG = function() {
           d3.select(this.parentNode.children[1]).attr('transform', function(d) {
             return 'translate('+_zoom*(d.x+d.w/2)+','+_zoom*(d.y+d.h/2)+') scale('+(d.scale||1)+') translate('+(-_zoom*d.w/2)+','+(-_zoom*d.h/2)+') rotate('+(d.rotate||0)+' '+_zoom*d.w/2+' '+_zoom*d.h/2+')';
           });
-          
+
           _interactions.change();
         });
     }
   };
-  
+
   var putText = function(data, name) {
     var elementName = 'dangan-text-' + name;
     _textElements.selectAll('.'+elementName).data(data).enter()
@@ -292,10 +292,10 @@ var DanganSVG = function() {
         d3.select(this).textwrap({width: _zoom*d.w, height: _zoom*d.h, x:0, y:0}, 0);
       });
   };
-  
+
   var putRadar = function(data, name) {
     var elementName = 'dangan-radar-' + name;
-    
+
     var radar = [
       {
         className: '我的成绩',
@@ -314,7 +314,7 @@ var DanganSVG = function() {
         }).slice(0,9)
       }
     ];
-    
+
     var chart = RadarChart.chart();
 
     chart.config({
@@ -343,7 +343,7 @@ var DanganSVG = function() {
       },
       transitionDuration: 100
     });
-    
+
     _elements.append('g')
       .classed(elementName, 1)
       .classed('focus', 1)
@@ -351,10 +351,10 @@ var DanganSVG = function() {
       .attr('width', data.w*_zoom)
       .attr('height', data.h*_zoom)
       .datum(radar).call(chart);
-    
+
 //    $('.tooltip').remove();
   };
-  
+
   var putBars = function(data, name) {
     var elementName = 'dangan-bars-' + name;
     _elements.selectAll('.'+elementName).data(data).enter()
@@ -367,7 +367,7 @@ var DanganSVG = function() {
       .attr('ry', function(d) {return _zoom*d.h/2;})
       .style('fill', function(d) {return d.value[1];})
   };
-  
+
   var clear = function() {
     _bg.remove();
     _defs.remove();
@@ -382,7 +382,7 @@ var DanganSVG = function() {
       _textElements = d3.select('#dangan-svg-hidden').append('g').attr('id', 'dangan-text-elements');
     else
       _textElements = _svg.append('g').attr('id', 'dangan-text-elements');
-    
+
     if (_rotate) {
       var matrix = 'matrix(0,1,-1,0,'+_height+',0)';
       _bg.attr('transform', matrix);
@@ -390,19 +390,19 @@ var DanganSVG = function() {
       _textElements.attr('transform', matrix);
     }
   };
-  
+
   var putLayout = function(layout, fullBg) {
     _layout = layout;
     if (LOG) console.log('Svg.putLayout');
     if (LOG) console.log(JSON.stringify(layout));
-    
+
     if (fullBg)
       _bg.attr('xlink:href', function() {
     	  if (layout.bg && layout.bg[0] !== 'h')
     		  return dev_ip+layout.bg;
     	  else
     		  return layout.bg;
-    	  
+
       });
     else
       _bg.attr('xlink:href', function() {
@@ -411,17 +411,17 @@ var DanganSVG = function() {
     	  else
     		  return layout.bg2;
       });
-    
+
     var elements = layout.elem,
         length = elements.length;
-    
+
     for (var i=0; i<length; i++) {
       var elem = elements[i],
           type = elem.type;
-      
+
       if (LOG>2) console.log('Svg.putLayout elem');
       if (LOG>2) console.log([JSON.stringify(elem)]);
-      
+
       if (type === 'img-circle') {
         var _array=[];
         elem.data.forEach(function(d) {
@@ -430,7 +430,7 @@ var DanganSVG = function() {
         });
         putImgCircle(_array, elem.name);
       }
-      
+
       if (type === 'image') {
         var _array=[];
         elem.data.forEach(function(d) {
@@ -439,34 +439,34 @@ var DanganSVG = function() {
         });
         putImage(_array, elem.name);
       }
-      
+
       if (type === 'text') {
         putText(elem.data, elem.name);
       }
-      
+
       if (type === 'radar') {
         putRadar(elem.data[0], elem.name);
       }
-      
+
       if (type === 'bars') {
         putBars(elem.data, elem.name);
       }
     }
   };
-  
+
   var _setImage = function(url, i, j) {
     _layout[i].data[j].value = url;
   };
-  
+
   var _setText = function(text, i, j) {
     _layout[i].data[j].value = text;
   };
-  
+
   var draggingImage = function(status) {
     if (status === 'start') {
-      
+
     } else if (status === 'stop') {
-      
+
     }
   };
 
@@ -474,7 +474,7 @@ var DanganSVG = function() {
     var d = node.datum();
     node.textwrap({width: _zoom*d.w, height: _zoom*d.h, x:0, y:0}, 0);
   };
-  
+
   return {
     init: init,
     size: size,
@@ -499,7 +499,7 @@ var DanganSVG = function() {
     clone: function(dom, size) {
       var _clone = DanganSVG();
       _clone.init(dom, {});
-      
+
       size = size || {};
       _clone.size(size.w||(_width/_zoom), size.h||(_height/_zoom), size.zoom||1);
       return _clone;

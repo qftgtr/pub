@@ -1,0 +1,29 @@
+{
+  "name": "pub",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dangan.js",
+  "dependencies": {
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^5.0.0",
+    "eslint-plugin-react": "^3.16.1"
+  },
+  "devDependencies": {
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^5.0.0",
+    "eslint-plugin-react": "^3.16.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qftgtr/pub.git"
+  },
+  "author": "Zehao Li",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qftgtr/pub/issues"
+  },
+  "homepage": "https://github.com/qftgtr/pub#readme"
+}
