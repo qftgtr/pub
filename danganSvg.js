@@ -162,26 +162,26 @@ var DanganSVG = function() {
             d3.select(this).selectAll('.dangan-image-buttons').style('display','none');
           });
         }
-      })
-      .each(function(d,i) {
-        if (d.modify) {
-          $(this).on('mouseenter', function() {
-            if (LOG > 2) console.log('enter');
-            _overNode = {node:this.parentNode.children[1], data:d, index:i};
-          });
-          
-          $(this).on('mouseleave', function() {
-            if (LOG > 2) console.log('out');
-            _overNode = undefined;
-          });
-        }
       });
     
     clipBox.filter(function(d) {return d.modify||d.rotateOnly;}).append('rect')
       .attr('width', function(d) {return _zoom*d.w;})
       .attr('height', function(d) {return _zoom*d.h;})
       .attr('transform', function(d) { return 'translate('+_zoom*d.x+','+_zoom*d.y+')'; })
-      .style('opacity', 0);
+      .style('opacity', 0)
+      .each(function(d,i) {
+        if (d.modify) {
+          $(this).on('mouseenter', function() {
+            if (LOG > 2) console.log('enter');
+            _overNode = {node:this.parentNode.children[1], data:d, index:i};
+          });
+
+          $(this).on('mouseleave', function() {
+            if (LOG > 2) console.log('out');
+            _overNode = undefined;
+          });
+        }
+      });
     
     clipBox.append('image')
       .attr('class', function(d,i) { return elementName+'-'+i;})// + (d.modify?' dangan-modify':'');})
