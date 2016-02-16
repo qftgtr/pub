@@ -80,7 +80,7 @@ var Dangan = (function(undefined) {
       callback && callback.apply && callback(data);
       goPage(0);
       
-      saveAllPages(data.save);
+      saveAllPages(data.save, function() {});
     });
   };
   
@@ -176,6 +176,7 @@ var Dangan = (function(undefined) {
   };
   
   var saveAllPages = function(pages, callback, alertCallback) {
+    callback = callback || function() {DanganMask.setMsg('保存成功！')};
     var pageDone = 0, nEmpty=0;
     var fail;
     for (var i=0; i<_nPage; i++) {
@@ -227,7 +228,7 @@ var Dangan = (function(undefined) {
       goPage(0);
 //      goPage(_page);
       
-      saveAllPages(data.save);
+      saveAllPages(data.save, function() {});
     });
   };
   
