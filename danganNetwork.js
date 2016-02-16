@@ -1,4 +1,4 @@
-window.DanganNetwork = (($) => {
+const DanganNetwork = (($) => {
   const url = '/mobile/api/evaluate/print/record';
 
   const _dataCache = (() => {

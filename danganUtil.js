@@ -1,4 +1,4 @@
-window.DanganUtil = (function(undefined) {
+const DanganUtil = (function(undefined) {
   const _imageObj = {
     '优秀':   'score_1.png',
     '良好':   'score_2.png',

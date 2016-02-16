@@ -1,6 +1,4 @@
-const DanganNetwork = window.DanganNetwork;
-const DanganUtil = window.DanganUtil;
-window.DanganCore = (() => {
+const DanganCore = (() => {
   let _studentId;
   let _userTemplate;
   let _sysTemplate;

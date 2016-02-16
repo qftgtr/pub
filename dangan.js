@@ -1,7 +1,4 @@
-const DanganCore = window.DanganCore,
-      DanganSVG = window.DanganSVG;
-
-window.Dangan = (function(undefined) {
+const Dangan = (function(undefined) {
   //var LOG = Math.max(LOG||0, 0);
   var _svg = DanganSVG(),
       _svg_hidden;
