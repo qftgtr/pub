@@ -176,7 +176,7 @@ var Dangan = (function(undefined) {
   };
   
   var saveAllPages = function(pages, callback, alertCallback) {
-    callback = callback || function() {DanganMask.setMsg('保存成功！')};
+    callback = callback || function() {DanganMask.setMsg('已成功保存！')};
     var pageDone = 0, nEmpty=0;
     var fail;
     for (var i=0; i<_nPage; i++) {
