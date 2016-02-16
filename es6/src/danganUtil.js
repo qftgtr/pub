@@ -47,7 +47,7 @@ const DanganUtil = (function(undefined) {
         d.value = '不合格';
     },
     artStars(d) {
-      const v = d.value;
+      let v = d.value;
       if (v >= 90)
         v = '优秀';
       else if (v >= 75)
