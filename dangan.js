@@ -74,12 +74,11 @@ const Dangan = (function(undefined) {
       const h = tmplBasic.height;
       const zoom = Math.min(options.width/w, options.height/h);
       _svg.size(w, h, zoom);
-      if (LOG>1) console.log({w, h, zoom});
 
       callback && callback.apply && callback(tmplBasic);
       goPage__(0);
-
-      saveAllPages(tmplBasic.save);
+      
+      saveAllPages(tmplBasic.save, function() {});
     });
   };
 
@@ -173,6 +172,7 @@ const Dangan = (function(undefined) {
   }
 
   function saveAllPages(pages, callback, alertCallback) {
+    callback = callback || function() {DanganMask.setMsg('已成功保存！')};
     var pageDone = 0, nEmpty=0;
     var fail;
     for (var i=0; i<_nPage; i++) {
@@ -212,13 +212,15 @@ const Dangan = (function(undefined) {
   };
 
   function randomGrowth() {
-    DanganCore.init__('randomGrowth').done(function(data) {
-      if (LOG) console.log('***init get result back');
+    DanganMask.setMsg('目前系统是根据学生的德智体美劳模块选取的成长照片，如果您选择随机填充成长照片，则成长照片无法按成长标签分布，请知晓', undefined, true, function() {
+      DanganCore.init__('randomGrowth').done(function(data) {
+        if (LOG) console.log('***init get result back');
 
-      $('.click')[0].click();
-      goPage__(0);
+        $('.click')[0].click();
+        goPage__(0);
 
-      saveAllPages(data.save);
+        saveAllPages(data.save, function() {});
+      });
     });
   };
 
@@ -255,8 +257,8 @@ const Dangan = (function(undefined) {
 
       if (nSubjects >= 4)
         return false;
-      else
-        return '期末考试成绩还未发布或科目不足，请联系班主任发布成绩';
+      else 
+        return '期末考试还未发布或考试科目不全，请联系班主任发布成绩';
     }
 
     if (page === 16) {
@@ -269,7 +271,7 @@ const Dangan = (function(undefined) {
       if (json.elem[3].data[4].value && json.elem[3].data[9].value)
         return false;
       else
-        return '艺术素质测评不足，请联系音乐或美术老师发布成绩';
+        return '艺术素质测评数据缺失，请检查艺术测评自我评价或联系音乐美术老师补充评价数据';
     }
 
     if (page === 17) {
@@ -282,7 +284,7 @@ const Dangan = (function(undefined) {
       if (json.elem[4].data[0].value !== '暂无评价' && json.elem[4].data[1].value !== '暂无评价' && json.elem[4].data[2].value !== '暂无评价')
         return false;
       else
-        return '艺术素质测评不足，请检查自我评价或联系音乐美术老师发布成绩';
+        return '艺术素质测评数据缺失，请检查艺术测评自我评价或联系音乐美术老师补充评价数据';
     }
   };
 

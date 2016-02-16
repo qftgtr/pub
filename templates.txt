@@ -1,4 +1,4 @@
-Dangan.init({width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:studentId,userTemplate:userTemplate,method:"loadSystem"}, MXPreviewTools.createPagerList);
+Dangan.init({width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:studentId,userTemplate:userTemplate,termId:termId,method:"loadSystem"}, MXPreviewTools.createPagerList);
 
 // 封面
 {"elem":[{"type":"text","name":"frontPage","data":[
