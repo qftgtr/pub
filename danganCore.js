@@ -173,7 +173,7 @@ var DanganCore = function () {
             studentId: _studentId
           }).then(function (result) {
             data.forEach(function (d, i) {
-              if (result[i]) {
+              if (result && result[i]) {
                 d.value = d.value || result[i].imgs[0];
                 d.gText = d.gText || result[i].text;
               } else {
