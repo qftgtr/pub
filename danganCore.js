@@ -187,7 +187,7 @@ var DanganCore = function () {
 
       if (query) {
         var p = DanganNetwork.delay__('getData', query).then(function (result) {
-          var resultData = _handleFilter(result.data, filter, key) || result.data || [];
+          var resultData = _handleFilter(result.data, filter, key) || [];
           data.forEach(function (d, i) {
             d.value = resultData[i];
           });
@@ -222,7 +222,7 @@ var DanganCore = function () {
     if (filter && DanganUtil.filters[filter]) {
       resultData = DanganUtil.filters[filter](data || []);
     }
-    if (key) return resultData.map(function (d) {
+    if (key) resultData = resultData.map(function (d) {
       return d.key;
     });
     return resultData;
