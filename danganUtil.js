@@ -1,6 +1,6 @@
 'use strict';
 
-var DanganUtil = function DanganUtil(undefined) {
+var DanganUtil = function (undefined) {
   var _imageObj = {
     '优秀': 'score_1.png',
     '良好': 'score_2.png',
@@ -180,4 +180,4 @@ var DanganUtil = function DanganUtil(undefined) {
     helpers: helpers,
     filters: filters
   };
-};
+}();

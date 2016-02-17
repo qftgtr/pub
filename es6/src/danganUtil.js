@@ -197,4 +197,4 @@ const DanganUtil = (function(undefined) {
     helpers,
     filters,
   };
-});
+}());
