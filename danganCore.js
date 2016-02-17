@@ -63,11 +63,12 @@ var DanganCore = function () {
 
     if (LOG) console.log('Core.init__ for method ' + method);
 
-    _studentId = studentId;
-    _sysTemplate = sysTemplate;
-    _userTemplate = userTemplate;
-    _termId = termId;
-
+    if (method !== 'randomGrowth') {
+      _studentId = studentId;
+      _sysTemplate = sysTemplate;
+      _userTemplate = userTemplate;
+      _termId = termId;
+    }
     _growthCacheIndex.first = 0;
     _growthCacheIndex.second = 0;
 
@@ -167,7 +168,7 @@ var DanganCore = function () {
         } else {
           var p = DanganNetwork.call__('getGrowth', {
             tagId: growth,
-            pageNum: 1,
+            pageNum: 0,
             pageSize: data.length,
             studentId: _studentId
           }).then(function (result) {
@@ -217,14 +218,14 @@ var DanganCore = function () {
   }
 
   function _handleFilter(data, filter, key) {
+    var resultData = data;
     if (filter && DanganUtil.filters[filter]) {
-      var resultData = DanganUtil.filters[filter](data || []);
-      if (key) return resultData.map(function (d) {
-        return d.key;
-      });
-
-      return resultData;
+      resultData = DanganUtil.filters[filter](data || []);
     }
+    if (key) return resultData.map(function (d) {
+      return d.key;
+    });
+    return resultData;
   }
 
   function _parseHelper(pageObj) {
@@ -294,7 +295,7 @@ var DanganCore = function () {
     return DanganNetwork.call__('saveUserTmpl', {
       svg: svg,
       json: json,
-      page: page,
+      page: page + 1,
       templateId: _userTemplate
     });
   }

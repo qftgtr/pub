@@ -47,8 +47,10 @@ const DanganCore = (() => {
   function init__(method, { studentId, sysTemplate, userTemplate, termId }) {
     if (LOG) console.log('Core.init__ for method '+method);
 
-    [_studentId, _sysTemplate, _userTemplate, _termId] =
-      [studentId, sysTemplate, userTemplate, termId];
+    if (method !== 'randomGrowth') {
+      [_studentId, _sysTemplate, _userTemplate, _termId] =
+        [studentId, sysTemplate, userTemplate, termId];
+    }
     _growthCacheIndex.first = 0;
     _growthCacheIndex.second = 0;
 
@@ -126,7 +128,7 @@ const DanganCore = (() => {
         } else {
           const p = DanganNetwork.call__('getGrowth', {
             tagId: growth,
-            pageNum: 1,
+            pageNum: 0,
             pageSize: data.length,
             studentId: _studentId
           }).then(result => {
@@ -174,12 +176,12 @@ const DanganCore = (() => {
   }
 
   function _handleFilter(data, filter, key) {
+    let resultData = data;
     if (filter && DanganUtil.filters[filter]) {
-      const resultData = DanganUtil.filters[filter](data || []);
-      if (key) return resultData.map(d => d.key);
-
-      return resultData;
+      resultData = DanganUtil.filters[filter](data || []);
     }
+    if (key) return resultData.map(d => d.key);
+    return resultData;
   }
 
   function _parseHelper(pageObj) {
@@ -247,7 +249,7 @@ const DanganCore = (() => {
     return DanganNetwork.call__('saveUserTmpl', {
       svg,
       json,
-      page,
+      page: page+1,
       templateId: _userTemplate,
     });
   }
