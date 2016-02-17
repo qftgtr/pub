@@ -1,5 +1,7 @@
 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
 var DanganNetwork = function ($) {
   var url = '/mobile/api/evaluate/print/record';
 
@@ -29,18 +31,24 @@ var DanganNetwork = function ($) {
 
     function query__(data, $sendReq__) {
       if (_queries.length) {
-        var sendData = { queries: _queries.join(';') };
-        Object.assign(sendData, data);
-        _queries = [];
+        var _ret2 = function () {
+          var sendData = { queries: _queries.join(';') };
+          Object.assign(sendData, data);
+          _queries = [];
 
-        return new Promise(function (resolve) {
-          $sendReq__(data).done(function (result) {
-            result.forEach(function (r) {
-              return _promises.get(r.query).resolver(r);
-            });
-            resolve();
-          });
-        });
+          return {
+            v: new Promise(function (resolve) {
+              $sendReq__(sendData).done(function (result) {
+                result.forEach(function (r) {
+                  return _promises.get(r.query).resolver(r);
+                });
+                resolve();
+              });
+            })
+          };
+        }();
+
+        if ((typeof _ret2 === 'undefined' ? 'undefined' : _typeof(_ret2)) === "object") return _ret2.v;
       }
 
       return Promise.resolve();

@@ -28,7 +28,7 @@ const DanganNetwork = (($) => {
         _queries = [];
 
         return new Promise((resolve) => {
-          $sendReq__(data).done(result => {
+          $sendReq__(sendData).done(result => {
             result.forEach(r => _promises.get(r.query).resolver(r));
             resolve();
           });
