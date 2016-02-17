@@ -147,7 +147,7 @@ const DanganCore = (() => {
 
       if (query) {
         const p = DanganNetwork.delay__('getData', query).then(result => {
-          const resultData = _handleFilter(result.data, filter, key) || result.data || [];
+          const resultData = _handleFilter(result.data, filter, key) || [];
           data.forEach((d, i) => { d.value = resultData[i]; });
         });
         __promises.push(p);
@@ -180,7 +180,7 @@ const DanganCore = (() => {
     if (filter && DanganUtil.filters[filter]) {
       resultData = DanganUtil.filters[filter](data || []);
     }
-    if (key) return resultData.map(d => d.key);
+    if (key) resultData = resultData.map(d => d.key);
     return resultData;
   }
 
