@@ -1,5 +1,5 @@
 const DanganNetwork = (($) => {
-  const URL = '/mobile/api/evaluate/print/record';
+  const url = '/mobile/api/evaluate/print/record';
 
   const _dataCache = (() => {
     const _promises = new Map();
@@ -20,7 +20,7 @@ const DanganNetwork = (($) => {
       }
       return _promises.get(query).promise;
     }
-    
+
     function delay__(query) {
       try {
         return _delay__(query);
@@ -35,7 +35,7 @@ const DanganNetwork = (($) => {
         Object.assign(sendData, data);
         const sendQueries = Object.assign([], _queries);
         _queries = [];
-        
+
         let nReturned = 0;
         return new Promise((resolve, reject) => {
           $ajaxSend(sendData).done(result => {
@@ -75,19 +75,19 @@ const DanganNetwork = (($) => {
     if (cmd === 'getData') return _dataCache.delay__(query);
   }
 
-  function _call__(cmd, inputdata) {
+  function _call__(cmd, inputData) {
     const data = { m: cmd };
-    Object.assign(data, inputdata);
+    Object.assign(data, inputData);
     return new Promise((resolve, reject) => {
       switch (cmd) {
         case 'getSysTmpl':
         case 'loadUserTmpl':
-          $.ajax({ URL, data }).done(resolve).fail((_, reason) => {
+          $.ajax({ url, data }).done(resolve).fail((_, reason) => {
             reject(`DanganNetwork cmd ${cmd}: ${reason}`);
           });
           break;
         case 'saveUserTmpl':
-          $.ajax({ type: 'POST', URL, data }).done(resolve).fail((_, reason) => {
+          $.ajax({ type: 'POST', url, data }).done(resolve).fail((_, reason) => {
             reject(`DanganNetwork cmd ${cmd}: ${reason}`);
           });
           break;
@@ -95,12 +95,12 @@ const DanganNetwork = (($) => {
           data.page++;
           data.pageSize = data.pageSize || 3;
           data.pageNum = data.pageNum || 1;
-          $.ajax({ URL, data }).done(resolve).fail((_, reason) => {
+          $.ajax({ url, data }).done(resolve).fail((_, reason) => {
             reject(`DanganNetwork cmd ${cmd}: ${reason}`);
           });
           break;
         case 'getData':
-          _dataCache.query__(data, d => $.ajax({ URL, data: d })).then(resolve, reject);
+          _dataCache.query__(data, d => $.ajax({ url, data: d })).then(resolve, reject);
           break;
         default:
           reject(`DanganNetwork unknown cmd: ${cmd}`);
@@ -111,11 +111,11 @@ const DanganNetwork = (($) => {
   function call__(cmd, inputData) {
     try {
       return _call__(cmd, inputData);
-    } catch(err) {
-      throw new Error(`DanganNetwork call: ${cmd} || ${inputdata}\n${err}`);
+    } catch (err) {
+      throw new Error(`DanganNetwork call: ${cmd} || ${inputData}\n${err}`);
     }
   }
-  
+
   return {
     call__,
     delay__,

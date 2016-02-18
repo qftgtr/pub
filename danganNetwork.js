@@ -3,7 +3,7 @@
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
 var DanganNetwork = function ($) {
-  var URL = '/mobile/api/evaluate/print/record';
+  var url = '/mobile/api/evaluate/print/record';
 
   var _dataCache = function () {
     var _promises = new Map();
@@ -89,19 +89,19 @@ var DanganNetwork = function ($) {
     if (cmd === 'getData') return _dataCache.delay__(query);
   }
 
-  function _call__(cmd, inputdata) {
+  function _call__(cmd, inputData) {
     var data = { m: cmd };
-    Object.assign(data, inputdata);
+    Object.assign(data, inputData);
     return new Promise(function (resolve, reject) {
       switch (cmd) {
         case 'getSysTmpl':
         case 'loadUserTmpl':
-          $.ajax({ URL: URL, data: data }).done(resolve).fail(function (_, reason) {
+          $.ajax({ url: url, data: data }).done(resolve).fail(function (_, reason) {
             reject('DanganNetwork cmd ' + cmd + ': ' + reason);
           });
           break;
         case 'saveUserTmpl':
-          $.ajax({ type: 'POST', URL: URL, data: data }).done(resolve).fail(function (_, reason) {
+          $.ajax({ type: 'POST', url: url, data: data }).done(resolve).fail(function (_, reason) {
             reject('DanganNetwork cmd ' + cmd + ': ' + reason);
           });
           break;
@@ -109,13 +109,13 @@ var DanganNetwork = function ($) {
           data.page++;
           data.pageSize = data.pageSize || 3;
           data.pageNum = data.pageNum || 1;
-          $.ajax({ URL: URL, data: data }).done(resolve).fail(function (_, reason) {
+          $.ajax({ url: url, data: data }).done(resolve).fail(function (_, reason) {
             reject('DanganNetwork cmd ' + cmd + ': ' + reason);
           });
           break;
         case 'getData':
           _dataCache.query__(data, function (d) {
-            return $.ajax({ URL: URL, data: d });
+            return $.ajax({ url: url, data: d });
           }).then(resolve, reject);
           break;
         default:
@@ -128,7 +128,7 @@ var DanganNetwork = function ($) {
     try {
       return _call__(cmd, inputData);
     } catch (err) {
-      throw new Error('DanganNetwork call: ' + cmd + ' || ' + inputdata + '\n' + err);
+      throw new Error('DanganNetwork call: ' + cmd + ' || ' + inputData + '\n' + err);
     }
   }
 
