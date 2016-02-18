@@ -188,8 +188,10 @@ var Dangan = (function(undefined) {
           if (pageDone === _nPage && !fail)
             callback && callback.apply && callback(nEmpty);
         }, function(msg) {
-          fail = true;
-          (alertCallback && alertCallback.apply) ? alertCallback(msg) : DanganMask.setMsg(msg);
+          if (!fail) {
+            fail = true;
+            (alertCallback && alertCallback.apply) ? alertCallback(msg) : DanganMask.setMsg(msg);
+          }
         });
       }
     }
