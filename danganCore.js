@@ -81,7 +81,7 @@ var DanganCore = function () {
           basicData = _saveTmplBasic(result);
           basicData.save = 'all';
         } catch (err) {
-          throw new Error('DanganCore saveTmplBasic\n  ' + err);
+          throw new Error('DanganCore saveTmplBasic\n  ' + JSON.stringify(result) + '\n  ' + err);
         }
 
         result.pages.forEach(function (_ref3, page) {
@@ -111,7 +111,7 @@ var DanganCore = function () {
           basicData = _saveTmplBasic(result);
           basicData.save = [];
         } catch (err) {
-          throw new Error('DanganCore saveTmplBasic\n  ' + err);
+          throw new Error('DanganCore saveTmplBasic\n  ' + JSON.stringify(result) + '\n  ' + err);
         }
 
         var needSysPages = basicData.save;

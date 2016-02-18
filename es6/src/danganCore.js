@@ -59,7 +59,7 @@ const DanganCore = (() => {
           basicData = _saveTmplBasic(result);
           basicData.save = 'all';
         } catch (err) {
-          throw new Error(`DanganCore saveTmplBasic\n  ${err}`);
+          throw new Error(`DanganCore saveTmplBasic\n  ${JSON.stringify(result)}\n  ${err}`);
         }
 
         result.pages.forEach(({ json, bg, bg2 }, page) => {
@@ -82,7 +82,7 @@ const DanganCore = (() => {
           basicData = _saveTmplBasic(result);
           basicData.save = [];
         } catch (err) {
-          throw new Error(`DanganCore saveTmplBasic\n  ${err}`);
+          throw new Error(`DanganCore saveTmplBasic\n  ${JSON.stringify(result)}\n  ${err}`);
         }
 
         const needSysPages = basicData.save;
