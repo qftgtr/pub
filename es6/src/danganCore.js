@@ -42,7 +42,7 @@ const DanganCore = (() => {
     });
   }
 
-  function init__(method, { studentId, sysTemplate, userTemplate, termId }) {
+  function init__(method, { studentId, sysTemplate, userTemplate, termId } = {}) {
     if (LOG) console.log('Core.init__ for method '+method);
 
     if (method !== 'randomGrowth') {
@@ -155,8 +155,8 @@ const DanganCore = (() => {
             try {
               data.forEach((d, i) => {
                 if (result && result[i]) {
-                  d.value = d.value || result[i].imgs[0];
-                  d.gText = d.gText || result[i].text;
+                  d.value = d.value || result[0].data[i].imgs[0];
+                  d.gText = d.gText || result[0].data[i].text;
                 } else {
                   d.value = d.value || DanganUtil.defaultGrowth;
                 }
@@ -207,6 +207,8 @@ const DanganCore = (() => {
     __promises.push(DanganNetwork.call__('getData', {
       studentId: _studentId,
       termId: _termId,
+    }).then(result => result, reason => {
+      throw new Error(`DanganCore getData query: ${reason}`);
     }));
 
     return Promise.all(__promises).then(() => {

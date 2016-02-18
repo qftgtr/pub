@@ -57,7 +57,9 @@ var DanganCore = function () {
     });
   }
 
-  function init__(method, _ref2) {
+  function init__(method) {
+    var _ref2 = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
     var studentId = _ref2.studentId;
     var sysTemplate = _ref2.sysTemplate;
     var userTemplate = _ref2.userTemplate;
@@ -195,8 +197,8 @@ var DanganCore = function () {
             try {
               data.forEach(function (d, i) {
                 if (result && result[i]) {
-                  d.value = d.value || result[i].imgs[0];
-                  d.gText = d.gText || result[i].text;
+                  d.value = d.value || result[0].data[i].imgs[0];
+                  d.gText = d.gText || result[0].data[i].text;
                 } else {
                   d.value = d.value || DanganUtil.defaultGrowth;
                 }
@@ -242,6 +244,10 @@ var DanganCore = function () {
     __promises.push(DanganNetwork.call__('getData', {
       studentId: _studentId,
       termId: _termId
+    }).then(function (result) {
+      return result;
+    }, function (reason) {
+      throw new Error('DanganCore getData query: ' + reason);
     }));
 
     return Promise.all(__promises).then(function () {

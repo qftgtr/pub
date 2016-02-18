@@ -42,7 +42,7 @@ var DanganNetwork = function ($) {
         var _ret2 = function () {
           var sendData = { queries: _queries.join(';') };
           Object.assign(sendData, data);
-          var sendQueries = Object.assign([], _queries);
+          var queryLength = _queries.length;
           _queries = [];
 
           var nReturned = 0;
@@ -58,7 +58,7 @@ var DanganNetwork = function ($) {
                       throw new Error('DanganNetwork cmd getData: no ' + r.query + ' for queries [' + sendQueries.join(';') + ']');
                     }
                   });
-                  if (nReturned === sendQueries.length) {
+                  if (nReturned === queryLength) {
                     resolve();
                   } else {
                     reject('DanganNetwork cmd getData: miss queries');

@@ -33,7 +33,7 @@ const DanganNetwork = (($) => {
       if (_queries.length) {
         const sendData = { queries: _queries.join(';') };
         Object.assign(sendData, data);
-        const sendQueries = Object.assign([], _queries);
+        const queryLength = _queries.length;
         _queries = [];
 
         let nReturned = 0;
@@ -48,7 +48,7 @@ const DanganNetwork = (($) => {
                   throw new Error(`DanganNetwork cmd getData: no ${r.query} for queries [${sendQueries.join(';')}]`);
                 }
               });
-              if (nReturned === sendQueries.length) {
+              if (nReturned === queryLength) {
                 resolve();
               } else {
                 reject(`DanganNetwork cmd getData: miss queries`);
