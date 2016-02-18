@@ -63,8 +63,6 @@ const DanganCore = (() => {
         }
 
         result.pages.forEach(({ json, bg, bg2 }, page) => {
-          if (LOG>2) console.log(`Core.init__.(sysTmpl json) for page ${page}`, json);
-
           const pageObj = JSON.parse(json);
           [pageObj.bg, pageObj.bg2] = [bg, bg2];
 
@@ -87,8 +85,6 @@ const DanganCore = (() => {
 
         const needSysPages = basicData.save;
         result.pages.forEach(({ json, bg, bg2 }, page) => {
-          if (LOG>2) console.log(`Core.init__.(userTmpl json) for page ${page}`, json);
-
           if (json === '') needSysPages.push(page);
           else if (method === 'loadUser') _userTmpl[page] = Promise.resolve(JSON.parse(json));
           else _userTmpl[page] = _parseTmpl__(page, JSON.parse(json));
@@ -132,7 +128,7 @@ const DanganCore = (() => {
       if (growth) {
         if (randomGrowth) {
           const ps = data.map((d) => {
-            return getGrowthFromCache__().then(( {img, text }) => {
+            return getGrowthFromCache__().then(({ img, text }) => {
               try {
                 d.value = img || DanganUtil.defaultGrowth;
                 d.gText = text || undefined;
@@ -154,11 +150,12 @@ const DanganCore = (() => {
           }).then(result => {
             try {
               data.forEach((d, i) => {
-                if (result && result[0] && result[0].data && result[0].data[i]) {
+                try {
                   d.value = d.value || result[0].data[i].imgs[0];
                   d.gText = d.gText || result[0].data[i].text;
-                } else {
-                  d.value = d.value || DanganUtil.defaultGrowth;
+                } catch (err) {
+                  d.value = DanganUtil.defaultGrowth;
+                  d.gText = '';
                 }
               });
             } catch (err) {

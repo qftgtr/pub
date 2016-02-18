@@ -91,8 +91,6 @@ var DanganCore = function () {
           var bg = _ref3.bg;
           var bg2 = _ref3.bg2;
 
-          if (LOG > 2) console.log('Core.init__.(sysTmpl json) for page ' + page, json);
-
           var pageObj = JSON.parse(json);
           var _ref4 = [bg, bg2];
           pageObj.bg = _ref4[0];
@@ -121,8 +119,6 @@ var DanganCore = function () {
           var json = _ref5.json;
           var bg = _ref5.bg;
           var bg2 = _ref5.bg2;
-
-          if (LOG > 2) console.log('Core.init__.(userTmpl json) for page ' + page, json);
 
           if (json === '') needSysPages.push(page);else if (method === 'loadUser') _userTmpl[page] = Promise.resolve(JSON.parse(json));else _userTmpl[page] = _parseTmpl__(page, JSON.parse(json));
         });
@@ -196,11 +192,12 @@ var DanganCore = function () {
           }).then(function (result) {
             try {
               data.forEach(function (d, i) {
-                if (result && result[0] && result[0].data && result[0].data[i]) {
+                try {
                   d.value = d.value || result[0].data[i].imgs[0];
                   d.gText = d.gText || result[0].data[i].text;
-                } else {
-                  d.value = d.value || DanganUtil.defaultGrowth;
+                } catch (err) {
+                  d.value = DanganUtil.defaultGrowth;
+                  d.gText = '';
                 }
               });
             } catch (err) {
