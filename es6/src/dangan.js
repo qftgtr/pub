@@ -1,20 +1,17 @@
 const Dangan = (function(undefined) {
-  //var LOG = Math.max(LOG||0, 0);
   var _svg = DanganSVG(),
       _svg_hidden;
 
   var _page, _nPage, _pageChanged = false;
 
-  var _imgUrl, _imgText; //, _imgId;
+  var _imgUrl, _imgText;
 
 
   var _svgInteractions = {
     onchange: function(d,i) {
-      if (LOG) console.log('***onchange');
       _pageChanged = true;
     },
     ondragend: function(node) {
-      if (LOG) console.log('***ondragend');
       if (_imgUrl) {
         _pageChanged = true;
         node.data.value = _imgUrl;
@@ -31,8 +28,6 @@ const Dangan = (function(undefined) {
       }
     },
     changeText: function(node, data) {
-      if (LOG) console.log('***changeText');
-
       MXPreviewTools.openEdit('成长记录描述', data.value, function(text) {
         if (typeof text === 'string') {
           if (data.limit)
@@ -45,29 +40,17 @@ const Dangan = (function(undefined) {
           _svg.wrapText(d3.select(node).text(text));
         }
       });
-
-
-//      var text = prompt('成长记录描述', data.value);
-//      if (typeof text === 'string') {
-//        _pageChanged = true;
-//        text = text || '点击添加成长记录文字';
-//        data.value = text;
-//        d3.select(node).text(text);
-//      }
     }
   };
 
   var init = function(options, callback) {
     _svg.init(options.svgId, _svgInteractions, options.rotate);
-
-    if (LOG) console.log('***init with method loadSystem');
     DanganCore.init__(options.method || 'autoRefresh', {
       studentId: options.studentId,
       sysTemplate: options.sysTemplate,
       userTemplate: options.userTemplate,
       termId: options.termId
     }).then(function(tmplBasic) {
-      if (LOG) console.log('***init get result back');
       _nPage = tmplBasic.nPage;
       
       const w = tmplBasic.width;
@@ -114,17 +97,13 @@ const Dangan = (function(undefined) {
     var _svg_hidden = _svg.clone($('<div id="svg-hidden-'+page+'"></div>')[0]);
     goPage__(page, _svg_hidden, true).then(function() {
       setTimeout(function() {
-        //if (LOG) console.log('***savePage: '+page);
     	var svgStr = _svg_hidden.getSvg(function(x) {nEmpty+=x;});
 
     	if (svgStr.indexOf('polygon')>-1 && svgStr.indexOf('points')<0) {
-//    		console.log('%%%%%%%%%%%%%wait');
     		var h = setInterval(function() {
     			svgStr = _svg_hidden.getSvg();
     			if (svgStr.indexOf('polygon')>-1 && svgStr.indexOf('points')<0) {
-//    				console.log('%%%%%%%%%%%%%wait');
     			} else {
-//    				console.log(svgStr);
                   var json = _svg_hidden.getJson(),
                       incomplete = _checkCompleteness(page, svgStr, json);
 
@@ -135,8 +114,6 @@ const Dangan = (function(undefined) {
                     DanganCore.savePage__(page, svgStr, JSON.stringify(json)).then(function(result) {
                       if (callback && callback.apply) {
                         callback(page, nEmpty);
-                      } else {
-//                        console.log('保存成功');
                       }
                     });
 
@@ -157,8 +134,6 @@ const Dangan = (function(undefined) {
           DanganCore.savePage__(page, svgStr, JSON.stringify(json)).then(function(result) {
             if (callback && callback.apply) {
               callback(page, nEmpty);
-            } else {
-//                console.log('保存成功');
             }
           });
 
@@ -180,12 +155,13 @@ const Dangan = (function(undefined) {
         savePage(i, function(page,empty) {
           pageDone++;
           nEmpty += empty;
-//          console.log('xxxxxxxxx'+_nPage+'xxxxxx'+pageDone+'xxxx'+empty+'xxx'+nEmpty);
           if (pageDone === _nPage && !fail)
             callback && callback.apply && callback(nEmpty);
         }, function(msg) {
-          fail = true;
-          (alertCallback && alertCallback.apply) ? alertCallback(msg) : DanganMask.setMsg(msg);
+          if (!fail) {
+            fail = true;
+            (alertCallback && alertCallback.apply) ? alertCallback(msg) : DanganMask.setMsg(msg);
+          }
         });
       }
     }
@@ -214,8 +190,6 @@ const Dangan = (function(undefined) {
   function randomGrowth() {
     DanganMask.setMsg('目前系统是根据学生的德智体美劳模块选取的成长照片，如果您选择随机填充成长照片，则成长照片无法按成长标签分布，请知晓', undefined, true, function() {
       DanganCore.init__('randomGrowth').done(function(data) {
-        if (LOG) console.log('***init get result back');
-
         $('.click')[0].click();
         goPage__(0);
 
@@ -225,12 +199,7 @@ const Dangan = (function(undefined) {
   };
 
   function _checkCompleteness(page, svg, json) {
-    if (LOG) console.log('check completeness');
-
-
     if (page === 0) {
-      if (LOG) console.log({page, svg, json, value: json.elem[0].data[0].value});
-
       if (json.elem[0].data[0].value)
         return false;
       else
@@ -238,8 +207,6 @@ const Dangan = (function(undefined) {
     }
 
     if (page === 1) {
-      if (LOG) console.log({page, svg, json, value: json.elem[0].data[0].value});
-
       if (json.elem[0].data[0].value !== '/static/images/print/template/classs_photo_default.png')
         return false;
       else
@@ -253,8 +220,6 @@ const Dangan = (function(undefined) {
           nSubjects++;
       }
 
-      if (LOG) console.log({page, svg, json, value: nSubjects});
-
       if (nSubjects >= 4)
         return false;
       else 
@@ -262,12 +227,6 @@ const Dangan = (function(undefined) {
     }
 
     if (page === 16) {
-      if (LOG) console.log({
-        page, svg, json, 
-        value: json.elem[3].data[4].value,
-        value2: json.elem[3].data[9].value
-      });
-
       if (json.elem[3].data[4].value && json.elem[3].data[9].value)
         return false;
       else
@@ -275,12 +234,6 @@ const Dangan = (function(undefined) {
     }
 
     if (page === 17) {
-      if (LOG) console.log({
-        page, svg, json,
-        value: json.elem[4].data[0].value,
-        value2: json.elem[4].data[1].value
-      });
-
       if (json.elem[4].data[0].value !== '暂无评价' && json.elem[4].data[1].value !== '暂无评价' && json.elem[4].data[2].value !== '暂无评价')
         return false;
       else

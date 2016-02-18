@@ -1,148 +1,139 @@
-var DanganNetwork = (function(undefined, $) {
-  //var LOG = Math.max(LOG||0, 0);
-  
-  var url = '/mobile/api/evaluate/print/record';
-  
-  var dataCache = (function() {
-    var _delaying = [],
-        _waiting = {},
-        _ready = {};
-    
-    var delay = function(qs) {
-      if (qs.constructor === Array) {
-        var defer = $.Deferred();
-        $.when.apply(this, qs.map(function(q) {
-          return delay(q);
-        })).done(function() {
-          var len = arguments.length,
-              args = new Array(len);
-          for(var i = 0; i < len; ++i) {
-            args[i] = arguments[i];
-          }
-          defer.resolve(args);
-        });
-        return defer.promise();
-      } else {
-        if (_ready[qs]) {
-          return _ready[qs];
-        } else if (_waiting[qs]) {
-          return _waiting[qs].promise();
-        } else {
-          if (_delaying.indexOf(qs) === -1) {
-            _delaying.push(qs);
-            var defer = $.Deferred();
-            _waiting[qs] = defer;
-            return _waiting[qs].promise();
-          }
-        }
+'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+var DanganNetwork = function ($) {
+  var URL = '/mobile/api/evaluate/print/record';
+
+  var _dataCache = function () {
+    var _promises = new Map();
+    var _queries = [];
+
+    function _delay__(query) {
+      if (query.constructor === Array) {
+        return Promise.all(query.map(function (q) {
+          return delay__(q);
+        }));
       }
-    };
-    
-    var query = function(sendReq, data) {
-      if (data.queries)
-        delay(data.queries);
-      
-      if (_delaying.length > 0) {
-        data.queries = _delaying.join(';');
-        _delaying = [];
-        
-        sendReq(data).done(function(result) {
-          result.forEach(function(r) {
-            var q = r.query;
-            _ready[q] = r;
-            _waiting[q].resolve(r);
+
+      if (!_promises.get(query)) {
+        (function () {
+          _queries.push(query);
+          var promise = { promise: null, resolver: null };
+          promise.promise = new Promise(function (resolve) {
+            promise.resolver = resolve;
           });
-        });
-        return true;
+          _promises.set(query, promise);
+        })();
       }
-      return false;
-    };
-    
+      return _promises.get(query).promise;
+    }
+
+    function delay__(query) {
+      try {
+        return _delay__(query);
+      } catch (err) {
+        throw new Error('DanganNetwork getData delay: ' + query + '\n' + err);
+      }
+    }
+
+    function query__(data, $ajaxSend) {
+      if (_queries.length) {
+        var _ret2 = function () {
+          var sendData = { queries: _queries.join(';') };
+          Object.assign(sendData, data);
+          var sendQueries = Object.assign([], _queries);
+          _queries = [];
+
+          var nReturned = 0;
+          return {
+            v: new Promise(function (resolve, reject) {
+              $ajaxSend(sendData).done(function (result) {
+                if (result && result.length) {
+                  result.forEach(function (r) {
+                    if (sendQueries.indexOf(r.query) > -1) {
+                      _promises.get(r.query).resolver(r);
+                      nReturned++;
+                    } else {
+                      throw new Error('DanganNetwork cmd getData: no ' + r.query + ' for queries [' + sendQueries.join(';') + ']');
+                    }
+                  });
+                  if (nReturned === sendQueries.length - 1) {
+                    resolve();
+                  } else {
+                    reject('DanganNetwork cmd getData: miss queries');
+                  }
+                } else {
+                  reject('DanganNetwork cmd getData: empty return for queries [' + sendQueries.join(';') + ']');
+                }
+              }).fail(function (_, reason) {
+                reject('DanganNetwork cmd getData: ' + reason);
+              });
+            })
+          };
+        }();
+
+        if ((typeof _ret2 === 'undefined' ? 'undefined' : _typeof(_ret2)) === "object") return _ret2.v;
+      }
+
+      return Promise.resolve();
+    }
+
     return {
-      delay: delay,
-      query: query
+      delay__: delay__,
+      query__: query__
     };
-  }());
-  
-  var delay = function(cmd, query) {
-    if (cmd === 'getData') {
-      if (LOG > 2) console.log('Network.delay getData '+query);
-      return $.when(dataCache.delay(query));
+  }();
+
+  function delay__(cmd, query) {
+    if (cmd === 'getData') return _dataCache.delay__(query);
+  }
+
+  function _call__(cmd, inputdata) {
+    var data = { m: cmd };
+    Object.assign(data, inputdata);
+    return new Promise(function (resolve, reject) {
+      switch (cmd) {
+        case 'getSysTmpl':
+        case 'loadUserTmpl':
+          $.ajax({ URL: URL, data: data }).done(resolve).fail(function (_, reason) {
+            reject('DanganNetwork cmd ' + cmd + ': ' + reason);
+          });
+          break;
+        case 'saveUserTmpl':
+          $.ajax({ type: 'POST', URL: URL, data: data }).done(resolve).fail(function (_, reason) {
+            reject('DanganNetwork cmd ' + cmd + ': ' + reason);
+          });
+          break;
+        case 'getGrowth':
+          data.page++;
+          data.pageSize = data.pageSize || 3;
+          data.pageNum = data.pageNum || 1;
+          $.ajax({ URL: URL, data: data }).done(resolve).fail(function (_, reason) {
+            reject('DanganNetwork cmd ' + cmd + ': ' + reason);
+          });
+          break;
+        case 'getData':
+          _dataCache.query__(data, function (d) {
+            return $.ajax({ URL: URL, data: d });
+          }).then(resolve, reject);
+          break;
+        default:
+          reject('DanganNetwork unknown cmd: ' + cmd);
+      }
+    });
+  }
+
+  function call__(cmd, inputData) {
+    try {
+      return _call__(cmd, inputData);
+    } catch (err) {
+      throw new Error('DanganNetwork call: ' + cmd + ' || ' + inputdata + '\n' + err);
     }
-  };
-  
-  var call = function(cmd, data) {
-    var defer = $.Deferred();
-    
-    if (cmd === 'getSysTmpl') {
-      if (LOG) console.log('Network.call getSysTmpl');
-      data.m = 'getSysTmpl';
-      $.ajax({ url: url, data: data }).done(function(result) {
-        if (LOG > 1) console.log('Network.call getSysTmpl done');
-        if (LOG > 1) console.log(JSON.stringify(result));
-        defer.resolve(result);
-      });
-    }
-    
-    if (cmd === 'loadUserTmpl') {
-      if (LOG) console.log('Network.call loadUserTmpl');
-      data.m = 'loadUserTmpl';
-      $.ajax({ url: url, data: data }).done(function(result) {
-        if (LOG > 1) console.log('Network.call loadUserTmpl done');
-        if (LOG > 1) console.log(JSON.stringify(result));
-        defer.resolve(result);
-      });
-    }
-    
-    if (cmd === 'saveUserTmpl') {
-      if (LOG > 1) console.log('Network.call saveUserTmpl page '+(data.page-1));
-      if (LOG > 1) console.log(data);
-      data.m = 'saveUserTmpl';
-      $.ajax({ type: 'POST', url: url, data: data }).done(function(result) {
-        if (LOG) console.log('Network.call saveUserTmpl done page '+(data.page-1));
-        if (LOG) console.log(JSON.stringify(result));
-        defer.resolve(result);
-      });
-    }
-    
-    if (cmd === 'getData') {
-      if (LOG) console.log('Network.call getData');
-      if (LOG) console.log(JSON.stringify(data));
-      var didQuery = dataCache.query(function(data) {
-        if (LOG) console.log(JSON.stringify(data));
-        data.m = 'getData';
-        return $.ajax({ url: url, data: data }).done(function(result) {
-          if (LOG) console.log('Network.call getData done');
-          if (LOG) console.log(result.map(function(q){return q.query;}).join(';'));
-          if (LOG) console.log([JSON.stringify(result)]);
-          defer.resolve(result);
-        });
-      }, data);
-      
-      if (!didQuery)
-        defer.resolve();
-    }
-    
-    if (cmd === 'getGrowth') {
-      data.m = 'getGrowth';
-      data.pageSize = data.pageSize || 3;
-      data.pageNum = data.pageNum || 1;
-      if (LOG > 2) console.log('Network.call getGrowth');
-      if (LOG > 2) console.log(JSON.stringify(data));
-      $.ajax({ url: url, data: data }).done(function(result) {
-        if (LOG) console.log('Network.call getGrowth done');
-        if (LOG) console.log(result.map(function(g){return g.query;}).join(';'));
-        if (LOG) console.log([JSON.stringify(result)]);
-        defer.resolve(result);
-      });
-    }
-    
-    return $.when(defer.promise());
-  };
-  
-  
+  }
+
   return {
-    call: call,
-    delay: delay
+    call__: call__,
+    delay__: delay__
   };
-}(undefined, jQuery));
+}(jQuery);
