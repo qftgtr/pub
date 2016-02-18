@@ -12,6 +12,8 @@ const DanganCore = (() => {
   const _growthCacheIndex = { first: 0, second: 0 };
 
   function _saveTmplBasic({ nPage, width, height, pages }) {
+    if (LOG>2) console.log('Core._saveTmplData');
+
     _nPage = nPage;
     _tmplBasic = {
       nPage,
@@ -23,22 +25,22 @@ const DanganCore = (() => {
     };
 
     _userTmpl = new Array(_nPage);
+
+    if (LOG>2) console.log(_tmplBasic);
     return _tmplBasic;
   }
 
   function _loadSystemTmpl__() {
+    if (LOG) console.log('Core._loadSystemTmpl__');
     return DanganNetwork.call__('getSysTmpl', {
       templateId: _sysTemplate,
-    }).then(result => result, reason => {
-      throw new Error(`DanganCore load SYSTEM template: ${reason}`);
     });
   }
 
   function _loadUserTmpl__() {
+    if (LOG) console.log('Core._loadUserTmpl__');
     return DanganNetwork.call__('loadUserTmpl', {
       templateId: _userTemplate,
-    }).then(result => result, reason => {
-      throw new Error(`DanganCore load USER template: ${reason}`);
     });
   }
 
@@ -54,16 +56,12 @@ const DanganCore = (() => {
 
     if (method === 'loadSystem' || method === 'randomGrowth') {
       return _loadSystemTmpl__().then(result => {
-        let basicData;
-        try {
-          basicData = _saveTmplBasic(result);
-          basicData.save = 'all';
-        } catch (err) {
-          throw new Error(`DanganCore saveTmplBasic\n  ${err}`);
-        }
+        const basicData = _saveTmplBasic(result);
+        basicData.save = 'all';
 
         result.pages.forEach(({ json, bg, bg2 }, page) => {
-          if (LOG>2) console.log(`Core.init__.(sysTmpl json) for page ${page}`, json);
+          if (LOG>2) console.log(`Core.init__.(sysTmpl json) for page ${page}`);
+          if (LOG>2) console.log(json);
 
           const pageObj = JSON.parse(json);
           [pageObj.bg, pageObj.bg2] = [bg, bg2];
@@ -71,23 +69,20 @@ const DanganCore = (() => {
           _userTmpl[page] = _parseTmpl__(page, pageObj, method==='randomGrowth');
         });
 
+        if (LOG) console.log('Core.init__ resolved');
         return basicData;
       });
     }
 
     if (method === 'loadUser' || method === 'autoRefresh') {
       return _loadUserTmpl__().then(result => {
-        let basicData;
-        try {
-          basicData = _saveTmplBasic(result);
-          basicData.save = [];
-        } catch (err) {
-          throw new Error(`DanganCore saveTmplBasic\n  ${err}`);
-        }
-
+        const basicData = _saveTmplBasic(result);
+        basicData.save = [];
         const needSysPages = basicData.save;
+
         result.pages.forEach(({ json, bg, bg2 }, page) => {
-          if (LOG>2) console.log(`Core.init__.(userTmpl json) for page ${page}`, json);
+          if (LOG>2) console.log(`Core.init__.(userTmpl json) for page ${page}`);
+          if (LOG>2) console.log(json);
 
           if (json === '') needSysPages.push(page);
           else if (method === 'loadUser') _userTmpl[page] = Promise.resolve(JSON.parse(json));
@@ -107,41 +102,26 @@ const DanganCore = (() => {
           });
         }
 
+        if (LOG) console.log('Core.init__ resolved');
         return basicData;
       });
     }
-
-    throw new Error(`DanganCore unknown method: ${method}`);
   }
 
   function _parseTmpl__(page, pageObj, randomGrowth) {
+    if (LOG > 1) console.log(`Core._parseTmpl__ for page ${page}`);
+
     let __promises = [];
 
-    try {
-      pageObj.elem.forEach.apply;
-    } catch (err) {
-      throw new Error(`DanganCore parseTmpl[${page}] error: ${JSON.stringify(pageObj)}\n  ${err}`);
-    }
+    if (!pageObj.elem) throw new Error(`pageObj.elem empty for page ${page}`);
 
     pageObj.elem.forEach(({ data, growth, query, key, filter }) => {
-      if (!data) {
-        throw new Error(`DanganCore parseTmpl[${page}] data error
-  ${JSON.stringify(data)}`);
-      }
-
       if (growth) {
         if (randomGrowth) {
           const ps = data.map((d) => {
             return getGrowthFromCache__().then(( {img, text }) => {
-              try {
-                d.value = img || DanganUtil.defaultGrowth;
-                d.gText = text || undefined;
-              } catch (err) {
-                throw new Error(`DanganCore parseTmpl[${page}] put random growth
-  growth: ${img} && ${text}
-  target: ${JSON.stringify(d)}
-  ${err}`);
-              }
+              d.value = img || DanganUtil.defaultGrowth;
+              d.gText = text || undefined;
             });
           });
           __promises = __promises.concat(ps);
@@ -152,21 +132,14 @@ const DanganCore = (() => {
             pageSize: data.length,
             studentId: _studentId
           }).then(result => {
-            try {
-              data.forEach((d, i) => {
-                if (result && result[i]) {
-                  d.value = d.value || result[i].imgs[0];
-                  d.gText = d.gText || result[i].text;
-                } else {
-                  d.value = d.value || DanganUtil.defaultGrowth;
-                }
-              });
-            } catch (err) {
-              throw new Error(`DanganCore parseTmpl[${page}] put growth
-  growth: ${JSON.stringify(result)}
-  target: ${JSON.stringify(data)}
-  ${err}`);
-            }
+            data.forEach((d, i) => {
+              if (result && result[i]) {
+                d.value = d.value || result[i].imgs[0];
+                d.gText = d.gText || result[i].text;
+              } else {
+                d.value = d.value || DanganUtil.defaultGrowth;
+              }
+            });
           });
           __promises.push(p);
         }
@@ -174,33 +147,19 @@ const DanganCore = (() => {
 
       if (query) {
         const p = DanganNetwork.delay__('getData', query).then(result => {
-          try {
-            const resultData = _handleFilter(result.data, filter, key) || [];
-            data.forEach((d, i) => { d.value = resultData[i]; });
-          } catch (err) {
-            throw new Error(`DanganCore parseTmpl[${page}] query
-  result: ${JSON.stringify(result)}
-  target: ${JSON.stringify(data)}
-  ${err}`);
-          }
+          const resultData = _handleFilter(result.data, filter, key) || [];
+          data.forEach((d, i) => { d.value = resultData[i]; });
         });
         __promises.push(p);
       } else {
-        try {
-          data.forEach(d => {
-            if (!d.query) return;
+        data.forEach(d => {
+          if (!d.query) return;
 
-            const p = DanganNetwork.delay__('getData', d.query).then(result => {
-              d.value = (d.filter && result.length) ? _handleFilter(result, d.filter) : result.data;
-            });
-            __promises.push(p);
+          const p = DanganNetwork.delay__('getData', d.query).then(result => {
+            d.value = (d.filter && result.length) ? _handleFilter(result, d.filter) : result.data;
           });
-        } catch (err) {
-          throw new Error(`DanganCore parseTmpl[${page}] query
-  result: ${JSON.stringify(result)}
-  target: ${JSON.stringify(data)}
-  ${err}`);
-        }
+          __promises.push(p);
+        });
       }
     });
 
@@ -210,7 +169,8 @@ const DanganCore = (() => {
     }));
 
     return Promise.all(__promises).then(() => {
-      if (LOG>2) console.log(`Core._parseHelper for page ${page}`, pageObj);
+      if (LOG>2) console.log(`Core._parseHelper for page ${page}`);
+      if (LOG>2) console.log([JSON.stringify(pageObj)]);
       return _parseHelper(pageObj);
     });
   }
@@ -283,7 +243,8 @@ const DanganCore = (() => {
   }
 
   function savePage__(page, svg, json) {
-    if (LOG) console.log(`Core.savePage__ for page ${page}`, {svg, json});
+    if (LOG) console.log(`Core.savePage__ for page ${page}`);
+    if (LOG) console.log({svg, json});
 
     return DanganNetwork.call__('saveUserTmpl', {
       svg,
