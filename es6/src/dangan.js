@@ -89,6 +89,8 @@ const Dangan = (function(undefined) {
         __svg.put(layout, fullBg);
         if (LOG > 1) console.log('***goPage done');
       }
+    }, reason => {
+      throw new Error(`Dangan fails to getPage[${page}]`);
     });
   };
 

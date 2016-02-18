@@ -90,6 +90,8 @@ var Dangan = function (undefined) {
         __svg.put(layout, fullBg);
         if (LOG > 1) console.log('***goPage done');
       }
+    }, function (reason) {
+      throw new Error('Dangan fails to getPage[' + page + ']');
     });
   };
 
