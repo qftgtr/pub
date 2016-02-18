@@ -97,12 +97,12 @@ var DanganNetwork = function ($) {
         case 'getSysTmpl':
         case 'loadUserTmpl':
           $.ajax({ url: url, data: data }).done(resolve).fail(function (_, reason) {
-            reject('DanganNetwork cmd ' + cmd + ': ' + reason);
+            reject(reason);
           });
           break;
         case 'saveUserTmpl':
           $.ajax({ type: 'POST', url: url, data: data }).done(resolve).fail(function (_, reason) {
-            reject('DanganNetwork cmd ' + cmd + ': ' + reason);
+            reject(reason);
           });
           break;
         case 'getGrowth':
@@ -110,7 +110,7 @@ var DanganNetwork = function ($) {
           data.pageSize = data.pageSize || 3;
           data.pageNum = data.pageNum || 1;
           $.ajax({ url: url, data: data }).done(resolve).fail(function (_, reason) {
-            reject('DanganNetwork cmd ' + cmd + ': ' + reason);
+            reject(reason);
           });
           break;
         case 'getData':
@@ -119,7 +119,7 @@ var DanganNetwork = function ($) {
           }).then(resolve, reject);
           break;
         default:
-          reject('DanganNetwork unknown cmd: ' + cmd);
+          reject('Unknown cmd: ' + cmd);
       }
     });
   }

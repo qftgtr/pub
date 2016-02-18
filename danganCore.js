@@ -43,7 +43,7 @@ var DanganCore = function () {
     }).then(function (result) {
       return result;
     }, function (reason) {
-      throw new Error('DanganCore load SYSTEM template: ' + reason);
+      throw new Error('DanganCore fails to load SYSTEM template: ' + reason);
     });
   }
 
@@ -53,7 +53,7 @@ var DanganCore = function () {
     }).then(function (result) {
       return result;
     }, function (reason) {
-      throw new Error('DanganCore load USER template: ' + reason);
+      throw new Error('DanganCore fails to load USER template: ' + reason);
     });
   }
 
@@ -206,6 +206,8 @@ var DanganCore = function () {
             } catch (err) {
               throw new Error('DanganCore parseTmpl[' + page + '] put growth\n  growth: ' + JSON.stringify(result) + '\n  target: ' + JSON.stringify(data) + '\n  ' + err);
             }
+          }, function (reason) {
+            throw new Error('DanganCore fails to getGrowth: ' + reason);
           });
           __promises.push(p);
         }
@@ -223,6 +225,8 @@ var DanganCore = function () {
           } catch (err) {
             throw new Error('DanganCore parseTmpl[' + page + '] query\n  result: ' + JSON.stringify(result) + '\n  target: ' + JSON.stringify(data) + '\n  ' + err);
           }
+        }, function (reason) {
+          throw new Error('DanganCore fails to get delayed query: ' + query + '\n  ' + reason);
         });
         __promises.push(p);
       } else {
@@ -232,6 +236,8 @@ var DanganCore = function () {
 
             var p = DanganNetwork.delay__('getData', d.query).then(function (result) {
               d.value = d.filter && result.length ? _handleFilter(result, d.filter) : result.data;
+            }, function (reason) {
+              throw new Error('DanganCore fails to get delayed query: ' + d.query + '\n  ' + reason);
             });
             __promises.push(p);
           });
@@ -247,7 +253,7 @@ var DanganCore = function () {
     }).then(function (result) {
       return result;
     }, function (reason) {
-      throw new Error('DanganCore getData query: ' + reason);
+      throw new Error('DanganCore fails to getData: ' + reason);
     }));
 
     return Promise.all(__promises).then(function () {
@@ -322,6 +328,8 @@ var DanganCore = function () {
       if (!pageSize) _growthCache[page] = growth;
 
       return growth;
+    }, function (reason) {
+      throw new Error('DanganCore fails to getGrowth ' + reason);
     });
   }
 
@@ -334,7 +342,7 @@ var DanganCore = function () {
     }).then(function (result) {
       return result;
     }, function (reason) {
-      throw new Error('DanganCore save[' + page + ']\n  svg: ' + svg + '\n  json: ' + json + '\n  ' + reason);
+      throw new Error('DanganCore fails to save[' + page + ']\n  svg: ' + svg + '\n  json: ' + json + '\n  ' + reason);
     });
   }
 

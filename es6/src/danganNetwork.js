@@ -83,12 +83,12 @@ const DanganNetwork = (($) => {
         case 'getSysTmpl':
         case 'loadUserTmpl':
           $.ajax({ url, data }).done(resolve).fail((_, reason) => {
-            reject(`DanganNetwork cmd ${cmd}: ${reason}`);
+            reject(reason);
           });
           break;
         case 'saveUserTmpl':
           $.ajax({ type: 'POST', url, data }).done(resolve).fail((_, reason) => {
-            reject(`DanganNetwork cmd ${cmd}: ${reason}`);
+            reject(reason);
           });
           break;
         case 'getGrowth':
@@ -96,14 +96,14 @@ const DanganNetwork = (($) => {
           data.pageSize = data.pageSize || 3;
           data.pageNum = data.pageNum || 1;
           $.ajax({ url, data }).done(resolve).fail((_, reason) => {
-            reject(`DanganNetwork cmd ${cmd}: ${reason}`);
+            reject(reason);
           });
           break;
         case 'getData':
           _dataCache.query__(data, d => $.ajax({ url, data: d })).then(resolve, reject);
           break;
         default:
-          reject(`DanganNetwork unknown cmd: ${cmd}`);
+          reject(`Unknown cmd: ${cmd}`);
       }
     });
   }

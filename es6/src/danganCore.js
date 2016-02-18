@@ -30,7 +30,7 @@ const DanganCore = (() => {
     return DanganNetwork.call__('getSysTmpl', {
       templateId: _sysTemplate,
     }).then(result => result, reason => {
-      throw new Error(`DanganCore load SYSTEM template: ${reason}`);
+      throw new Error(`DanganCore fails to load SYSTEM template: ${reason}`);
     });
   }
 
@@ -38,7 +38,7 @@ const DanganCore = (() => {
     return DanganNetwork.call__('loadUserTmpl', {
       templateId: _userTemplate,
     }).then(result => result, reason => {
-      throw new Error(`DanganCore load USER template: ${reason}`);
+      throw new Error(`DanganCore fails to load USER template: ${reason}`);
     });
   }
 
@@ -166,6 +166,8 @@ const DanganCore = (() => {
   target: ${JSON.stringify(data)}
   ${err}`);
             }
+          }, reason => {
+            throw new Error(`DanganCore fails to getGrowth: ${reason}`);
           });
           __promises.push(p);
         }
@@ -182,6 +184,9 @@ const DanganCore = (() => {
   target: ${JSON.stringify(data)}
   ${err}`);
           }
+        }, reason => {
+          throw new Error(`DanganCore fails to get delayed query: ${query}
+  ${reason}`);
         });
         __promises.push(p);
       } else {
@@ -191,6 +196,9 @@ const DanganCore = (() => {
 
             const p = DanganNetwork.delay__('getData', d.query).then(result => {
               d.value = (d.filter && result.length) ? _handleFilter(result, d.filter) : result.data;
+            }, reason => {
+              throw new Error(`DanganCore fails to get delayed query: ${d.query}
+  ${reason}`);
             });
             __promises.push(p);
           });
@@ -207,7 +215,7 @@ const DanganCore = (() => {
       studentId: _studentId,
       termId: _termId,
     }).then(result => result, reason => {
-      throw new Error(`DanganCore getData query: ${reason}`);
+      throw new Error(`DanganCore fails to getData: ${reason}`);
     }));
 
     return Promise.all(__promises).then(() => _parseHelper(pageObj));
@@ -276,6 +284,8 @@ const DanganCore = (() => {
       if (!pageSize) _growthCache[page] = growth;
 
       return growth;
+    }, reason => {
+      throw new Error(`DanganCore fails to getGrowth ${reason}`);
     });
   }
 
@@ -286,7 +296,7 @@ const DanganCore = (() => {
       page: page+1,
       templateId: _userTemplate,
     }).then(result => result, reason => {
-      throw new Error(`DanganCore save[${page}]
+      throw new Error(`DanganCore fails to save[${page}]
   svg: ${svg}
   json: ${json}
   ${reason}`);
