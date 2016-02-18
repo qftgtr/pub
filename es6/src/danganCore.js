@@ -210,10 +210,7 @@ const DanganCore = (() => {
       throw new Error(`DanganCore getData query: ${reason}`);
     }));
 
-    return Promise.all(__promises).then(() => {
-      if (LOG>2) console.log(`Core._parseHelper for page ${page}`, pageObj);
-      return _parseHelper(pageObj);
-    });
+    return Promise.all(__promises).then(() => _parseHelper(pageObj));
   }
 
   function _handleFilter(data, filter, key) {
@@ -230,7 +227,6 @@ const DanganCore = (() => {
       elem.data.forEach(d => {
         const h = d.helper || elem.helper;
         if (h && DanganUtil.helpers[h]) {
-          if (LOG>2) console.log(`Core._parseHelper for helper ${h}`);
           DanganUtil.helpers[h](d);
         }
         d.value = d.value || d.empty || '';
@@ -284,13 +280,16 @@ const DanganCore = (() => {
   }
 
   function savePage__(page, svg, json) {
-    if (LOG) console.log(`Core.savePage__ for page ${page}`, {svg, json});
-
     return DanganNetwork.call__('saveUserTmpl', {
       svg,
       json,
       page: page+1,
       templateId: _userTemplate,
+    }).then(result => result, reason => {
+      throw new Error(`DanganCore save[${page}]
+  svg: ${svg}
+  json: ${json}
+  ${reason}`);
     });
   }
 

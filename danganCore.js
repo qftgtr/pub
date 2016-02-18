@@ -251,7 +251,6 @@ var DanganCore = function () {
     }));
 
     return Promise.all(__promises).then(function () {
-      if (LOG > 2) console.log('Core._parseHelper for page ' + page, pageObj);
       return _parseHelper(pageObj);
     });
   }
@@ -272,7 +271,6 @@ var DanganCore = function () {
       elem.data.forEach(function (d) {
         var h = d.helper || elem.helper;
         if (h && DanganUtil.helpers[h]) {
-          if (LOG > 2) console.log('Core._parseHelper for helper ' + h);
           DanganUtil.helpers[h](d);
         }
         d.value = d.value || d.empty || '';
@@ -328,13 +326,15 @@ var DanganCore = function () {
   }
 
   function savePage__(page, svg, json) {
-    if (LOG) console.log('Core.savePage__ for page ' + page, { svg: svg, json: json });
-
     return DanganNetwork.call__('saveUserTmpl', {
       svg: svg,
       json: json,
       page: page + 1,
       templateId: _userTemplate
+    }).then(function (result) {
+      return result;
+    }, function (reason) {
+      throw new Error('DanganCore save[' + page + ']\n  svg: ' + svg + '\n  json: ' + json + '\n  ' + reason);
     });
   }
 
