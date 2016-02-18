@@ -154,7 +154,7 @@ const DanganCore = (() => {
           }).then(result => {
             try {
               data.forEach((d, i) => {
-                if (result && result[i]) {
+                if (result && result[0] && result[0].data && result[0].data[i]) {
                   d.value = d.value || result[0].data[i].imgs[0];
                   d.gText = d.gText || result[0].data[i].text;
                 } else {
