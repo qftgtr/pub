@@ -48,7 +48,7 @@ const DanganNetwork = (($) => {
                   throw new Error(`DanganNetwork cmd getData: no ${r.query} for queries [${sendQueries.join(';')}]`);
                 }
               });
-              if (nReturned === sendQueries.length-1) {
+              if (nReturned === sendQueries.length) {
                 resolve();
               } else {
                 reject(`DanganNetwork cmd getData: miss queries`);
