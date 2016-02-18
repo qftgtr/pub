@@ -50,7 +50,7 @@ const Dangan = (function(undefined) {
       sysTemplate: options.sysTemplate,
       userTemplate: options.userTemplate,
       termId: options.termId
-    }).then(function(tmplBasic) {
+    }).then(tmplBasic => {
       _nPage = tmplBasic.nPage;
       
       const w = tmplBasic.width;
@@ -189,7 +189,7 @@ const Dangan = (function(undefined) {
 
   function randomGrowth() {
     DanganMask.setMsg('目前系统是根据学生的德智体美劳模块选取的成长照片，如果您选择随机填充成长照片，则成长照片无法按成长标签分布，请知晓', undefined, true, function() {
-      DanganCore.init__('randomGrowth').done(function(data) {
+      DanganCore.init__('randomGrowth').then(data => {
         $('.click')[0].click();
         goPage__(0);
 

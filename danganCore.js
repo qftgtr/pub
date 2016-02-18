@@ -153,18 +153,21 @@ var DanganCore = function () {
     try {
       pageObj.elem.forEach.apply;
     } catch (err) {
-      throw new Error('DanganCore parseTmpl[' + page + '] error: ' + JSON.stringify(pageObj) + '\n  ' + err);
+      throw new Error('DanganCore parseTmpl[' + page + ']:\n  ' + err + '\n  ' + JSON.stringify(pageObj));
     }
 
-    pageObj.elem.forEach(function (_ref8) {
+    pageObj.elem.forEach(function () {
+      var _ref8 = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
       var data = _ref8.data;
       var growth = _ref8.growth;
       var query = _ref8.query;
       var key = _ref8.key;
       var filter = _ref8.filter;
+      var index = arguments[1];
 
       if (!data) {
-        throw new Error('DanganCore parseTmpl[' + page + '] data error\n  ' + JSON.stringify(data));
+        throw new Error('DanganCore parseTmpl[' + page + '] data:\n  ' + JSON.stringify(pageObj.elem[index]));
       }
 
       if (growth) {
@@ -259,7 +262,7 @@ var DanganCore = function () {
       resultData = DanganUtil.filters[filter](data || []);
     }
     if (key) resultData = resultData.map(function (d) {
-      return d.key;
+      return d[key];
     });
     return resultData;
   }

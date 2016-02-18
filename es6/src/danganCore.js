@@ -116,18 +116,20 @@ const DanganCore = (() => {
     try {
       pageObj.elem.forEach.apply;
     } catch (err) {
-      throw new Error(`DanganCore parseTmpl[${page}] error: ${JSON.stringify(pageObj)}\n  ${err}`);
+      throw new Error(`DanganCore parseTmpl[${page}]:
+  ${err}
+  ${JSON.stringify(pageObj)}`);
     }
 
-    pageObj.elem.forEach(({ data, growth, query, key, filter }) => {
+    pageObj.elem.forEach(({ data, growth, query, key, filter } = {}, index) => {
       if (!data) {
-        throw new Error(`DanganCore parseTmpl[${page}] data error
-  ${JSON.stringify(data)}`);
+        throw new Error(`DanganCore parseTmpl[${page}] data:
+  ${JSON.stringify(pageObj.elem[index])}`);
       }
 
       if (growth) {
         if (randomGrowth) {
-          const ps = data.map((d) => {
+          const ps = data.map(d => {
             return getGrowthFromCache__().then(({ img, text }) => {
               try {
                 d.value = img || DanganUtil.defaultGrowth;
@@ -219,7 +221,7 @@ const DanganCore = (() => {
     if (filter && DanganUtil.filters[filter]) {
       resultData = DanganUtil.filters[filter](data || []);
     }
-    if (key) resultData = resultData.map(d => d.key);
+    if (key) resultData = resultData.map(d => d[key]);
     return resultData;
   }
 
