@@ -154,16 +154,15 @@ const DanganSVG = function() {
         if ((d.modify || d.rotateOnly) && !_rotate) {
           $(this).on('mouseenter', function() {
             d3.select(this.firstChild).style('opacity', 0.1);
-            d3.select(this).selectAll('.dangan-image-buttons').style('display','initial');
+            $(this).find('.dangan-image-buttons').css('display','initial');
           });
 
           $(this).on('mouseleave', function() {
             d3.select(this.firstChild).style('opacity', 0);
-            d3.select(this).selectAll('.dangan-image-buttons').style('display','none');
+            $(this).find('.dangan-image-buttons').css('display','none');
           });
         }
-      })
-      .each(function(d,i) {
+        
         if (d.modify) {
           $(this).on('mouseenter', function() {
             if (LOG > 2) console.log('enter');
