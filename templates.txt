@@ -223,21 +223,21 @@ Dangan.init({width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:
 // 8.智的成长
 {"elem":[{"type":"image","name":"page8","growth":"5","data":[{"w":700,"h":524,"x":799,"y":320,"modify":true},{"w":572,"h":404,"x":203,"y":202,"modify":true},{"w":572,"h":404,"x":203,"y":810,"modify":true},{"w":758,"h":1012,"x":1522,"y":202,"modify":true}]},{
   "type":"text","name":"page8","data":[
-  {"value":"点击添加成长记录文字","w":612,"h":170,"x":834,"y":865,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":504,"h":170,"x":238,"y":628,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":504,"h":170,"x":238,"y":1236,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":688,"h":170,"x":1557,"y":1236,"size":36,"line":44,"modify":true}
+  {"value":"点击添加成长记录文字","w":612,"h":150,"x":834,"y":865,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":504,"h":150,"x":238,"y":628,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":504,"h":150,"x":238,"y":1236,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":688,"h":150,"x":1557,"y":1236,"size":36,"line":44,"modify":true}
 ]
 }]}
 
 // 9.智的成长
 {"elem":[{"type":"image","name":"page9","growth":"4;6","data":[{"w":952,"h":754,"x":766,"y":202,"modify":true},{"w":538,"h":404,"x":203,"y":202,"modify":true},{"w":538,"h":404,"x":203,"y":810,"modify":true},{"w":538,"h":404,"x":1742,"y":202,"modify":true},{"w":538,"h":404,"x":1742,"y":810,"modify":true}]},{
   "type":"text","name":"page9","data":[
-  {"value":"点击添加成长记录文字","w":882,"h":170,"x":801,"y":978,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":468,"h":170,"x":238,"y":628,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":468,"h":170,"x":238,"y":1236,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":468,"h":170,"x":1777,"y":628,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":468,"h":170,"x":1777,"y":1236,"size":36,"line":44,"modify":true}
+  {"value":"点击添加成长记录文字","w":882,"h":150,"x":801,"y":978,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":468,"h":150,"x":238,"y":628,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":468,"h":150,"x":238,"y":1236,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":468,"h":150,"x":1777,"y":628,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":468,"h":150,"x":1777,"y":1236,"size":36,"line":44,"modify":true}
 ]
 }]}
 
@@ -259,28 +259,28 @@ Dangan.init({width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:
 // 11.德的成长
 {"elem":[{"type":"image","name":"page11","growth":"1","data":[{"w":688,"h":1016,"x":201,"y":201,"modify":true},{"w":476,"h":669,"x":914,"y":201,"modify":true},{"w":868,"h":669,"x":1412,"y":201,"modify":true}]},{
   "type":"text","name":"page11","data":[
-  {"value":"点击添加成长记录文字","w":618,"h":170,"x":236,"y":1239,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":406,"h":170,"x":949,"y":891,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":798,"h":170,"x":1447,"y":892,"size":36,"line":44,"modify":true}
+  {"value":"点击添加成长记录文字","w":618,"h":150,"x":236,"y":1239,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":406,"h":150,"x":949,"y":891,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":798,"h":150,"x":1447,"y":892,"size":36,"line":44,"modify":true}
 ]
 }]}
 
 // 12.德的成长
 {"elem":[{"type":"image","name":"page12","growth":"2","data":[{"w":687,"h":1015,"x":202,"y":202,"modify":true},{"w":654,"h":838,"x":908,"y":202,"modify":true},{"w":691,"h":660,"x":1589,"y":202,"modify":true}]},{
   "type":"text","name":"page12","data":[
-  {"value":"点击添加成长记录文字","w":617,"h":170,"x":236,"y":1239,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":584,"h":170,"x":945,"y":1062,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":621,"h":170,"x":1625,"y":884,"size":36,"line":44,"modify":true}
+  {"value":"点击添加成长记录文字","w":617,"h":150,"x":236,"y":1239,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":584,"h":150,"x":945,"y":1062,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":621,"h":150,"x":1625,"y":884,"size":36,"line":44,"modify":true}
 ]
 }]}
 
 // 13.德的成长
 {"elem":[{"type":"image","name":"page13","growth":"2","data":[{"w":624,"h":734,"x":201,"y":201,"modify":true},{"w":898,"h":556,"x":853,"y":201,"modify":true},{"w":508,"h":328,"x":1772,"y":201,"modify":true},{"w":508,"h":328,"x":1773,"y":730,"modify":true}]},{
   "type":"text","name":"page13","data":[
-  {"value":"点击添加成长记录文字","w":557,"h":170,"x":236,"y":956,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":828,"h":170,"x":888,"y":778,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":438,"h":170,"x":1807,"y":551,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":438,"h":170,"x":1807,"y":1079,"size":36,"line":44,"modify":true}
+  {"value":"点击添加成长记录文字","w":557,"h":150,"x":236,"y":956,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":828,"h":150,"x":888,"y":778,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":438,"h":150,"x":1807,"y":551,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":438,"h":150,"x":1807,"y":1079,"size":36,"line":44,"modify":true}
 ]
 }]}
 
@@ -355,20 +355,20 @@ Dangan.init({width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:
 // 15.体的成长
 {"elem":[{"type":"image","name":"page15","growth":"8","data":[{"w":572,"h":404,"x":926,"y":202,"modify":true},{"w":700,"h":524,"x":202,"y":202,"modify":true},{"w":572,"h":404,"x":926,"y":810,"modify":true},{"w":758,"h":1012,"x":1522,"y":202,"modify":true}]},{
   "type":"text","name":"page15","data":[
-  {"value":"点击添加成长记录文字","w":502,"h":170,"x":961,"y":628,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":630,"h":170,"x":237,"y":742,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":502,"h":170,"x":961,"y":1236,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":688,"h":170,"x":1557,"y":1236,"size":36,"line":44,"modify":true}
+  {"value":"点击添加成长记录文字","w":502,"h":150,"x":961,"y":628,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":630,"h":150,"x":237,"y":742,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":502,"h":150,"x":961,"y":1236,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":688,"h":150,"x":1557,"y":1236,"size":36,"line":44,"modify":true}
 ]
 }]}
 
 // 16.体的成长
 {"elem":[{"type":"image","name":"page16","growth":"19","data":[{"w":538,"h":404,"x":202,"y":810,"modify":true},{"w":538,"h":404,"x":202,"y":202,"modify":true},{"w":640,"h":1012,"x":1640,"y":202,"modify":true},{"w":853,"h":660,"x":763,"y":202,"modify":true}]},{
   "type":"text","name":"page16","data":[
-  {"value":"点击添加成长记录文字","w":468,"h":170,"x":237,"y":1236,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":468,"h":170,"x":237,"y":628,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":570,"h":170,"x":1675,"y":1236,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":783,"h":170,"x":798,"y":884,"size":36,"line":44,"modify":true}
+  {"value":"点击添加成长记录文字","w":468,"h":150,"x":237,"y":1236,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":468,"h":150,"x":237,"y":628,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":570,"h":150,"x":1675,"y":1236,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":783,"h":150,"x":798,"y":884,"size":36,"line":44,"modify":true}
 ]
 }]}
 
@@ -452,70 +452,70 @@ Dangan.init({width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:
 // 19.美的成长
 {"elem":[{"type":"image","name":"page19","growth":"12","data":[{"w":830,"h":1012,"x":202,"y":203,"modify":true},{"w":600,"h":800,"x":1056,"y":203,"modify":true},{"w":600,"h":800,"x":1680,"y":203,"modify":true}]},{
   "type":"text","name":"page19","data":[
-  {"value":"点击添加成长记录文字","w":760,"h":170,"x":237,"y":1237,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":530,"h":170,"x":1091,"y":1025,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":600,"h":170,"x":1715,"y":1024,"size":36,"line":44,"modify":true}
+  {"value":"点击添加成长记录文字","w":760,"h":150,"x":237,"y":1237,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":530,"h":150,"x":1091,"y":1025,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":600,"h":150,"x":1715,"y":1024,"size":36,"line":44,"modify":true}
  ]
 }]}
 
 // 20.美的成长
 {"elem":[{"type":"image","name":"page20","growth":"20","data":[{"w":600,"h":403,"x":202,"y":203,"modify":true},{"w":600,"h":403,"x":202,"y":811,"modify":true},{"w":830,"h":1012,"x":826,"y":202,"modify":true},{"w":600,"h":403,"x":1680,"y":203,"modify":true},{"w":600,"h":403,"x":1680,"y":811,"modify":true}]},{
   "type":"text","name":"page20","data":[
-  {"value":"点击添加成长记录文字","w":530,"h":170,"x":237,"y":628,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":530,"h":170,"x":237,"y":1236,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":760,"h":170,"x":861,"y":1236,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":530,"h":170,"x":1715,"y":628,"size":36,"line":44,"modify":true}, 
-  {"value":"点击添加成长记录文字","w":530,"h":170,"x":1715,"y":1236,"size":36,"line":44,"modify":true}
+  {"value":"点击添加成长记录文字","w":530,"h":150,"x":237,"y":628,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":530,"h":150,"x":237,"y":1236,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":760,"h":150,"x":861,"y":1236,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":530,"h":150,"x":1715,"y":628,"size":36,"line":44,"modify":true}, 
+  {"value":"点击添加成长记录文字","w":530,"h":150,"x":1715,"y":1236,"size":36,"line":44,"modify":true}
 ]
 }]}
 
 // 21.美的成长
 {"elem":[{"type":"image","name":"page21","growth":"20","data":[{"w":760,"h":1008,"x":202,"y":203,"modify":true},{"w":637,"h":403,"x":986,"y":203,"modify":true},{"w":637,"h":403,"x":986,"y":808,"modify":true},{"w":637,"h":403,"x":1643,"y":203,"modify":true}]},{
   "type":"text","name":"page21","data":[
-  {"value":"点击添加成长记录文字","w":690,"h":170,"x":237,"y":1233,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":567,"h":170,"x":1021,"y":628,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":567,"h":170,"x":1021,"y":1228,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":567,"h":170,"x":1678,"y":628,"size":36,"line":44,"modify":true}
+  {"value":"点击添加成长记录文字","w":690,"h":150,"x":237,"y":1233,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":567,"h":150,"x":1021,"y":628,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":567,"h":150,"x":1021,"y":1228,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":567,"h":150,"x":1678,"y":628,"size":36,"line":44,"modify":true}
 ]
 }]}
 
 // 22.劳的成长
 {"elem":[{"type":"image","name":"page22","growth":"14","data":[{"w":600,"h":403,"x":202,"y":202,"modify":true},{"w":600,"h":405,"x":202,"y":809,"modify":true},{"w":790,"h":582,"x":826,"y":202,"modify":true},{"w":640,"h":1012,"x":1640,"y":202,"modify":true}]},{
   "type":"text","name":"page22","data":[
-  {"value":"点击添加成长记录文字","w":530,"h":170,"x":237,"y":627,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":530,"h":170,"x":237,"y":1236,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":720,"h":170,"x":861,"y":806,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":570,"h":170,"x":1675,"y":1236,"size":36,"line":44,"modify":true}
+  {"value":"点击添加成长记录文字","w":530,"h":150,"x":237,"y":627,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":530,"h":150,"x":237,"y":1236,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":720,"h":150,"x":861,"y":806,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":570,"h":150,"x":1675,"y":1236,"size":36,"line":44,"modify":true}
 ]
 }]}
 
 // 23.劳的成长
 {"elem":[{"type":"image","name":"page23","growth":"15","data":[{"w":758,"h":1012,"x":202,"y":202,"modify":true},{"w":538,"h":404,"x":984,"y":202,"modify":true},{"w":538,"h":404,"x":984,"y":810,"modify":true},{"w":734,"h":581,"x":1546,"y":202,"modify":true}]},{
   "type":"text","name":"page23","data":[
-  {"value":"点击添加成长记录文字","w":688,"h":170,"x":237,"y":1236,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":468,"h":170,"x":1019,"y":628,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":468,"h":170,"x":1019,"y":1236,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":664,"h":170,"x":1581,"y":805,"size":36,"line":44,"modify":true}
+  {"value":"点击添加成长记录文字","w":688,"h":150,"x":237,"y":1236,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":468,"h":150,"x":1019,"y":628,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":468,"h":150,"x":1019,"y":1236,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":664,"h":150,"x":1581,"y":805,"size":36,"line":44,"modify":true}
 ]
 }]}
 
 // 24.劳的成长
 {"elem":[{"type":"image","name":"page24","growth":"16","data":[{"w":800,"h":600,"x":202,"y":202,"modify":true},{"w":692,"h":922,"x":1026,"y":202,"modify":true},{"w":538,"h":404,"x":1742,"y":202,"modify":true},{"w":538,"h":404,"x":1742,"y":810,"modify":true}]},{
   "type":"text","name":"page24","data":[
-  {"value":"点击添加成长记录文字","w":730,"h":170,"x":237,"y":824,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":622,"h":170,"x":1061,"y":1146,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":468,"h":170,"x":1777,"y":628,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":468,"h":170,"x":1777,"y":1236,"size":36,"line":44,"modify":true}
+  {"value":"点击添加成长记录文字","w":730,"h":150,"x":237,"y":824,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":622,"h":150,"x":1061,"y":1146,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":468,"h":150,"x":1777,"y":628,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":468,"h":150,"x":1777,"y":1236,"size":36,"line":44,"modify":true}
 ]
 }]}
 
 // 25.劳的成长
 {"elem":[{"type":"image","name":"page25","growth":"21","data":[{"w":692,"h":780,"x":202,"y":202,"modify":true},{"w":800,"h":600,"x":917,"y":202,"modify":true},{"w":538,"h":404,"x":1742,"y":202,"modify":true},{"w":538,"h":404,"x":1742,"y":810,"modify":true}]},{
   "type":"text","name":"page25","data":[
-  {"value":"点击添加成长记录文字","w":622,"h":170,"x":237,"y":1003,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":730,"h":170,"x":952,"y":824,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":468,"h":170,"x":1777,"y":628,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":468,"h":170,"x":1777,"y":1236,"size":36,"line":44,"modify":true}
+  {"value":"点击添加成长记录文字","w":622,"h":150,"x":237,"y":1003,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":730,"h":150,"x":952,"y":824,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":468,"h":150,"x":1777,"y":628,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":468,"h":150,"x":1777,"y":1236,"size":36,"line":44,"modify":true}
 ]
 }]}
 
