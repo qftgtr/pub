@@ -154,12 +154,12 @@ var DanganSVG = function() {
         if ((d.modify || d.rotateOnly) && !_rotate) {
           $(this).on('mouseenter', function() {
             d3.select(this.firstChild).style('opacity', 0.1);
-            $(this).find('.dangan-image-buttons').css('display', 'initial');
+            $(this).find('.dangan-image-buttons').show();
           });
           
           $(this).on('mouseleave', function() {
             d3.select(this.firstChild).style('opacity', 0);
-            $(this).find('.dangan-image-buttons').css('display', 'none');
+            $(this).find('.dangan-image-buttons').hide();
           });
         }
         if (d.modify) {
