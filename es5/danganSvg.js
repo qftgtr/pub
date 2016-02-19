@@ -154,20 +154,18 @@ var DanganSVG = function() {
         if ((d.modify || d.rotateOnly) && !_rotate) {
           $(this).on('mouseenter', function() {
             d3.select(this.firstChild).style('opacity', 0.1);
-            d3.select(this).selectAll('.dangan-image-buttons').style('display','initial');
+            $(this).find('.dangan-image-buttons').css('display', 'initial');
           });
           
           $(this).on('mouseleave', function() {
             d3.select(this.firstChild).style('opacity', 0);
-            d3.select(this).selectAll('.dangan-image-buttons').style('display','none');
+            $(this).find('.dangan-image-buttons').css('display', 'none');
           });
         }
-      })
-      .each(function(d,i) {
         if (d.modify) {
           $(this).on('mouseenter', function() {
             if (LOG > 2) console.log('enter');
-            _overNode = {node:this.children[1], data:d, index:i};
+            _overNode = {node:$(this).children()[1], data:d, index:i};
           });
           
           $(this).on('mouseleave', function() {
@@ -206,10 +204,11 @@ var DanganSVG = function() {
         .attr('width', 20).attr('height', 20)
         .attr('transform', function(d) { return 'translate('+_zoom*d.x+','+_zoom*d.y+')'; })
         .on('click', function(d) {
-  //        if (d3.event.defaultPrevented) return; // click suppressed
-
-          d.scale = (d.scale||1) * 1.1;
-          d3.select(this.parentNode.children[1]).attr('transform', function(d) {
+          s.scale = d.scale || 1;
+          if (d.scale < 10) {
+            d.scale = s.scale * 1.1
+          }
+          d3.select($(this).parent().children()[1]).attr('transform', function(d) {
             return 'translate('+_zoom*(d.x+d.w/2)+','+_zoom*(d.y+d.h/2)+') scale('+(d.scale||1)+') translate('+(-_zoom*d.w/2)+','+(-_zoom*d.h/2)+') rotate('+(d.rotate||0)+' '+_zoom*d.w/2+' '+_zoom*d.h/2+')';
           });
         
@@ -224,10 +223,11 @@ var DanganSVG = function() {
         .attr('width', 20).attr('height', 20)
         .attr('transform', function(d) { return 'translate('+(_zoom*d.x+20)+','+_zoom*d.y+')'; })
         .on('click', function(d) {
-  //        if (d3.event.defaultPrevented) return; // click suppressed
-
-          d.scale = (d.scale||1) / 1.1;
-          d3.select(this.parentNode.children[1]).attr('transform', function(d) {
+          s.scale = d.scale || 1;
+          if (d.scale > 0.1) {
+            d.scale = s.scale / 1.1
+          }
+          d3.select($(this).parent().children()[1]).attr('transform', function(d) {
             return 'translate('+_zoom*(d.x+d.w/2)+','+_zoom*(d.y+d.h/2)+') scale('+(d.scale||1)+') translate('+(-_zoom*d.w/2)+','+(-_zoom*d.h/2)+') rotate('+(d.rotate||0)+' '+_zoom*d.w/2+' '+_zoom*d.h/2+')';
           });
           
@@ -245,7 +245,7 @@ var DanganSVG = function() {
   //        if (d3.event.defaultPrevented) return; // click suppressed
 
           d.rotate = (d.rotate||0) +90;
-          d3.select(this.parentNode.children[1]).attr('transform', function(d) {
+          d3.select($(this).parent().children()[1]).attr('transform', function(d) {
             return 'translate('+_zoom*(d.x+d.w/2)+','+_zoom*(d.y+d.h/2)+') scale('+(d.scale||1)+') translate('+(-_zoom*d.w/2)+','+(-_zoom*d.h/2)+') rotate('+(d.rotate||0)+' '+_zoom*d.w/2+' '+_zoom*d.h/2+')';
           });
           
