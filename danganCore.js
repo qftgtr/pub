@@ -216,6 +216,8 @@ var DanganCore = (function(undefined) {
       _titles.push(result.pages[page].title);
       _remarks.push(result.pages[page].remark);
     }
+    
+    _remarks[1] = '为了孩子们拥有一张精美的班级合影，该照片需由班主任登录电脑上传像素较高的图片。如此处无照片，请联系班主任上传！';
   };
   
   var _loadSystemTmpl = function(callback) {

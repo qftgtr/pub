@@ -288,10 +288,10 @@ Dangan.init({width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:
 {"elem":[
   {
     "type":"text","name":"basicHealth","data":[
-      {"query":"basic.height","w":200,"h":70,"x":578,"y":304,"size":90,"align":"middle","color":"#59575"},
-      {"query":"basic.weight","w":200,"h":70,"x":578,"y":700,"size":90,"align":"middle","color":"#59575"},
-      {"query":"basic.bmi","w":300,"h":70,"x":578,"y":1107,"size":90,"align":"middle","color":"#59575"},
-      {"query":"sunsport.total","w":180,"h":80,"x":2094,"y":315,"size":80,"align":"middle","color":"#59575"}
+      {"query":"basic.height","w":500,"h":150,"x":578,"y":304,"size":90,"align":"middle","color":"#59575"},
+      {"query":"basic.weight","w":500,"h":150,"x":578,"y":700,"size":90,"align":"middle","color":"#59575"},
+      {"query":"basic.bmi","w":500,"h":150,"x":578,"y":1107,"size":90,"align":"middle","color":"#59575"},
+      {"query":"sunsport.total","w":500,"h":140,"x":2094,"y":315,"size":80,"align":"middle","color":"#59575"}
     ]
   }, {
     "query":"sunsport.all",

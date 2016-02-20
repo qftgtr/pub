@@ -118,17 +118,15 @@ var Dangan = (function(undefined) {
     var _svg_hidden = _svg.clone($('<div id="svg-hidden-'+page+'"></div>')[0]);
     goPage(page, _svg_hidden, true).done(function() {
       setTimeout(function() {
-        //if (LOG) console.log('***savePage: '+page);
-    	var svgStr = _svg_hidden.getSvg(function(x) {nEmpty+=x;});
+    	var svgStr = _svg_hidden.getSvg(function(x) {
+          nEmpty+=x;
+        });
         
     	if (svgStr.indexOf('polygon')>-1 && svgStr.indexOf('points')<0) {
-//    		console.log('%%%%%%%%%%%%%wait');
     		var h = setInterval(function() {
     			svgStr = _svg_hidden.getSvg();
     			if (svgStr.indexOf('polygon')>-1 && svgStr.indexOf('points')<0) {
-//    				console.log('%%%%%%%%%%%%%wait');
     			} else {
-//    				console.log(svgStr);
                   var json = _svg_hidden.getJson(),
                       incomplete = _checkCompleteness(page, svgStr, json);
                   
@@ -139,8 +137,6 @@ var Dangan = (function(undefined) {
                     DanganCore.savePage(page, svgStr, JSON.stringify(json)).done(function(result) {
                       if (callback && callback.apply) {
                         callback(page, nEmpty);
-                      } else {
-//                        console.log('保存成功');
                       }
                     });
     				
@@ -161,8 +157,6 @@ var Dangan = (function(undefined) {
           DanganCore.savePage(page, svgStr, JSON.stringify(json)).done(function(result) {
             if (callback && callback.apply) {
               callback(page, nEmpty);
-            } else {
-//                console.log('保存成功');
             }
           });
           
@@ -184,7 +178,6 @@ var Dangan = (function(undefined) {
         savePage(i, function(page,empty) {
           pageDone++;
           nEmpty += empty;
-//          console.log('xxxxxxxxx'+_nPage+'xxxxxx'+pageDone+'xxxx'+empty+'xxx'+nEmpty);
           if (pageDone === _nPage && !fail)
             callback && callback.apply && callback(nEmpty);
         }, function(msg) {
@@ -250,7 +243,7 @@ var Dangan = (function(undefined) {
     if (page === 1) {
       if (LOG) console.log({page: page, svg: svg, json: json,value:json.elem[0].data[0].value});
       
-      if (json.elem[0].data[0].value !== '/static/images/print/template/classs_photo_default.png')
+      if (json.elem[0].data[0].value.indexOf('classs_photo_default.png') === -1)
         return false;
       else 
         return '班级合影页无数据，请联系班主任上传';
