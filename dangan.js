@@ -7,7 +7,7 @@ var Dangan = (function(undefined) {
   
   var _imgUrl, _imgText; //, _imgId;
   
-  
+  var _termId;
   var _svgInteractions = {
     onchange: function(d,i) {
       if (LOG) console.log('***onchange');
@@ -61,7 +61,7 @@ var Dangan = (function(undefined) {
   
   var init = function(options, callback) {
     _svg.init(options.svgId, _svgInteractions, options.rotate);
-    
+    _termId = options.termId || '';
     if (LOG) console.log('***init with method loadSystem');
     DanganCore.init(options.method||'autoRefresh', {//loadSystem
       studentId: options.studentId,
@@ -266,7 +266,7 @@ var Dangan = (function(undefined) {
         return '期末考试还未发布或考试科目不全，请联系班主任发布成绩';
     }
     
-    if (page === 16) {
+    if (page === 16 && _termId !== '564bd5bd0cf203df085178c1') {
       if (LOG) console.log({page: page, svg: svg, json: json,value:json.elem[3].data[4].value,value2:json.elem[3].data[9].value});
       
       if (json.elem[3].data[4].value && json.elem[3].data[9].value)
@@ -275,7 +275,7 @@ var Dangan = (function(undefined) {
         return '艺术素质测评数据缺失，请检查艺术测评自我评价或联系音乐美术老师补充评价数据';
     }
     
-    if (page === 17) {
+    if (page === 17 && _termId !== '564bd5bd0cf203df085178c1') {
       if (LOG) console.log({page: page, svg: svg, json: json,value:json.elem[4].data[0].value,value2:json.elem[4].data[1].value});
       
       if (json.elem[4].data[0].value!=='暂无评价' && json.elem[4].data[1].value!=='暂无评价' && json.elem[4].data[2].value!=='暂无评价')
