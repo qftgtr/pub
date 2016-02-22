@@ -38,7 +38,7 @@ var Dangan = (function(undefined) {
           if (data.limit)
             text = text.substr(0,data.limit);
           
-          text = text.replace(/“g/,'"').replace(/”g/,'"');
+          text = text.replace(/“/g,'"').replace(/”/g,'"');
           
           _pageChanged = true;
           text = text || '点击添加成长记录文字';
