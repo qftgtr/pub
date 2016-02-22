@@ -38,6 +38,8 @@ var Dangan = (function(undefined) {
           if (data.limit)
             text = text.substr(0,data.limit);
           
+          text = text.replace(/“g/,'"').replace(/”g/,'"');
+          
           _pageChanged = true;
           text = text || '点击添加成长记录文字';
           data.value = text;
@@ -258,7 +260,7 @@ var Dangan = (function(undefined) {
       
       if (LOG) console.log({page: page, svg: svg, json: json,value:nSubjects});
       
-      if (nSubjects >= 4)
+      if (nSubjects >= 3)
         return false;
       else 
         return '期末考试还未发布或考试科目不全，请联系班主任发布成绩';

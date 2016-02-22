@@ -260,7 +260,7 @@ Dangan.init({width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:
 {"elem":[{"type":"image","name":"page11","growth":"1","data":[{"w":688,"h":1016,"x":201,"y":201,"modify":true},{"w":476,"h":669,"x":914,"y":201,"modify":true},{"w":868,"h":669,"x":1412,"y":201,"modify":true}]},{
   "type":"text","name":"page11","data":[
   {"value":"点击添加成长记录文字","w":618,"h":150,"x":236,"y":1239,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":406,"h":150,"x":949,"y":891,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":450,"h":150,"x":949,"y":891,"size":36,"line":44,"modify":true},
   {"value":"点击添加成长记录文字","w":798,"h":150,"x":1447,"y":892,"size":36,"line":44,"modify":true}
 ]
 }]}
@@ -279,8 +279,8 @@ Dangan.init({width:723,svgId:"svg",height:367,sysTemplate:sysTemplate,studentId:
   "type":"text","name":"page13","data":[
   {"value":"点击添加成长记录文字","w":557,"h":150,"x":236,"y":956,"size":36,"line":44,"modify":true},
   {"value":"点击添加成长记录文字","w":828,"h":150,"x":888,"y":778,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":438,"h":150,"x":1807,"y":551,"size":36,"line":44,"modify":true},
-  {"value":"点击添加成长记录文字","w":438,"h":150,"x":1807,"y":1079,"size":36,"line":44,"modify":true}
+  {"value":"点击添加成长记录文字","w":450,"h":150,"x":1807,"y":551,"size":36,"line":44,"modify":true},
+  {"value":"点击添加成长记录文字","w":450,"h":150,"x":1807,"y":1079,"size":36,"line":44,"modify":true}
 ]
 }]}
 
