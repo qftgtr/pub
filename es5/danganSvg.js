@@ -264,7 +264,9 @@ var DanganSVG = function() {
       .attr('y', function(d) {return _zoom*d.size})
       .each(function(d) {
         _d = d;
-        d.value = d.value.replace(/“/g,'"').replace(/”/g,'"');
+        if (d.value && d.value.replace) {
+          d.value = d.value.replace(/“/g,'"').replace(/”/g,'"');
+        }
       
         _this = this;
         if ((!d.value || d.value==='点击添加成长记录文字') && d.modify) {

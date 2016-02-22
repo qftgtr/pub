@@ -309,7 +309,16 @@ var DanganCore = (function(undefined) {
           _pageReady[page] = true;
 
           if (page === 1) {
-            result.pages[page].json = '{"elem":[{"type":"image","name":"page2","data":[{"query":"class.photo","empty":"/static/images/print/template/classs_photo_default.png","w":2080,"h":998,"x":200,"y":200,"rotateOnly":true,"value":"/static/images/print/template/classs_photo_default.png"}]},{"type":"text","name":"page2","data":[{"value":"班级合影","w":2126,"h":36,"x":1240,"y":1260,"size":36,"align":"middle"}]}],"bg":"http://mexue-growth-file.oss-cn-beijing.aliyuncs.com/568f8b190cf2ab9dc055b0f3","bg2":"http://mexue-growth-file.oss-cn-beijing.aliyuncs.com/5684c91a0cf274f9d84e1dce"}';
+            var page1image = '';
+            try {
+              var page1Obj = JSON.parse(result.pages[page].json);
+              page1image = page1Obj.elem[0].data[0].value;
+            } catch(err) {
+              
+            }
+            page1image = page1image || '/static/images/print/template/classs_photo_default.png';
+            
+            result.pages[page].json = '{"elem":[{"type":"image","name":"page2","data":[{"query":"class.photo","empty":"/static/images/print/template/classs_photo_default.png","w":2080,"h":998,"x":200,"y":200,"modify":true,"value":"'+page1image+'"}]},{"type":"text","name":"page2","data":[{"value":"班级合影","w":2126,"h":36,"x":1240,"y":1260,"size":36,"align":"middle"}]}],"bg":"http://mexue-growth-file.oss-cn-beijing.aliyuncs.com/568f8b190cf2ab9dc055b0f3","bg2":"http://mexue-growth-file.oss-cn-beijing.aliyuncs.com/5684c91a0cf274f9d84e1dce"}';
           }
           
           if (result.pages[page].json === '') {//no result
